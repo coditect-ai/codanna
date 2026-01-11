@@ -224,8 +224,10 @@ impl ContextWatcher {
         let read_start = file_size.saturating_sub(READ_SIZE);
         file.seek(SeekFrom::Start(read_start))?;
 
-        let mut content = String::new();
-        file.read_to_string(&mut content)?;
+        // Read as bytes and convert with lossy UTF-8 (like Python's errors='ignore')
+        let mut buffer = Vec::new();
+        file.read_to_end(&mut buffer)?;
+        let content = String::from_utf8_lossy(&buffer);
 
         // Split into lines and process from END (most recent first)
         let lines: Vec<&str> = content.lines().collect();
