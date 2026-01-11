@@ -2,11 +2,18 @@
 //!
 //! Reads file contents and computes content hashes.
 //! Runs with multiple threads to saturate I/O.
+//!
+//! # Security (CODITECT ADR-065)
+//!
+//! This module uses secure file reading functions that:
+//! - Don't follow symlinks (O_NOFOLLOW)
+//! - Validate paths stay within workspace boundary
+//! - Prevent TOCTOU (time-of-check to time-of-use) attacks
 
 use crate::indexing::file_info::calculate_hash;
 use crate::indexing::pipeline::types::{FileContent, PipelineError, PipelineResult};
+use crate::security::{safe_read_to_string, SafeFileError};
 use crossbeam_channel::{Receiver, Sender};
-use std::fs;
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
@@ -133,10 +140,61 @@ impl ReadStage {
 }
 
 /// Read a single file and compute its SHA256 hash.
+///
+/// # Security (CODITECT ADR-065)
+///
+/// Uses secure file reading that:
+/// - Blocks symlink following (O_NOFOLLOW)
+/// - Prevents TOCTOU attacks
+/// - Logs security events for monitoring
 fn read_file(path: &PathBuf) -> PipelineResult<FileContent> {
-    let content = fs::read_to_string(path).map_err(|e| PipelineError::FileRead {
-        path: path.clone(),
-        source: e,
+    read_file_with_boundary(path, None)
+}
+
+/// Read a single file with optional workspace boundary enforcement.
+///
+/// # Arguments
+///
+/// * `path` - The file path to read
+/// * `workspace_root` - Optional workspace root for boundary validation
+///
+/// # Security
+///
+/// When `workspace_root` is provided, validates that the file is within
+/// the workspace boundary before reading. This prevents path traversal attacks.
+fn read_file_with_boundary(
+    path: &PathBuf,
+    workspace_root: Option<&std::path::Path>,
+) -> PipelineResult<FileContent> {
+    let content = safe_read_to_string(path, workspace_root).map_err(|e| {
+        match &e {
+            SafeFileError::SymlinkDetected { path } => {
+                tracing::warn!(
+                    "[security] Blocked symlink during indexing: {}",
+                    path.display()
+                );
+            }
+            SafeFileError::OutsideBoundary { path, boundary } => {
+                tracing::warn!(
+                    "[security] Blocked path escape attempt: {} (boundary: {})",
+                    path.display(),
+                    boundary.display()
+                );
+            }
+            SafeFileError::PathMismatch { expected, actual } => {
+                tracing::error!(
+                    "[security] TOCTOU attack detected! Expected: {}, Actual: {}",
+                    expected.display(),
+                    actual.display()
+                );
+            }
+            _ => {}
+        }
+
+        PipelineError::FileRead {
+            path: path.clone(),
+            source: e.into(),
+        }
     })?;
 
     let hash = calculate_hash(&content);
@@ -147,6 +205,7 @@ fn read_file(path: &PathBuf) -> PipelineResult<FileContent> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
     use crossbeam_channel::bounded;
     use tempfile::TempDir;
 

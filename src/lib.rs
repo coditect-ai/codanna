@@ -28,6 +28,9 @@ pub mod utils;
 pub mod vector;
 pub mod watcher;
 
+// Security module - CODITECT ADR-065 hardening
+pub mod security;
+
 // Explicit exports for better API clarity
 pub use config::{LoggingConfig, Settings};
 pub use error::{
@@ -42,3 +45,6 @@ pub use symbol::{CompactSymbol, ScopeContext, StringTable, Symbol, Visibility};
 pub use types::{
     CompactString, FileId, IndexingResult, Range, SymbolId, SymbolKind, compact_string,
 };
+
+// Security exports - CODITECT ADR-065
+pub use security::{safe_read_to_string, validate_path_boundary, SafeFileError, WorkspaceBoundary};
