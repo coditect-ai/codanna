@@ -49,4 +49,6 @@ pub use path_registry::PathRegistry;
 pub use unified::{UnifiedWatcher, UnifiedWatcherBuilder};
 
 // Context watcher exports
-pub use context_watcher::{ContextConfig, ContextWatcher, TokenUsage, WatcherState};
+pub use context_watcher::{
+    ContextConfig, ContextWatcher, CxFileResult, CxProcessingReport, TokenUsage, WatcherState,
+};
