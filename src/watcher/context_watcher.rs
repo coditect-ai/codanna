@@ -172,6 +172,179 @@ pub struct CxProcessingReport {
     pub file_results: Vec<CxFileResult>,
 }
 
+/// Information about a running Claude process
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ClaudeProcess {
+    /// Process ID
+    pub pid: u32,
+    /// Working directory of the process
+    pub cwd: PathBuf,
+    /// Mapped session folder in ~/.claude/projects/
+    pub session_folder: Option<PathBuf>,
+}
+
+impl ClaudeProcess {
+    /// Convert a working directory path to Claude's session folder format
+    /// e.g., /Users/hal/PROJECTS/foo → ~/.claude/projects/-Users-hal-PROJECTS-foo/
+    pub fn cwd_to_session_folder(cwd: &Path, projects_dir: &Path) -> Option<PathBuf> {
+        let cwd_str = cwd.to_string_lossy();
+        // Replace / with - and prepend -
+        let folder_name = format!("-{}", cwd_str.replace('/', "-").trim_start_matches('-'));
+        let session_folder = projects_dir.join(&folder_name);
+
+        if session_folder.exists() {
+            Some(session_folder)
+        } else {
+            // Try partial match for nested paths
+            if let Ok(entries) = fs::read_dir(projects_dir) {
+                for entry in entries.filter_map(|e| e.ok()) {
+                    let name = entry.file_name().to_string_lossy().to_string();
+                    if name.contains(&folder_name.trim_start_matches('-')) {
+                        return Some(entry.path());
+                    }
+                }
+            }
+            None
+        }
+    }
+}
+
+/// Process detector for finding running Claude instances
+pub struct ProcessDetector;
+
+impl ProcessDetector {
+    /// Find all running Claude processes with their working directories
+    #[cfg(target_os = "macos")]
+    pub fn find_claude_processes(projects_dir: &Path) -> Vec<ClaudeProcess> {
+        let mut processes = Vec::new();
+
+        // Get Claude process PIDs using pgrep
+        let pgrep_output = Command::new("pgrep")
+            .arg("-x")
+            .arg("claude")
+            .output();
+
+        let pids: Vec<u32> = match pgrep_output {
+            Ok(output) if output.status.success() => {
+                String::from_utf8_lossy(&output.stdout)
+                    .lines()
+                    .filter_map(|line| line.trim().parse().ok())
+                    .collect()
+            }
+            _ => return processes,
+        };
+
+        if pids.is_empty() {
+            return processes;
+        }
+
+        // Get working directories using lsof
+        let pid_args: Vec<String> = pids.iter().map(|p| p.to_string()).collect();
+        let lsof_output = Command::new("lsof")
+            .arg("-p")
+            .arg(pid_args.join(","))
+            .output();
+
+        if let Ok(output) = lsof_output {
+            let stdout = String::from_utf8_lossy(&output.stdout);
+            for line in stdout.lines() {
+                // Parse lsof output: claude PID user cwd DIR ... path
+                if line.contains("cwd") && line.starts_with("claude") {
+                    let parts: Vec<&str> = line.split_whitespace().collect();
+                    if parts.len() >= 9 {
+                        if let Ok(pid) = parts[1].parse::<u32>() {
+                            // Last part is the path
+                            let cwd = PathBuf::from(parts.last().unwrap_or(&""));
+                            if cwd.exists() {
+                                let session_folder = ClaudeProcess::cwd_to_session_folder(&cwd, projects_dir);
+                                processes.push(ClaudeProcess {
+                                    pid,
+                                    cwd,
+                                    session_folder,
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Deduplicate by PID
+        processes.sort_by_key(|p| p.pid);
+        processes.dedup_by_key(|p| p.pid);
+
+        tracing::debug!(
+            "[context-watcher] found {} Claude process(es): {:?}",
+            processes.len(),
+            processes.iter().map(|p| p.pid).collect::<Vec<_>>()
+        );
+
+        processes
+    }
+
+    #[cfg(target_os = "linux")]
+    pub fn find_claude_processes(projects_dir: &Path) -> Vec<ClaudeProcess> {
+        let mut processes = Vec::new();
+
+        // Get Claude process PIDs using pgrep
+        let pgrep_output = Command::new("pgrep")
+            .arg("-x")
+            .arg("claude")
+            .output();
+
+        let pids: Vec<u32> = match pgrep_output {
+            Ok(output) if output.status.success() => {
+                String::from_utf8_lossy(&output.stdout)
+                    .lines()
+                    .filter_map(|line| line.trim().parse().ok())
+                    .collect()
+            }
+            _ => return processes,
+        };
+
+        // Get working directories from /proc
+        for pid in pids {
+            let cwd_link = PathBuf::from(format!("/proc/{}/cwd", pid));
+            if let Ok(cwd) = fs::read_link(&cwd_link) {
+                let session_folder = ClaudeProcess::cwd_to_session_folder(&cwd, projects_dir);
+                processes.push(ClaudeProcess {
+                    pid,
+                    cwd,
+                    session_folder,
+                });
+            }
+        }
+
+        tracing::debug!(
+            "[context-watcher] found {} Claude process(es)",
+            processes.len()
+        );
+
+        processes
+    }
+
+    #[cfg(not(any(target_os = "macos", target_os = "linux")))]
+    pub fn find_claude_processes(_projects_dir: &Path) -> Vec<ClaudeProcess> {
+        // Windows and other platforms: not yet implemented
+        Vec::new()
+    }
+
+    /// Check if any Claude process is using a specific session folder
+    pub fn is_session_active(session_folder: &Path, processes: &[ClaudeProcess]) -> bool {
+        processes.iter().any(|p| {
+            p.session_folder.as_ref().map_or(false, |sf| sf == session_folder)
+        })
+    }
+
+    /// Get the session folders that have active Claude processes
+    pub fn get_active_session_folders(processes: &[ClaudeProcess]) -> Vec<PathBuf> {
+        processes
+            .iter()
+            .filter_map(|p| p.session_folder.clone())
+            .collect()
+    }
+}
+
 /// Persistent state for the context watcher
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatcherState {
@@ -190,6 +363,12 @@ pub struct WatcherState {
     /// Total cx processing runs
     #[serde(default)]
     pub cx_runs_total: u32,
+    /// Currently detected running Claude processes
+    #[serde(default)]
+    pub active_processes: Vec<ClaudeProcess>,
+    /// Count of active Claude processes (for quick access)
+    #[serde(default)]
+    pub active_process_count: u32,
 }
 
 impl Default for WatcherState {
@@ -203,6 +382,8 @@ impl Default for WatcherState {
             exports_triggered: 0,
             last_cx_processing: None,
             cx_runs_total: 0,
+            active_processes: Vec::new(),
+            active_process_count: 0,
         }
     }
 }
@@ -217,6 +398,10 @@ pub struct ContextWatcher {
     last_cx_check: Instant,
     /// Cached machine ID for session log entries
     machine_id: Option<String>,
+    /// Last time we checked for Claude processes
+    last_process_check: Instant,
+    /// Interval between process checks (30 seconds)
+    process_check_interval: Duration,
 }
 
 impl ContextWatcher {
@@ -249,6 +434,8 @@ impl ContextWatcher {
             _watcher: watcher,
             last_cx_check: Instant::now(),
             machine_id,
+            last_process_check: Instant::now(),
+            process_check_interval: Duration::from_secs(30),
         })
     }
 
@@ -909,6 +1096,28 @@ impl ContextWatcher {
     }
 
     // =========================================================================
+    // Process Detection
+    // =========================================================================
+
+    /// Detect running Claude processes and update state
+    fn update_active_processes(&mut self) {
+        let processes = ProcessDetector::find_claude_processes(&self.config.claude_projects_dir);
+        let count = processes.len();
+
+        if count > 0 {
+            tracing::info!(
+                "[context-watcher] {} Claude process(es) detected: {:?}",
+                count,
+                processes.iter().map(|p| p.pid).collect::<Vec<_>>()
+            );
+        }
+
+        self.state.active_processes = processes;
+        self.state.active_process_count = count as u32;
+        self.last_process_check = Instant::now();
+    }
+
+    // =========================================================================
     // Main Run Loop
     // =========================================================================
 
@@ -979,6 +1188,13 @@ impl ContextWatcher {
                             tracing::error!("[context-watcher] cx processing error: {e}");
                         }
                     }
+
+                    // Periodic process detection (every 30 seconds)
+                    if self.last_process_check.elapsed() > self.process_check_interval {
+                        self.update_active_processes();
+                        // Save state to persist active processes
+                        let _ = self.save_state();
+                    }
                 }
             }
         }
@@ -1040,6 +1256,8 @@ mod tests {
             exports_triggered: 5,
             last_cx_processing: None,
             cx_runs_total: 0,
+            active_processes: Vec::new(),
+            active_process_count: 0,
         };
 
         let json = serde_json::to_string(&state).unwrap();
@@ -1047,6 +1265,7 @@ mod tests {
 
         assert_eq!(restored.last_tokens, 150_000);
         assert_eq!(restored.exports_triggered, 5);
+        assert_eq!(restored.active_process_count, 0);
     }
 
     #[test]
