@@ -37,6 +37,7 @@
 //! This module is inspired by CODI2's file_monitor.rs and export_handler.rs.
 //! See `codi_fork/` for reference implementations.
 
+use std::collections::HashMap;
 use std::fs::{self, File};
 use std::io::{Read, Seek, SeekFrom};
 use std::path::{Path, PathBuf};
@@ -108,6 +109,10 @@ impl TokenUsage {
 /// Persistent state for the context watcher
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WatcherState {
+    /// Per-session cooldown tracking (session_id -> last export time)
+    #[serde(default)]
+    pub session_cooldowns: HashMap<String, DateTime<Utc>>,
+    /// Legacy: last export (for backward compatibility)
     pub last_export: Option<DateTime<Utc>>,
     pub last_session_file: Option<PathBuf>,
     pub last_tokens: u64,
@@ -118,6 +123,7 @@ pub struct WatcherState {
 impl Default for WatcherState {
     fn default() -> Self {
         Self {
+            session_cooldowns: HashMap::new(),
             last_export: None,
             last_session_file: None,
             last_tokens: 0,
@@ -208,6 +214,57 @@ impl ContextWatcher {
         candidates.first().map(|(path, _, _)| path.clone())
     }
 
+    /// Find ALL active session files (modified in last 60 minutes)
+    pub fn find_all_active_sessions(&self, project_dir: &Path) -> Vec<PathBuf> {
+        let now = SystemTime::now();
+        let sixty_minutes = Duration::from_secs(60 * 60);
+
+        fs::read_dir(project_dir)
+            .ok()
+            .map(|entries| {
+                entries
+                    .filter_map(|entry| {
+                        let entry = entry.ok()?;
+                        let path = entry.path();
+
+                        if path.extension()?.to_str()? != "jsonl" {
+                            return None;
+                        }
+
+                        let metadata = fs::metadata(&path).ok()?;
+                        let modified = metadata.modified().ok()?;
+
+                        // Only consider files modified in last 60 minutes
+                        if now.duration_since(modified).ok()? > sixty_minutes {
+                            return None;
+                        }
+
+                        Some(path)
+                    })
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+
+    /// Extract session ID from path (filename without extension)
+    fn session_id_from_path(path: &Path) -> String {
+        path.file_stem()
+            .and_then(|s| s.to_str())
+            .unwrap_or("unknown")
+            .to_string()
+    }
+
+    /// Check if a specific session is in cooldown
+    fn is_session_in_cooldown(&self, session_id: &str) -> bool {
+        if let Some(last_export) = self.state.session_cooldowns.get(session_id) {
+            let cooldown = chrono::Duration::minutes(self.config.cooldown_minutes as i64);
+            let now = Utc::now();
+            now - *last_export < cooldown
+        } else {
+            false
+        }
+    }
+
     /// Parse token usage from a session JSONL file
     ///
     /// Reads the last ~100KB of the file and finds the most recent usage entry.
@@ -294,17 +351,6 @@ impl ContextWatcher {
         (total / limit) * 100.0
     }
 
-    /// Check if we're in cooldown period
-    fn is_in_cooldown(&self) -> bool {
-        if let Some(last_export) = self.state.last_export {
-            let cooldown = chrono::Duration::minutes(self.config.cooldown_minutes as i64);
-            let now = Utc::now();
-            now - last_export < cooldown
-        } else {
-            false
-        }
-    }
-
     /// Send desktop notification (macOS)
     fn notify(&self, title: &str, message: &str) {
         if !self.config.notifications_enabled {
@@ -344,15 +390,20 @@ impl ContextWatcher {
 
     /// Trigger export for a session
     pub fn trigger_export(&mut self, session_path: &Path, context_pct: f64) -> Result<PathBuf, Box<dyn std::error::Error + Send + Sync>> {
+        let session_id = Self::session_id_from_path(session_path);
         let timestamp = Utc::now().format("%Y-%m-%d-%H%M%S").to_string();
-        let filename = format!("{}-CONTEXT-{:.0}pct-EXPORT.txt", timestamp, context_pct);
+        // Include session ID prefix (first 8 chars) in filename for clarity
+        let session_prefix = &session_id[..session_id.len().min(8)];
+        let filename = format!("{}-{}-CONTEXT-{:.0}pct-EXPORT.txt", timestamp, session_prefix, context_pct);
         let export_path = self.config.export_destination.join(&filename);
 
         // Copy session file to export destination
         fs::copy(session_path, &export_path)?;
 
-        // Update state
-        self.state.last_export = Some(Utc::now());
+        // Update state with per-session cooldown
+        let now = Utc::now();
+        self.state.session_cooldowns.insert(session_id.clone(), now);
+        self.state.last_export = Some(now);
         self.state.exports_triggered += 1;
         self.save_state()?;
 
@@ -374,41 +425,79 @@ impl ContextWatcher {
         Ok(export_path)
     }
 
-    /// Check a session and export if needed
-    pub fn check_and_export(&mut self, project_dir: &Path) -> Result<Option<PathBuf>, Box<dyn std::error::Error + Send + Sync>> {
-        // Find primary session
-        let session_file = match self.find_primary_session(project_dir) {
-            Some(f) => f,
-            None => return Ok(None),
-        };
+    /// Check a single session and export if needed
+    fn check_single_session(&mut self, session_file: &Path) -> Result<Option<PathBuf>, Box<dyn std::error::Error + Send + Sync>> {
+        let session_id = Self::session_id_from_path(session_file);
 
         // Parse tokens
-        let usage = self.parse_session_tokens(&session_file)?;
+        let usage = self.parse_session_tokens(session_file)?;
         let context_pct = self.calculate_context_percent(&usage);
-
-        // Update state
-        self.state.last_session_file = Some(session_file.clone());
-        self.state.last_tokens = usage.total();
-        self.state.last_context_percent = context_pct;
-        self.save_state()?;
 
         tracing::debug!(
             "[context-watcher] {} at {:.1}% ({} tokens)",
-            session_file.display(),
+            session_id,
             context_pct,
             usage.total()
         );
 
-        // Check if we should export
+        // Check if we should export (per-session cooldown)
         if context_pct >= self.config.min_context_percent as f64
             && context_pct <= self.config.max_context_percent as f64
-            && !self.is_in_cooldown()
+            && !self.is_session_in_cooldown(&session_id)
         {
-            let export_path = self.trigger_export(&session_file, context_pct)?;
+            tracing::info!(
+                "[context-watcher] session {} at {:.1}% - triggering export",
+                &session_id[..session_id.len().min(8)],
+                context_pct
+            );
+            let export_path = self.trigger_export(session_file, context_pct)?;
             return Ok(Some(export_path));
         }
 
         Ok(None)
+    }
+
+    /// Check ALL active sessions and export any above threshold
+    pub fn check_and_export(&mut self, project_dir: &Path) -> Result<Option<PathBuf>, Box<dyn std::error::Error + Send + Sync>> {
+        // Find ALL active sessions
+        let sessions = self.find_all_active_sessions(project_dir);
+
+        if sessions.is_empty() {
+            return Ok(None);
+        }
+
+        let mut last_export = None;
+
+        // Check each session independently
+        for session_file in sessions {
+            // Update state with most recent session info
+            if let Ok(usage) = self.parse_session_tokens(&session_file) {
+                let context_pct = self.calculate_context_percent(&usage);
+                self.state.last_session_file = Some(session_file.clone());
+                self.state.last_tokens = usage.total();
+                self.state.last_context_percent = context_pct;
+            }
+
+            // Check and potentially export this session
+            match self.check_single_session(&session_file) {
+                Ok(Some(path)) => {
+                    last_export = Some(path);
+                }
+                Ok(None) => {}
+                Err(e) => {
+                    tracing::debug!(
+                        "[context-watcher] error checking {}: {}",
+                        session_file.display(),
+                        e
+                    );
+                }
+            }
+        }
+
+        // Save state after checking all sessions
+        self.save_state()?;
+
+        Ok(last_export)
     }
 
     /// Run the context watcher (event-driven)
