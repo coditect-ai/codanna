@@ -70,6 +70,8 @@ pub struct ContextConfig {
     pub context_limit_tokens: u64,
     /// Cooldown between exports in minutes
     pub cooldown_minutes: u32,
+    /// Interval in seconds for Claude process detection
+    pub process_check_interval_secs: u32,
     /// Path to Claude projects directory
     pub claude_projects_dir: PathBuf,
     /// Path to export destination
@@ -104,6 +106,7 @@ impl Default for ContextConfig {
             max_context_percent: 95,
             context_limit_tokens: 200_000,
             cooldown_minutes: 10,
+            process_check_interval_secs: 30,
             claude_projects_dir: home.join(".claude/projects"),
             export_destination: coditect_dir.join("context-storage/exports-pending"),
             export_archive: coditect_dir.join("context-storage/exports-archive"),
@@ -419,6 +422,9 @@ impl ContextWatcher {
         // Load machine ID for session log entries
         let machine_id = Self::load_machine_id(&config.machine_id_path);
 
+        // Extract process check interval before moving config
+        let process_check_interval = Duration::from_secs(config.process_check_interval_secs as u64);
+
         // Create channel for events
         let (tx, rx) = mpsc::channel(100);
 
@@ -435,7 +441,7 @@ impl ContextWatcher {
             last_cx_check: Instant::now(),
             machine_id,
             last_process_check: Instant::now(),
-            process_check_interval: Duration::from_secs(30),
+            process_check_interval,
         })
     }
 
