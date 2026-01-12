@@ -222,24 +222,48 @@ impl ProcessDetector {
         let mut processes = Vec::new();
 
         // Get Claude process PIDs using pgrep
+        // Note: pgrep -x matches exact process name
         let pgrep_output = Command::new("pgrep")
             .arg("-x")
             .arg("claude")
             .output();
 
         let pids: Vec<u32> = match pgrep_output {
-            Ok(output) if output.status.success() => {
-                String::from_utf8_lossy(&output.stdout)
-                    .lines()
-                    .filter_map(|line| line.trim().parse().ok())
-                    .collect()
+            Ok(output) => {
+                let stdout = String::from_utf8_lossy(&output.stdout);
+                let stderr = String::from_utf8_lossy(&output.stderr);
+
+                tracing::debug!(
+                    "[process-detector] pgrep -x claude: status={:?}, stdout={:?}, stderr={:?}",
+                    output.status.code(),
+                    stdout.trim(),
+                    stderr.trim()
+                );
+
+                if output.status.success() {
+                    stdout
+                        .lines()
+                        .filter_map(|line| line.trim().parse().ok())
+                        .collect()
+                } else {
+                    // pgrep returns exit code 1 when no processes found
+                    // Try fallback using ps aux (more reliable in launchd context)
+                    tracing::debug!("[process-detector] pgrep found no processes, trying ps fallback");
+                    Self::find_pids_via_ps()
+                }
             }
-            _ => return processes,
+            Err(e) => {
+                tracing::warn!("[process-detector] pgrep command failed: {}, trying ps fallback", e);
+                Self::find_pids_via_ps()
+            }
         };
 
         if pids.is_empty() {
+            tracing::debug!("[process-detector] no claude PIDs found via pgrep or ps");
             return processes;
         }
+
+        tracing::debug!("[process-detector] found {} PIDs: {:?}", pids.len(), pids);
 
         // Get working directories using lsof
         let pid_args: Vec<String> = pids.iter().map(|p| p.to_string()).collect();
@@ -283,6 +307,65 @@ impl ProcessDetector {
         );
 
         processes
+    }
+
+    /// Fallback method using ps aux for finding Claude PIDs
+    /// More reliable in launchd/daemon contexts where pgrep may fail
+    #[cfg(target_os = "macos")]
+    fn find_pids_via_ps() -> Vec<u32> {
+        // Use ps aux and grep for claude processes
+        // This is more reliable than pgrep in launchd context
+        let ps_output = Command::new("ps")
+            .arg("aux")
+            .output();
+
+        match ps_output {
+            Ok(output) if output.status.success() => {
+                let stdout = String::from_utf8_lossy(&output.stdout);
+                let mut pids = Vec::new();
+
+                for line in stdout.lines() {
+                    // Skip header and grep itself
+                    if line.contains("PID") || line.contains("grep") {
+                        continue;
+                    }
+                    // Look for lines where the command is exactly "claude" (at end of line)
+                    // or contains "claude" as a binary
+                    if line.ends_with(" claude") || line.contains("/claude ") || line.contains(" claude ") {
+                        // ps aux format: USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND
+                        let parts: Vec<&str> = line.split_whitespace().collect();
+                        if parts.len() >= 11 {
+                            // Check if command is "claude" (not just containing claude)
+                            let command = parts[10..].join(" ");
+                            if command == "claude" || command.ends_with("/claude") {
+                                if let Ok(pid) = parts[1].parse::<u32>() {
+                                    pids.push(pid);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                tracing::debug!(
+                    "[process-detector] ps aux fallback found {} PIDs: {:?}",
+                    pids.len(),
+                    pids
+                );
+
+                pids
+            }
+            Ok(output) => {
+                tracing::debug!(
+                    "[process-detector] ps aux failed: status={:?}",
+                    output.status.code()
+                );
+                Vec::new()
+            }
+            Err(e) => {
+                tracing::warn!("[process-detector] ps command failed: {}", e);
+                Vec::new()
+            }
+        }
     }
 
     #[cfg(target_os = "linux")]
