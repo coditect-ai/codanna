@@ -1173,6 +1173,13 @@ impl ContextWatcher {
                 }
                 // Periodic check (fallback if events are missed)
                 _ = &mut timeout => {
+                    // Log timeout for debugging
+                    tracing::debug!(
+                        "[context-watcher] timeout tick, process_check_elapsed: {:?}, interval: {:?}",
+                        self.last_process_check.elapsed(),
+                        self.process_check_interval
+                    );
+
                     // Check all project directories for context threshold
                     if let Ok(entries) = fs::read_dir(&self.config.claude_projects_dir) {
                         for entry in entries.filter_map(|e| e.ok()) {
@@ -1197,9 +1204,16 @@ impl ContextWatcher {
 
                     // Periodic process detection (every 30 seconds)
                     if self.last_process_check.elapsed() > self.process_check_interval {
+                        tracing::info!("[context-watcher] running process detection...");
                         self.update_active_processes();
                         // Save state to persist active processes
-                        let _ = self.save_state();
+                        if let Err(e) = self.save_state() {
+                            tracing::error!("[context-watcher] failed to save state: {e}");
+                        }
+                        tracing::info!(
+                            "[context-watcher] process detection complete, {} active",
+                            self.state.active_process_count
+                        );
                     }
                 }
             }
