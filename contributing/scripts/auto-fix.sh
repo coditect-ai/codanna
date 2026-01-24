@@ -36,7 +36,7 @@ echo ""
 # Run quick check to verify
 echo "Running quick-check to verify fixes..."
 echo "--------------------------------------"
-./contributing/scripts/quick-check.sh
+./contributing/H.P.004-SCRIPTS/quick-check.sh
 
 echo ""
 echo "🎉 Auto-fix complete!"

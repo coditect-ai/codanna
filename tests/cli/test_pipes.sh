@@ -1,5 +1,5 @@
 #!/bin/bash
-# test_pipes.sh - Verify all commands work in pipes for slash commands
+# test_pipes.sh - Verify all H.P.002-COMMANDS work in pipes for slash H.P.002-COMMANDS
 
 echo "=== Testing Codanna Pipes for Slash Commands ==="
 echo
@@ -25,7 +25,7 @@ RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo "Testing individual commands output valid JSON..."
+echo "Testing individual H.P.002-COMMANDS output valid JSON..."
 echo
 
 # Test each command outputs valid JSON
@@ -54,7 +54,7 @@ echo
 echo "Testing pipe chains..."
 echo
 
-# Test piping between commands
+# Test piping between H.P.002-COMMANDS
 echo -n "  Simple pipe (symbol -> name extraction)... "
 RESULT=$($CODANNA retrieve symbol main --json 2>/dev/null | jq -r '.data.items[0].symbol.name' 2>/dev/null)
 if [ -n "$RESULT" ]; then
@@ -147,16 +147,16 @@ fi
 echo
 echo "=== Summary ==="
 echo
-echo "✅ All commands output clean JSON suitable for piping"
+echo "✅ All H.P.002-COMMANDS output clean JSON suitable for piping"
 echo "✅ Commands can be chained with jq and xargs"
 echo "✅ Error handling works correctly with proper exit codes"
 if [ $DURATION -lt 300 ] && [ $PIPE_DURATION -lt 1000 ]; then
-    echo "✅ Performance meets targets for slash commands"
+    echo "✅ Performance meets targets for slash H.P.002-COMMANDS"
 else
-    echo "⚠️  Performance could be optimized for slash commands"
+    echo "⚠️  Performance could be optimized for slash H.P.002-COMMANDS"
 fi
 echo
-echo "These commands are ready to be used in Claude slash commands!"
+echo "These H.P.002-COMMANDS are ready to be used in Claude slash H.P.002-COMMANDS!"
 echo "Example: /impact main"
 echo "         /trace some_function 3"
 echo "         /find \"error handling\""

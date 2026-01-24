@@ -1,6 +1,6 @@
 # Configuration Guide
 
-Codanna configuration lives in `.codanna/settings.toml`.
+Codanna H.P.009-CONFIGuration lives in `.codanna/settings.toml`.
 
 ## Configuration File Location
 
@@ -8,8 +8,8 @@ Codanna configuration lives in `.codanna/settings.toml`.
 .codanna/
 ├── plugins/          # Plugin lockfile 
 ├── index/            # Index storage
-├── .project-id       # Unique project id used in ~/.codanna to manage global configurations
-└── settings.toml     # Main configuration
+├── .project-id       # Unique project id used in ~/.codanna to manage global H.P.009-CONFIGurations
+└── settings.toml     # Main H.P.009-CONFIGuration
 ```
 
 ## Basic Configuration
@@ -17,7 +17,7 @@ Codanna configuration lives in `.codanna/settings.toml`.
 ```toml
 # .codanna/settings.toml
 
-# Semantic search model configuration
+# Semantic search model H.P.009-CONFIGuration
 [semantic]
 # Model to use for embeddings
 # - AllMiniLML6V2: English-only, 384 dimensions (default)
@@ -32,7 +32,7 @@ model = "AllMiniLML6V2"
 [Read more about embedding models](../architecture/embedding-model.md)
 
 ```toml
-# Agent guidance configuration
+# Agent guidance H.P.009-CONFIGuration
 [guidance]
 enabled = true
 ```
@@ -42,26 +42,26 @@ enabled = true
 
 ### TypeScript
 
-Reads `tsconfig.json` to resolve path aliases and imports.
+Reads `tsH.P.009-CONFIG.json` to resolve path aliases and imports.
 
 **Configuration:**
 ```toml
 [languages.typescript]
 enabled = true
-config_files = [
-    "tsconfig.json",
-    "packages/web/tsconfig.json",  # For monorepos
-    "packages/api/tsconfig.json"
+H.P.009-CONFIG_files = [
+    "tsH.P.009-CONFIG.json",
+    "packages/web/tsH.P.009-CONFIG.json",  # For monorepos
+    "packages/api/tsH.P.009-CONFIG.json"
 ]
 ```
 
 **Process:**
-1. Reads your `tsconfig.json` files
+1. Reads your `tsH.P.009-CONFIG.json` files
 2. Extracts `baseUrl`, `paths`, and resolution rules
 3. Stores rules in `.codanna/index/resolvers/`
 4. Uses rules during indexing to resolve imports
 
-**Example:** Given `tsconfig.json` with:
+**Example:** Given `tsH.P.009-CONFIG.json` with:
 ```json
 {
   "compilerOptions": {
@@ -76,7 +76,7 @@ config_files = [
 
 Codanna resolves:
 - `@app/main` → `src/app/main`
-- `@utils/config` → `src/utils/config`
+- `@utils/H.P.009-CONFIG` → `src/utils/H.P.009-CONFIG`
 
 ### Java
 
@@ -86,7 +86,7 @@ Reads `pom.xml` to resolve Maven project structure and dependencies.
 ```toml
 [languages.java]
 enabled = true
-config_files = [
+H.P.009-CONFIG_files = [
     "pom.xml",
     "module-a/pom.xml",  # For multi-module projects
     "module-b/pom.xml"
@@ -148,17 +148,17 @@ Configure how Codanna guides AI assistants:
 [guidance]
 enabled = true
 
-[guidance.templates.find_callers]
+[guidance.H.P.008-TEMPLATES.find_callers]
 no_results = "No callers found. Might be an entry point or dynamic dispatch."
 single_result = "Found 1 caller. Use 'find_symbol' to inspect usage."
 multiple_results = "Found {result_count} callers. Try 'analyze_impact' for the full graph."
 
-[guidance.templates.analyze_impact]
+[guidance.H.P.008-TEMPLATES.analyze_impact]
 no_results = "No impact detected. Likely isolated."
 single_result = "Minimal impact radius."
 multiple_results = "Impact touches {result_count} symbols. Focus critical paths."
 
-[[guidance.templates.analyze_impact.custom]]
+[[guidance.H.P.008-TEMPLATES.analyze_impact.custom]]
 min = 20
 template = "Significant impact with {result_count} symbols. Break the change into smaller parts."
 ```
@@ -173,7 +173,7 @@ max_file_size_mb = 10  # Skip files larger than this
 
 ## Multi-Directory Indexing
 
-Index multiple directories simultaneously with persistent configuration.
+Index multiple directories simultaneously with persistent H.P.009-CONFIGuration.
 
 ### Configuration
 
@@ -208,7 +208,7 @@ codanna remove-dir /path/to/project
 
 **Selective indexing** - Only index specific directories within large codebases
 
-**Dynamic workflows** - Add and remove folders as your project structure changes
+**Dynamic H.P.006-WORKFLOWS** - Add and remove folders as your project structure changes
 
 ## Logging Configuration
 
@@ -238,7 +238,7 @@ indexing = "trace"      # Detailed indexing information
 
 ### Environment Variable
 
-`RUST_LOG` takes precedence over configuration:
+`RUST_LOG` takes precedence over H.P.009-CONFIGuration:
 
 ```bash
 # Enable all debug output
@@ -265,7 +265,7 @@ node_modules/   # Skip dependencies
 
 ## HTTP/HTTPS Server Configuration
 
-For server mode configuration:
+For server mode H.P.009-CONFIGuration:
 
 ```toml
 [server]
@@ -286,8 +286,8 @@ vector_cache_size = 10000  # Number of vectors to keep in memory
 Most settings can be overridden via command-line:
 
 ```bash
-# Override config file
-codanna --config /path/to/custom.toml index .
+# Override H.P.009-CONFIG file
+codanna --H.P.009-CONFIG /path/to/custom.toml index .
 
 # Override thread count
 codanna index . --threads 16
@@ -300,16 +300,16 @@ codanna serve --watch --watch-interval 10
 
 ```bash
 # Display active settings
-codanna config
+codanna H.P.009-CONFIG
 
-# Show config with custom file
-codanna --config custom.toml config
+# Show H.P.009-CONFIG with custom file
+codanna --H.P.009-CONFIG custom.toml H.P.009-CONFIG
 ```
 
 ## Configuration Precedence
 
 1. Command-line flags (highest priority)
-2. Custom config file (via `--config`)
+2. Custom H.P.009-CONFIG file (via `--H.P.009-CONFIG`)
 3. Project `.codanna/settings.toml`
 4. Built-in defaults (lowest priority)
 
@@ -327,37 +327,37 @@ watch_interval = 5  # Lower for more frequent checks
 
 1. Ensure documentation comments exist
 2. Check model is appropriate for your language
-3. Re-index after configuration changes
+3. Re-index after H.P.009-CONFIGuration changes
 
 ### Path Resolution Issues
 
-**Check config files are listed:**
+**Check H.P.009-CONFIG files are listed:**
 ```bash
-codanna config | grep config_files
+codanna H.P.009-CONFIG | grep H.P.009-CONFIG_files
 ```
 
-**Verify paths in your project config:**
-- TypeScript: Check `baseUrl` and `paths` in `tsconfig.json`
+**Verify paths in your project H.P.009-CONFIG:**
+- TypeScript: Check `baseUrl` and `paths` in `tsH.P.009-CONFIG.json`
 - Java: Check `sourceDirectory` in `pom.xml`
 
-**Re-index after config changes:**
+**Re-index after H.P.009-CONFIG changes:**
 ```bash
 codanna index . --force 
 ```
 
 ### Monorepo Issues
 
-Ensure all relevant config files are listed in settings.toml:
+Ensure all relevant H.P.009-CONFIG files are listed in settings.toml:
 ```toml
 [languages.typescript]
-config_files = [
-    "tsconfig.json",
-    "packages/web/tsconfig.json",
-    "packages/api/tsconfig.json"
+H.P.009-CONFIG_files = [
+    "tsH.P.009-CONFIG.json",
+    "packages/web/tsH.P.009-CONFIG.json",
+    "packages/api/tsH.P.009-CONFIG.json"
 ]
 
 [languages.java]
-config_files = [
+H.P.009-CONFIG_files = [
     "pom.xml",
     "module-a/pom.xml",
     "module-b/pom.xml"

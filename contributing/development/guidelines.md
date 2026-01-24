@@ -44,11 +44,11 @@ This is a critical principle for performance. The goal is to maximize caller fle
 
 ```rust
 // ✅ CORRECT: Zero allocation, flexible for caller
-fn parse_config(input: &str) -> Result<Config, Error> { ... }
+fn parse_H.P.009-CONFIG(input: &str) -> Result<Config, Error> { ... }
 fn find_symbols<'a>(code: &'a str) -> impl Iterator<Item = &'a str> { ... }
 
 // ❌ INCORRECT: Forces allocation or ownership transfer
-fn parse_config(input: String) -> Result<Config, Error> { ... }
+fn parse_H.P.009-CONFIG(input: String) -> Result<Config, Error> { ... }
 fn find_symbols(code: &str) -> Vec<String> { ... }
 
 // ✅ CORRECT: Iterator that avoids allocation in the common case
@@ -95,9 +95,9 @@ fn calculate_similarity(a: &[f32], b: &[f32]) -> f32 {
 }
 
 // ✅ CORRECT: Setup code prioritizes clarity
-fn load_config() -> Config {
+fn load_H.P.009-CONFIG() -> Config {
     let paths = vec![
-        home_dir().join(".config/app.toml"),
+        home_dir().join(".H.P.009-CONFIG/app.toml"),
         PathBuf::from("/etc/app.toml"),
     ];
     // Allocation is fine here - runs once at startup

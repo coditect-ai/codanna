@@ -6,7 +6,7 @@
 - Key nodes: 26/26 (100%)
 - Symbol kinds extracted: 5
 
-> **Note:** Key nodes are symbol-producing constructs (classes, functions, templates).
+> **Note:** Key nodes are symbol-producing constructs (classes, functions, H.P.008-TEMPLATES).
 
 ## Coverage Table
 

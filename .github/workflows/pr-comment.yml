@@ -1,4 +1,4 @@
-# .github/workflows/pr-comment.yml
+# .github/H.P.006-WORKFLOWS/pr-comment.yml
 name: PR Status Comment
 
 on:

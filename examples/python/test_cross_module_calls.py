@@ -1,9 +1,9 @@
 """Test file for cross-module call tracking in Python."""
 
-def init_config_file():
-    """Initialize configuration file.
+def init_H.P.009-CONFIG_file():
+    """Initialize H.P.009-CONFIGuration file.
 
-    This function sets up the initial configuration
+    This function sets up the initial H.P.009-CONFIGuration
     and calls the nested class method to initialize
     global directories.
     """

@@ -25,7 +25,7 @@ Add this to your local `.mcp.json`:
 
 ## Verification
 
-After configuration, verify the connection:
+After H.P.009-CONFIGuration, verify the connection:
 
 ```bash
 codanna mcp-test
@@ -35,7 +35,7 @@ This will confirm Claude can connect and list available tools.
 
 ## Agent Workflow
 
-See [Agent Guidance](agent-guidance.md) for recommended tool usage patterns and workflows.
+See [Agent Guidance](agent-guidance.md) for recommended tool usage patterns and H.P.006-WORKFLOWS.
 
 ## Troubleshooting
 
@@ -47,4 +47,4 @@ See [Agent Guidance](agent-guidance.md) for recommended tool usage patterns and 
 
 - [MCP Tools Reference](../user-guide/mcp-tools.md)
 - [Agent Guidance](agent-guidance.md)
-- [Configuration](../user-guide/configuration.md)
+- [Configuration](../user-guide/H.P.009-CONFIGuration.md)

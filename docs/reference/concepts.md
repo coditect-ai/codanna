@@ -16,8 +16,8 @@ Every symbol in the index has a unique identifier. Use `symbol_id:123` to refere
 
 All MCP tools return symbol IDs in results:
 ```bash
-codanna mcp semantic_search_with_context query:"config parser" limit:1
-# Returns: parse_config [symbol_id:567]
+codanna mcp semantic_search_with_context query:"H.P.009-CONFIG parser" limit:1
+# Returns: parse_H.P.009-CONFIG [symbol_id:567]
 ```
 
 ### How to Use symbol_id
@@ -110,7 +110,7 @@ codanna mcp semantic_search_with_context query:"parser" --json
 ### Benefits
 
 - Pipe to `jq` for filtering
-- Parse in scripts
+- Parse in H.P.004-SCRIPTS
 - Extract specific fields
 - Chain with other tools
 
@@ -118,13 +118,13 @@ codanna mcp semantic_search_with_context query:"parser" --json
 
 ```bash
 # Extract symbol_id from results
-codanna mcp semantic_search_with_context query:"config" --json | jq '.data[0].symbol.id'
+codanna mcp semantic_search_with_context query:"H.P.009-CONFIG" --json | jq '.data[0].symbol.id'
 
 # Get just file paths
 codanna mcp search_symbols query:"test" --json | jq -r '.data[].file_path'
 
 # Filter by score threshold
-codanna mcp semantic_search_with_context query:"config" --json | jq '.data[] | select(.score > 0.7)'
+codanna mcp semantic_search_with_context query:"H.P.009-CONFIG" --json | jq '.data[] | select(.score > 0.7)'
 ```
 
 ## Agent Workflows

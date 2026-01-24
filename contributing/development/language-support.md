@@ -18,7 +18,7 @@ Languages self-register via the modular registry system. Each language lives in 
 - **PHP** - Classes, traits, interfaces, namespaces
 - **Go** - Structs, interfaces, methods, generics (1.18+), package visibility
 - **C** - Structs, functions, enums, preprocessor macros
-- **C++** - Classes, templates, namespaces, inheritance
+- **C++** - Classes, H.P.008-TEMPLATES, namespaces, inheritance
 - **C#** - Classes, interfaces, generics, LINQ
 - **GDScript** - Godot game engine scripting language
 
@@ -30,7 +30,7 @@ All languages have custom resolution contexts with language-specific scoping:
 
 | Language | Resolution Context | Scoping Model | Inheritance | Import Tracking |
 |----------|-------------------|---------------|-------------|-----------------|
-| **TypeScript** | TypeScriptResolutionContext | Hoisting + type space | ✅ Interfaces | ✅ ESM + tsconfig paths |
+| **TypeScript** | TypeScriptResolutionContext | Hoisting + type space | ✅ Interfaces | ✅ ESM + tsH.P.009-CONFIG paths |
 | **Rust** | RustResolutionContext | Crate hierarchy | ✅ Traits | ✅ use statements |
 | **Java** | JavaResolutionContext | Package hierarchy | ✅ Interfaces + Abstract | ✅ import + Maven pom.xml |
 | **Kotlin** | KotlinResolutionContext | Package-based | ✅ Interfaces | ✅ import statements |
@@ -70,7 +70,7 @@ src/parsing/{language}/
 └── audit.rs       # ABI-15 coverage tracking and reporting
 ```
 
-**Note**: TypeScript has an additional `tsconfig.rs` for project configuration parsing.
+**Note**: TypeScript has an additional `tsH.P.009-CONFIG.rs` for project H.P.009-CONFIGuration parsing.
 
 ### Trait Overview
 
@@ -151,7 +151,7 @@ impl LanguageDefinition for TypeScriptLanguage {
         settings
             .languages
             .get("typescript")
-            .map(|config| config.enabled)
+            .map(|H.P.009-CONFIG| H.P.009-CONFIG.enabled)
             .unwrap_or(self.default_enabled())
     }
 }
@@ -236,8 +236,8 @@ pub trait LanguageBehavior: Send + Sync {
     fn create_resolution_context(&self, file_id: FileId) -> Box<dyn ResolutionScope>;
     fn create_inheritance_resolver(&self) -> Box<dyn InheritanceResolver>;
 
-    // Symbol configuration
-    fn configure_symbol(&self, symbol: &mut Symbol, module_path: Option<&str>);
+    // Symbol H.P.009-CONFIGuration
+    fn H.P.009-CONFIGure_symbol(&self, symbol: &mut Symbol, module_path: Option<&str>);
 
     // Import resolution
     fn resolve_import(&self, import: &Import, document_index: &DocumentIndex) -> Option<SymbolId>;
@@ -334,11 +334,11 @@ Tree-sitter node names **differ from language keywords**. Always explore the AST
 **Tools**:
 ```bash
 # Use tree-sitter CLI
-./contributing/tree-sitter/scripts/setup.sh typescript
+./contributing/tree-sitter/H.P.004-SCRIPTS/setup.sh typescript
 tree-sitter parse examples/typescript/comprehensive.ts
 
 # Use our comparison script
-./contributing/tree-sitter/scripts/compare-nodes.sh typescript
+./contributing/tree-sitter/H.P.004-SCRIPTS/compare-nodes.sh typescript
 
 # Or create exploration test
 cargo test explore_typescript_abi15 -- --nocapture
@@ -470,7 +470,7 @@ pub struct Symbol {
 ## Implementation Checklist
 
 ### Phase 1: Preparation
-- [ ] Install tree-sitter CLI: `./contributing/tree-sitter/scripts/setup.sh {language}`
+- [ ] Install tree-sitter CLI: `./contributing/tree-sitter/H.P.004-SCRIPTS/setup.sh {language}`
 - [ ] Create comprehensive test file in `examples/{language}/`
 - [ ] Explore AST: `tree-sitter parse examples/{language}/comprehensive.*`
 - [ ] Document nodes in `contributing/parsers/{language}/NODE_MAPPING.md`
@@ -497,7 +497,7 @@ pub struct Symbol {
 ### Phase 3: Registration
 - [ ] Register in `src/parsing/registry.rs:initialize_registry()`
 - [ ] Export in `src/parsing/mod.rs`
-- [ ] Add to settings generation in `src/config.rs:generate_language_defaults()`
+- [ ] Add to settings generation in `src/H.P.009-CONFIG.rs:generate_language_defaults()`
 
 ### Phase 4: Testing
 - [ ] Add unit tests in `parser.rs`
@@ -533,7 +533,7 @@ Reference implementations ordered by completeness:
    - Full type system support
    - TSX/JSX component tracking
    - Complex import resolution
-   - Path alias support via tsconfig.json
+   - Path alias support via tsH.P.009-CONFIG.json
 
 2. **Rust** (`src/parsing/rust/`)
    - 2800+ lines parser.rs

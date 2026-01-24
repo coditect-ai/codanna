@@ -37,7 +37,7 @@ export class AuthService {
 
 /**
  * Configuration settings interface
- * Defines the structure for application configuration
+ * Defines the structure for application H.P.009-CONFIGuration
  */
 export interface Config {
   /** Database connection string */

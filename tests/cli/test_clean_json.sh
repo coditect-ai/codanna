@@ -1,5 +1,5 @@
 #!/bin/bash
-# Test that all retrieve commands output clean JSON without debug output
+# Test that all retrieve H.P.002-COMMANDS output clean JSON without debug output
 
 echo "=== Testing Clean JSON Output ==="
 echo
@@ -49,7 +49,7 @@ echo
 echo "=== Testing Piping ==="
 echo
 
-# Test piping between commands
+# Test piping between H.P.002-COMMANDS
 echo -n "Testing pipe chain... "
 PIPE_RESULT=$(./target/release/codanna retrieve symbol main --json 2>/dev/null | \
     jq -r '.data.items[0].symbol.name' 2>/dev/null | \
@@ -64,5 +64,5 @@ fi
 
 echo
 echo "=== Summary ==="
-echo "All commands should output clean JSON to stdout only."
+echo "All H.P.002-COMMANDS should output clean JSON to stdout only."
 echo "Errors should go to stderr and not interfere with JSON parsing."

@@ -72,7 +72,7 @@ jobs:
           # Ensure all tree-sitter queries are valid
           cargo test --test "*" -- --nocapture | grep -i "query" || true
       
-      - name: Verify CLI commands
+      - name: Verify CLI H.P.002-COMMANDS
         run: |
           # Test basic CLI functionality using the built binary
           $CODANNA_BIN --help

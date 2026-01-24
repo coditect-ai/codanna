@@ -35,14 +35,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Parallel indexing pipeline with 5-stage architecture (DISCOVER, READ, PARSE, COLLECT, INDEX)
 - SemanticEmbedStage for parallel embedding generation
-- EmbeddingPool with configurable model instances for parallel embedding
+- EmbeddingPool with H.P.009-CONFIGurable model instances for parallel embedding
 - Progress bars for Phase 1 and Phase 2 indexing with dual progress bar support
 - Pipeline metrics with stage timing, memory tracking, and bottleneck detection
 - GPU execution provider feature flags (CUDA, TensorRT, CoreML, DirectML, OpenVINO, ROCm)
 - GPU embedding benchmarks for CPU vs accelerator comparison
 - Incremental file-level change detection with mtime fast path
 - Document search auto-sync with mtime-based change detection
-- Install scripts for curl-based installation (install.sh, install.ps1)
+- Install H.P.004-SCRIPTS for curl-based installation (install.sh, install.ps1)
 - IndexFacade as unified interface wrapping DocumentIndex, Pipeline, and SemanticSearch
 - `--watch` flag to mcp command for pre-tool reindex
 - `--no-progress` flag (progress enabled by default)
@@ -62,7 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SimpleIndexer (6000+ lines, replaced by IndexFacade)
 - SymbolCache and related cache methods
 - Slim build variants from release pipeline
-- Unused retrieve commands: Uses, Defines, Dependencies
+- Unused retrieve H.P.002-COMMANDS: Uses, Defines, Dependencies
 
 ### Fixed
 
@@ -74,10 +74,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Extracted 14 CLI command handlers from main.rs to src/cli/commands/
+- Extracted 14 CLI command handlers from main.rs to src/cli/H.P.002-COMMANDS/
 - Moved Clap argument definitions to src/cli/args.rs
 - Replaced unreachable!() arms with single exhaustive match pattern
-- Made indexer optional for commands that don't require index access
+- Made indexer optional for H.P.002-COMMANDS that don't require index access
 
 ### Removed
 
@@ -146,11 +146,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Unified watcher module replacing three separate implementations
 - Path registry for tracking monitored files across multiple watchers
 - Debouncer module to prevent duplicate event processing
-- Handler trait with code, config, and document implementations
+- Handler trait with code, H.P.009-CONFIG, and document implementations
 - Logging module with tracing-subscriber and per-module level support
 - RUST_LOG environment variable support for runtime log level control
 - Documents command documentation in CLI reference
-- Logging configuration section in configuration guide
+- Logging H.P.009-CONFIGuration section in H.P.009-CONFIGuration guide
 
 ### Changed
 
@@ -165,7 +165,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - documents/watcher.rs (replaced by unified watcher)
 - indexing/fs_watcher.rs (replaced by unified watcher)
-- indexing/config_watcher.rs (replaced by unified watcher)
+- indexing/H.P.009-CONFIG_watcher.rs (replaced by unified watcher)
 
 ## [0.8.5] - 2025-12-18
 
@@ -176,9 +176,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DocumentStore with tantivy metadata index and mmap vector storage
 - Semantic search for documents filtered by collection and path
 - File watcher for automatic document re-indexing on changes
-- CLI commands: `documents add-collection`, `remove-collection`, `index`, `search`, `list`, `stats`
+- CLI H.P.002-COMMANDS: `documents add-collection`, `remove-collection`, `index`, `search`, `list`, `stats`
 - MCP tool `search_documents` for AI assistant integration
-- Settings section `[documents]` with chunking and search configuration
+- Settings section `[documents]` with chunking and search H.P.009-CONFIGuration
 - Documentation in `docs/user-guide/documents.md`
 - KWIC (Keyword In Context) preview mode with highlighting
 
@@ -189,14 +189,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Upgraded tree-sitter from 0.26.2 to 0.26.3
 - Upgraded console from 0.16.1 to 0.16.2
 - Upgraded rcgen from 0.14.5 to 0.14.6
-- Settings save now preserves inline comments via `add_config_comments`
+- Settings save now preserves inline comments via `add_H.P.009-CONFIG_comments`
 
 ### Fixed
 
 - `add-dir` command now handles already-indexed paths gracefully (shows message instead of error)
 - `add-dir`/`remove-dir`/`list-dirs` skip index loading and semantic search initialization
-- `-c` short flag conflict resolved (removed from `--collection` in documents commands)
-- `documents index` now syncs stale collections even when no collections configured
+- `-c` short flag conflict resolved (removed from `--collection` in documents H.P.002-COMMANDS)
+- `documents index` now syncs stale collections even when no collections H.P.009-CONFIGured
 
 ## [0.8.4] - 2025-12-12
 
@@ -214,8 +214,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated criterion from 0.8.0 to 0.8.1
 - Updated testcontainers from 0.25.2 to 0.26.0
 - MCP endpoint changed from `/mcp/sse` to `/mcp`
-- MCP client config type changed from `"sse"` to `"http"`
-- Updated HTTP server documentation with new transport configuration
+- MCP client H.P.009-CONFIG type changed from `"sse"` to `"http"`
+- Updated HTTP server documentation with new transport H.P.009-CONFIGuration
 
 ### Removed
 
@@ -266,7 +266,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - JavaScript language support
-- JavaScriptProvider for jsconfig.json parsing and path alias resolution
+- JavaScriptProvider for jsH.P.009-CONFIG.json parsing and path alias resolution
 - JavaScriptParser with class, function, method, arrow function, export extraction, etc
 - JavaScriptBehavior with ES module path formatting and .js extension handling
 - JavaScriptResolutionContext with JavaScript scope order (local → module → imported → global)
@@ -288,7 +288,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
-- Added docs/advanced/project-resolution.md explaining tsconfig.json/jsconfig.json resolution
+- Added docs/advanced/project-resolution.md explaining tsH.P.009-CONFIG.json/jsH.P.009-CONFIG.json resolution
 - Added JavaScript to supported languages list across all documentation
 
 ## [0.8.1] - 2025-11-25
@@ -407,7 +407,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 
 - Added profiles feature documentation with examples
-- Updated README with profiles configuration details
+- Updated README with profiles H.P.009-CONFIGuration details
 - Updated cli-reference.md with idempotent indexing behavior and skip messages
 
 ## [0.6.8] - 2025-11-03
@@ -431,7 +431,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- MCP commands now support `symbol_id:N` syntax with JSON output
+- MCP H.P.002-COMMANDS now support `symbol_id:N` syntax with JSON output
 - Added symbol_id parameter handling to find_callers JSON data collection
 - Added symbol_id parameter handling to get_calls JSON data collection
 - Added symbol_id parameter handling to analyze_impact JSON data collection
@@ -511,8 +511,8 @@ Closes #63
 - Resolved path normalization issues for cross-platform compatibility
 
 **Configuration**
-- Updated settings file references to remove non-existent commands
-- Enabled GDScript in default language configuration
+- Updated settings file references to remove non-existent H.P.002-COMMANDS
+- Enabled GDScript in default language H.P.009-CONFIGuration
 
 ### Technical Details
 
@@ -525,7 +525,7 @@ Closes #63
 
 ### Profile System
 
-Share workspace configurations (gitignore, hooks, documentation) across projects with version control.
+Share workspace H.P.009-CONFIGurations (gitignore, H.P.005-HOOKS, documentation) across projects with version control.
 
 **Commands:**
 - `codanna profile sync` - Register providers and install team profiles
@@ -535,7 +535,7 @@ Share workspace configurations (gitignore, hooks, documentation) across projects
 - `codanna profile provider add/list/remove` - Provider registry management
 
 **Features:**
-- Three-tier configuration: global registry, team config, local lockfile
+- Three-tier H.P.009-CONFIGuration: global registry, team H.P.009-CONFIG, local lockfile
 - Atomic transactional installation with pre-flight validation and rollback
 - Provider registry supports GitHub, Git URL, and local directory sources
 - File ownership tracking with conflict resolution via sidecars
@@ -549,16 +549,16 @@ Index multiple directories with automatic sync mechanism.
 **Commands:**
 - `codanna add-dir <path>` - Add directory to indexed paths
 - `codanna remove-dir <path>` - Remove directory from indexed paths
-- `codanna list-dirs` - Display configured indexed directories
-- `codanna index [paths...]` - Accept multiple paths, use config when none provided
+- `codanna list-dirs` - Display H.P.009-CONFIGured indexed directories
+- `codanna index [paths...]` - Accept multiple paths, use H.P.009-CONFIG when none provided
 
 **Features:**
 - Automatic sync on every command compares settings.toml with index metadata
 - settings.toml is source of truth, index metadata is derived state
-- New directories in config automatically indexed
+- New directories in H.P.009-CONFIG automatically indexed
 - Removed directories automatically cleaned (symbols, embeddings, metadata)
 - ConfigFileWatcher monitors settings.toml for changes in HTTP/HTTPS modes
-- FileWatcher tracks both config file and source file changes
+- FileWatcher tracks both H.P.009-CONFIG file and source file changes
 
 **Fixed:**
 - Batch management in remove_file now self-contained (calls start_batch before operations)
@@ -602,22 +602,22 @@ Index multiple directories with automatic sync mechanism.
 
 ### Added
 - Symbol ID parameter support for unambiguous queries
-  - `symbol_id` parameter for retrieve commands (calls, callers, describe)
+  - `symbol_id` parameter for retrieve H.P.002-COMMANDS (calls, callers, describe)
   - `symbol_id` parameter for MCP tools (get_calls, find_callers, analyze_impact)
   - CLI help text with symbol_id examples
   - Token-efficient workflow: search returns `[symbol_id:123]`, use `symbol_id:123` for precise follow-up
-  - Eliminates disambiguation prompts, reduces token usage
+  - Eliminates disambiguation H.P.007-PROMPTS, reduces token usage
 - Import binding system for external dependency detection
   - Tracks import statements and their bindings
   - Foundation for external dependency resolution
 - Documentation updates
-  - Symbol_id workflows in User Guide, CLI Reference, and Search Guide
+  - Symbol_id H.P.006-WORKFLOWS in User Guide, CLI Reference, and Search Guide
   - Advanced section with unambiguous query patterns
   - Plugin documentation with Node.js wrapper examples
   - Slash command updates with `<relationship_symbol_name|symbol_id:ID>` pattern
 
 ### Changed
-- Plugin scripts updated to display and accept symbol_id
+- Plugin H.P.004-SCRIPTS updated to display and accept symbol_id
   - Formatters show `[symbol_id:123]` in headers and relationships
   - Context provider accepts symbol_id for all relationship queries
   - Applied to Claude Code plugin, codanna-cc, and codanna-base
@@ -655,8 +655,8 @@ Index multiple directories with automatic sync mechanism.
 - Universal defaults work across all platforms without cfg checks
 
 ### Changed
-- Tantivy heap size now user-configurable instead of hardcoded
-- Retry logic moved to helper function with configurable attempts
+- Tantivy heap size now user-H.P.009-CONFIGurable instead of hardcoded
+- Retry logic moved to helper function with H.P.009-CONFIGurable attempts
 - DocumentIndex constructor accepts Settings parameter
 
 ### Fixed
@@ -877,7 +877,7 @@ codanna init --force
   - Module symbol created for each Python file to represent module scope
   - Module-level calls tracked with `<module>` as caller, mapped to actual module path for queries
   - `normalize_caller_name()` maps synthetic names to searchable module paths
-  - `configure_symbol()` renames module symbols for searchability
+  - `H.P.009-CONFIGure_symbol()` renames module symbols for searchability
   - Module type accepted as valid caller in relationship validation
   - External symbol resolution handles unresolved import targets
   - Method call resolution normalizes caller names for consistent matching
@@ -902,11 +902,11 @@ codanna init --force
 ## [0.5.11] - 2025-09-11
 
 ### Added
-- React example app under `examples/typescript/react` demonstrating call tracking for React hooks and component methods.
+- React example app under `examples/typescript/react` demonstrating call tracking for React H.P.005-HOOKS and component methods.
 
 ### Fixed
 - TypeScript parser/indexer: Function call relationships correctly tracked in React projects (fixes #23)
-  - React hooks (`useState`, `useEffect`) and component methods properly detected
+  - React H.P.005-HOOKS (`useState`, `useEffect`) and component methods properly detected
   - Call relationships preserved during full project indexing
   - External module symbols correctly resolved with unique IDs
 
@@ -915,12 +915,12 @@ codanna init --force
 ### Added
 - Parse command: output AST nodes in JSONL format for debugging
 - Parse command flags: --max-depth, --all-nodes, --output
-- Tree-sitter CLI detection in development scripts
+- Tree-sitter CLI detection in development H.P.004-SCRIPTS
 
 ### Fixed
 - TypeScript parser: improved nested node extraction in arrow functions and JSDoc blocks (123/182 coverage)
 - Test parallel execution race conditions with unique temp files
-- CLI startup performance for non-index commands (parse, config, benchmark)
+- CLI startup performance for non-index H.P.002-COMMANDS (parse, H.P.009-CONFIG, benchmark)
 
 ### Changed
 - Parser audit reports now include timestamps
@@ -934,7 +934,7 @@ codanna init --force
 ### Added
 - C/C++ language support with tree-sitter parsing
 - Dynamic NodeTracker system for zero-maintenance parser auditing across all languages
-- TypeScript tsconfig.json path resolution infrastructure with persistence (.codanna/index/resolvers/)
+- TypeScript tsH.P.009-CONFIG.json path resolution infrastructure with persistence (.codanna/index/resolvers/)
 - Project-agnostic resolution foundation (ProjectResolutionProvider trait, not yet integrated)
 - Python parser extensions: assignment, decorated_definition, type_alias extraction
 - Parser API documentation for consistent resolution patterns across languages
@@ -990,10 +990,10 @@ codanna init --force
 - Performance benchmark: 74,545 symbols/sec (7.4x above 10k/s target)
 
 ### Fixed
-- Retrieve commands relationship data parity with MCP tools
+- Retrieve H.P.002-COMMANDS relationship data parity with MCP tools
 - All 6 retrieve functions now use proper SymbolContext with complete relationship data
 - retrieve_describe aggregates relationships from all symbols with same name
-- JSON output field population for all retrieve commands
+- JSON output field population for all retrieve H.P.002-COMMANDS
 
 ### Changed
 - Language registry: Go parser integrated with self-registration architecture
@@ -1040,11 +1040,11 @@ codanna init --force
 - `lang` parameter for `semantic_search_docs` and `semantic_search_with_context` MCP tools
 - Language mappings persistence in `.codanna/index/semantic/languages.json`
 - `similarity_score_analysis.sh` script demonstrating score consistency
-- File paths with line numbers in JSON output for all retrieve commands
+- File paths with line numbers in JSON output for all retrieve H.P.002-COMMANDS
 - Unified output schema with zero-cost abstractions (OutputManager)
-- Dual format support for all retrieve commands (positional and key:value)
+- Dual format support for all retrieve H.P.002-COMMANDS (positional and key:value)
 
-New slash commands:
+New slash H.P.002-COMMANDS:
 - /find: Smart semantic search with natural language query optimization
 - /deps: Dependency analysis with coupling metrics and refactoring insights
 
@@ -1055,7 +1055,7 @@ New slash commands:
 ### Changed
 - Semantic search filters embeddings by language before computing similarity
 - Search performance improved in mixed-language projects (up to 75% noise reduction)
-- All retrieve commands migrated to OutputManager infrastructure
+- All retrieve H.P.002-COMMANDS migrated to OutputManager infrastructure
 - Deprecated `impact` command in favor of `analyze_impact` MCP tool
 
 ## [0.5.1] - 2025-08-17
@@ -1105,7 +1105,7 @@ _Note: v0.5.0 was an internal milestone, not a public release. Changes were incl
 
 ### Added
 - Unix interface with positional arguments
-- JSON output support for all commands
+- JSON output support for all H.P.002-COMMANDS
 - MCP notifications support
 - Optimized CI/CD workflow for rapid development
 

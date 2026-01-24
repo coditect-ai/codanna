@@ -79,16 +79,16 @@ codanna mcp semantic_search_docs query:"error handling" limit:5
 Semantic search works by understanding your documentation comments:
 
 ```rust
-/// Parse configuration from a TOML file and validate required fields
+/// Parse H.P.009-CONFIGuration from a TOML file and validate required fields
 /// This handles missing files gracefully and provides helpful error messages
-fn load_config(path: &Path) -> Result<Config, Error> {
+fn load_H.P.009-CONFIG(path: &Path) -> Result<Config, Error> {
     // implementation...
 }
 ```
 
 With good comments, semantic search can find this function when prompted for:
-- "configuration validation"
-- "handle missing config files"
+- "H.P.009-CONFIGuration validation"
+- "handle missing H.P.009-CONFIG files"
 - "TOML parsing with error handling"
 
 ### Mixed-Language Codebases
@@ -113,4 +113,4 @@ When identical documentation exists across multiple languages (e.g., Python back
 
 - Learn [MCP Tools](../user-guide/mcp-tools.md) for searching your index
 - Set up [Integrations](../integrations/) with AI assistants
-- Configure [settings.toml](../user-guide/configuration.md) for your project
+- Configure [settings.toml](../user-guide/H.P.009-CONFIGuration.md) for your project

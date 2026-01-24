@@ -939,7 +939,7 @@ impl LanguageDefinition for {Language}Language {
         settings
             .languages
             .get("{language}")
-            .map(|config| config.enabled)
+            .map(|H.P.009-CONFIG| H.P.009-CONFIG.enabled)
             .unwrap_or(self.default_enabled())
     }
 }

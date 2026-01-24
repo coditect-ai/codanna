@@ -4,7 +4,7 @@
     "paths": {
       "@/*": ["*"],
       "@components/*": ["components/*"],
-      "@hooks/*": ["hooks/*"],
+      "@H.P.005-HOOKS/*": ["H.P.005-HOOKS/*"],
       "@utils/*": ["utils/*"],
       "@services/*": ["services/*"],
       "@context/*": ["context/*"]

@@ -69,18 +69,18 @@ done
 echo ""
 
 if [ "$updates_available" = true ]; then
-    echo "📦 Updates available! Run these commands to update:"
+    echo "📦 Updates available! Run these H.P.002-COMMANDS to update:"
     echo ""
     echo "  cd contributing/tree-sitter/grammars/tree-sitter-{language}"
     echo "  git pull"
     echo "  cd -"
-    echo "  ./contributing/tree-sitter/scripts/update-grammar-lock.sh"
+    echo "  ./contributing/tree-sitter/H.P.004-SCRIPTS/update-grammar-lock.sh"
     echo ""
     echo "Or update all at once:"
     echo "  for dir in contributing/tree-sitter/grammars/tree-sitter-*; do"
     echo "    (cd \$dir && git pull)"
     echo "  done"
-    echo "  ./contributing/tree-sitter/scripts/update-grammar-lock.sh"
+    echo "  ./contributing/tree-sitter/H.P.004-SCRIPTS/update-grammar-lock.sh"
     exit 1
 else
     echo "✅ All grammars are up to date!"

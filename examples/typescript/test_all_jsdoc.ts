@@ -26,7 +26,7 @@ export interface UserProfile {
 
 /**
  * Configuration type alias
- * Maps configuration keys to values
+ * Maps H.P.009-CONFIGuration keys to values
  */
 export type ConfigMap = Record<string, unknown>;
 

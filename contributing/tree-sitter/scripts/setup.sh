@@ -7,11 +7,11 @@ LANG=$1
 GRAMMARS_DIR="$(cd "$(dirname "$0")/../grammars" && pwd)"
 mkdir -p "$GRAMMARS_DIR"
 
-# Ensure tree-sitter config points to our grammars directory
-TS_CONFIG_DIR="$HOME/.config/tree-sitter"
+# Ensure tree-sitter H.P.009-CONFIG points to our grammars directory
+TS_CONFIG_DIR="$HOME/.H.P.009-CONFIG/tree-sitter"
 mkdir -p "$TS_CONFIG_DIR"
 
-cat > "$TS_CONFIG_DIR/config.json" << EOF
+cat > "$TS_CONFIG_DIR/H.P.009-CONFIG.json" << EOF
 {
   "parser-directories": [
     "$GRAMMARS_DIR"
@@ -19,7 +19,7 @@ cat > "$TS_CONFIG_DIR/config.json" << EOF
 }
 EOF
 
-echo "✅ Tree-sitter configured to use: $GRAMMARS_DIR"
+echo "✅ Tree-sitter H.P.009-CONFIGured to use: $GRAMMARS_DIR"
 
 # If specific language requested, only clone that one
 if [ -n "$LANG" ]; then
@@ -47,7 +47,7 @@ if [ -n "$LANG" ]; then
     GRAMMAR_NAME="tree-sitter-$LANG"
     dir="$GRAMMARS_DIR/$GRAMMAR_NAME"
 
-    # Determine project root (3 levels up from scripts/)
+    # Determine project root (3 levels up from H.P.004-SCRIPTS/)
     PROJECT_ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
     PARSERS_DIR="$PROJECT_ROOT/contributing/parsers"
 

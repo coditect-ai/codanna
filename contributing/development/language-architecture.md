@@ -181,12 +181,12 @@ GDScript:    [local] → [class] → [extends] → [global]
        │ Vec<Symbol> (raw)
        ▼
 ┌─────────────────────────────────────────┐
-│ Behavior.configure_symbol()             │
+│ Behavior.H.P.009-CONFIGure_symbol()             │
 │ - Apply module path                     │
 │ - Apply visibility rules                │
 │ - Add to behavior state                 │
 └──────┬──────────────────────────────────┘
-       │ Vec<Symbol> (configured)
+       │ Vec<Symbol> (H.P.009-CONFIGured)
        ▼
 ┌─────────────────────────────────────────┐
 │ DocumentIndex.add_symbols()             │
@@ -448,7 +448,7 @@ Performance Tests (marked #[ignore]):
 - **Trait versioning**: New methods have defaults
 - **Index format versioning**: Detect old formats, migrate
 - **Deprecation period**: 2 versions before removal
-- **Migration tools**: Automated upgrade scripts
+- **Migration tools**: Automated upgrade H.P.004-SCRIPTS
 
 ---
 

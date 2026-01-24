@@ -12,7 +12,7 @@ export default async function HomePage() {
           Welcome to NextApp
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          A Next.js example application demonstrating path aliases with jsconfig.json
+          A Next.js example application demonstrating path aliases with jsH.P.009-CONFIG.json
         </p>
       </section>
 

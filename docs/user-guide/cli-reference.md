@@ -1,11 +1,11 @@
 # CLI Reference
 
-Complete listing of all Codanna commands and options.
+Complete listing of all Codanna H.P.002-COMMANDS and options.
 
 ## Global Options
 
-Available for all commands:
-- `-c, --config <CONFIG>` - Path to custom settings.toml file
+Available for all H.P.002-COMMANDS:
+- `-c, --H.P.009-CONFIG <CONFIG>` - Path to custom settings.toml file
 - `--info` - Show detailed loading information
 - `-h, --help` - Print help
 - `-V, --version` - Print version
@@ -14,14 +14,14 @@ Available for all commands:
 
 | Command | Description |
 |---------|-------------|
-| `codanna init` | Set up .codanna directory with default configuration |
+| `codanna init` | Set up .codanna directory with default H.P.009-CONFIGuration |
 | `codanna index` | Build searchable index from codebase |
 | `codanna add-dir` | Add a folder to be indexed |
 | `codanna remove-dir` | Remove a folder from indexed paths |
 | `codanna list-dirs` | List all folders that are being indexed |
 | `codanna retrieve` | Query symbols, relationships, and dependencies |
 | `codanna serve` | Start MCP server |
-| `codanna config` | Display active settings |
+| `codanna H.P.009-CONFIG` | Display active settings |
 | `codanna mcp-test` | Test MCP connection |
 | `codanna mcp` | Execute MCP tools directly |
 | `codanna benchmark` | Benchmark parser performance |
@@ -33,20 +33,20 @@ Available for all commands:
 ## Command Details
 
 `codanna init`
-Set up .codanna directory with default configuration
+Set up .codanna directory with default H.P.009-CONFIGuration
 
 **Options:**
-- `-f, --force` - Force overwrite existing configuration
+- `-f, --force` - Force overwrite existing H.P.009-CONFIGuration
 
 `codanna index [PATHS...]`
 Build searchable index from codebase
 
 **Arguments:**
 - `[PATHS...]` - Paths to files or directories to index (multiple paths allowed)
-- If no paths provided, uses `indexed_paths` from configuration (must be configured via `add-dir`)
+- If no paths provided, uses `indexed_paths` from H.P.009-CONFIGuration (must be H.P.009-CONFIGured via `add-dir`)
 
 **Options:**
-- `-t, --threads <THREADS>` - Number of threads to use (overrides config)
+- `-t, --threads <THREADS>` - Number of threads to use (overrides H.P.009-CONFIG)
 - `-f, --force` - Force re-indexing even if index exists
 - `--dry-run` - Dry run - show what would be indexed without indexing
 - `--max-files <MAX_FILES>` - Maximum number of files to index
@@ -59,17 +59,17 @@ codanna index src
 # Index multiple directories at once
 codanna index src lib tests 
 
-# Use configured indexed paths
+# Use H.P.009-CONFIGured indexed paths
 codanna index 
 ```
 
 **Behavior:**
 - Accepts multiple paths for indexing in a single operation
-- When run without arguments, uses folders from `indexed_paths` configuration
+- When run without arguments, uses folders from `indexed_paths` H.P.009-CONFIGuration
 - Reuses cached results; prints `Index already up to date (no changes detected).` when nothing changed
-- Automatically cleans up symbols from removed folders when using configuration
+- Automatically cleans up symbols from removed folders when using H.P.009-CONFIGuration
 - CLI path additions are idempotent: prints `Skipping <path> (already covered by <parent>)` when a parent directory is already tracked
-- Forced runs (`--force`) rebuild all configured roots first, even if you target a nested subdirectory
+- Forced runs (`--force`) rebuild all H.P.009-CONFIGured roots first, even if you target a nested subdirectory
 - Single-file paths are indexed ad-hoc; the CLI prints `Skipping <file> (indexed file is tracked ad-hoc and not stored in settings)` to signal they are not added to `indexed_paths`
 - Backward compatible with single-path usage
 
@@ -94,7 +94,7 @@ codanna add-dir src
 Remove a folder from indexed paths in settings.toml
 
 **Arguments:**
-- `<PATH>` - Path to folder (must exist in configuration)
+- `<PATH>` - Path to folder (must exist in H.P.009-CONFIGuration)
 
 **Examples:**
 ```bash
@@ -107,7 +107,7 @@ codanna remove-dir tests
 - Next command automatically removes symbols, embeddings, and metadata
 
 `codanna list-dirs`
-List configured indexed directories from settings.toml
+List H.P.009-CONFIGured indexed directories from settings.toml
 
 **Example:**
 ```bash
@@ -117,7 +117,7 @@ codanna list-dirs
 ## Automatic Sync Mechanism
 
 Every command compares settings.toml (source of truth) with index metadata:
-- New paths in config → automatically indexed
+- New paths in H.P.009-CONFIG → automatically indexed
 - Removed paths → symbols, embeddings, and metadata cleaned
 
 **Example:**
@@ -136,7 +136,7 @@ Settings.toml can be edited manually - changes detected on next command.
 `codanna retrieve <SUBCOMMAND>`
 Query indexed symbols, relationships, and dependencies
 
-**Subcommands:**
+**SubH.P.002-COMMANDS:**
 | Subcommand | Description |
 |------------|-------------|
 | `retrieve symbol` | Find a symbol (accepts `<name>` or `symbol_id:ID`) |
@@ -146,7 +146,7 @@ Query indexed symbols, relationships, and dependencies
 | `retrieve search` | Search for symbols using full-text search (accepts `query:TEXT` with optional `kind:`, `limit:`, `module:`) |
 | `retrieve describe` | Show symbol signature, location, documentation, dependencies, and relationships (accepts `<name>` or `symbol_id:ID`) |
 
-**All retrieve subcommands support:**
+**All retrieve subH.P.002-COMMANDS support:**
 - `--json` - Output in JSON format
 - `lang:LANGUAGE` - Filter results by language (e.g., `lang:rust`, `lang:typescript`)
 
@@ -171,7 +171,7 @@ Start MCP server with optional HTTP/HTTPS modes
 - `--https` - Run as HTTPS server with TLS support
 - `--bind <BIND>` - Address to bind HTTP/HTTPS server to (default: 127.0.0.1:8080)
 
-`codanna config`
+`codanna H.P.009-CONFIG`
 Display active settings
 
 `codanna mcp-test`
@@ -226,14 +226,14 @@ Parse file and output AST as JSON Lines
 `codanna documents <SUBCOMMAND>`
 Index markdown and text documents for semantic search
 
-> **Full Documentation:** See [Document Search](documents.md) for detailed usage, chunking strategies, and configuration.
+> **Full Documentation:** See [Document Search](documents.md) for detailed usage, chunking strategies, and H.P.009-CONFIGuration.
 
-**Subcommands:**
+**SubH.P.002-COMMANDS:**
 | Subcommand | Description |
 |------------|-------------|
 | `documents add-collection` | Add a document collection to settings.toml |
 | `documents remove-collection` | Remove a document collection from settings.toml |
-| `documents index` | Index documents from configured collections |
+| `documents index` | Index documents from H.P.009-CONFIGured collections |
 | `documents search` | Search indexed documents using natural language |
 | `documents list` | List all document collections |
 | `documents stats` | Show statistics for a collection |
@@ -252,7 +252,7 @@ Remove a document collection from settings.toml
 - `<NAME>` - Collection name to remove
 
 `documents index`
-Index documents from all configured collections
+Index documents from all H.P.009-CONFIGured collections
 
 **Options:**
 - `--collection <NAME>` - Index only this collection
@@ -270,7 +270,7 @@ Search indexed documents using natural language
 - `--json` - Output in JSON format
 
 `documents list`
-List all configured document collections
+List all H.P.009-CONFIGured document collections
 
 `documents stats <NAME>`
 Show statistics for a collection
@@ -283,7 +283,7 @@ Manage Claude Code plugins by installing from Git-based marketplaces
 
 > **Full Documentation:** See [Plugin System Documentation](../plugins/) for detailed usage, creating plugins, and marketplace structure.
 
-**Subcommands:**
+**SubH.P.002-COMMANDS:**
 | Subcommand | Description |
 |------------|-------------|
 | `plugin add` | Install a plugin from a marketplace repository |
@@ -353,9 +353,9 @@ codanna plugin <subcommand> --help
 
 ## Profile System
 
-Profiles package reusable hooks, commands, and configuration. Providers (git repositories or local folders) distribute profiles and are registered globally while installations live per workspace.
+Profiles package reusable H.P.005-HOOKS, H.P.002-COMMANDS, and H.P.009-CONFIGuration. Providers (git repositories or local folders) distribute profiles and are registered globally while installations live per workspace.
 
-> **Full Guide:** See [Profile System Documentation](../profiles/README.md) for workflows, storage locations, and structure.
+> **Full Guide:** See [Profile System Documentation](../profiles/README.md) for H.P.006-WORKFLOWS, storage locations, and structure.
 
 | Command | Description |
 |---------|-------------|
@@ -376,14 +376,14 @@ Profiles are cached under `~/.codanna` while workspace installs are tracked in `
 
 - `0` - Success
 - `1` - General error
-- `3` - Not found (used by retrieve commands)
+- `3` - Not found (used by retrieve H.P.002-COMMANDS)
 
 ## Notes
 
-- All retrieve commands support `--json` flag for structured output
+- All retrieve H.P.002-COMMANDS support `--json` flag for structured output
 - MCP tools support both positional and key:value arguments
 - Plugin command manages codanna extensions
-- Profile command manages workspace configurations and provider registry
+- Profile command manages workspace H.P.009-CONFIGurations and provider registry
 - Use `--dry-run` with index, plugin add, and plugin remove to preview without making changes
 - Language filtering available in semantic search: `lang:rust`, `lang:typescript`, etc.
 - Profiles are stored globally (`~/.codanna/providers.json`) and installed per workspace (`.codanna/profiles.lock.json`)

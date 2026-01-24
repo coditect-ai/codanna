@@ -31,9 +31,9 @@ codanna index . --force
 ### Input: Documentation Comments
 
 ```rust
-/// Parse configuration from a TOML file and validate required fields
+/// Parse H.P.009-CONFIGuration from a TOML file and validate required fields
 /// This handles missing files gracefully and provides helpful error messages
-fn load_config(path: &Path) -> Result<Config, Error>
+fn load_H.P.009-CONFIG(path: &Path) -> Result<Config, Error>
 ```
 
 ### Process
@@ -52,7 +52,7 @@ fn load_config(path: &Path) -> Result<Config, Error>
 
 ## Semantic Understanding
 
-Embeddings capture conceptual meaning, not just keywords. Query "authentication logic" matches "verify credentials and create tokens" but not "configuration parser".
+Embeddings capture conceptual meaning, not just keywords. Query "authentication logic" matches "verify credentials and create tokens" but not "H.P.009-CONFIGuration parser".
 
 ## Similarity Computation
 
@@ -142,4 +142,4 @@ if symbol.doc_comment != old_symbol.doc_comment {
 - [How It Works](how-it-works.md) - System overview
 - [Memory Mapping](memory-mapping.md) - Vector storage details
 - [Search Guide](../user-guide/search-guide.md) - Writing effective queries
-- [Configuration](../user-guide/configuration.md) - Model selection
+- [Configuration](../user-guide/H.P.009-CONFIGuration.md) - Model selection

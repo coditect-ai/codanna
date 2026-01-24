@@ -16,7 +16,7 @@ Initialize Codanna in your project:
 codanna init
 ```
 
-This creates `.codanna/settings.toml` with default configuration.
+This creates `.codanna/settings.toml` with default H.P.009-CONFIGuration.
 
 ## Index Your Code
 
@@ -85,5 +85,5 @@ codanna mcp semantic_search_docs query:"where do we resolve symbol references  0
 ## Next Steps
 
 - Set up [integrations](../integrations/) with your AI assistant
-- Learn more [CLI commands](../user-guide/cli-reference.md)
-- Configure [settings](../user-guide/configuration.md) for your project
+- Learn more [CLI H.P.002-COMMANDS](../user-guide/cli-reference.md)
+- Configure [settings](../user-guide/H.P.009-CONFIGuration.md) for your project

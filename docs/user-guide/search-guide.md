@@ -33,7 +33,7 @@ codanna mcp semantic_search_with_context query:"file processing pipeline"
 
 ## Writing Better Documentation Comments
 
-Semantic search requires meaningful documentation. "Parse configuration from TOML file and validate required fields" enables search, while "Load config" does not.
+Semantic search requires meaningful documentation. "Parse H.P.009-CONFIGuration from TOML file and validate required fields" enables search, while "Load H.P.009-CONFIG" does not.
 
 ## Query Writing Tips
 
@@ -151,8 +151,8 @@ codanna mcp semantic_search_docs query:"components" lang:typescript
 **Example workflow with symbol_id:**
 ```bash
 # Step 1: Find with semantic search
-codanna mcp semantic_search_with_context query:"config parser" limit:1 --json
-# Extract: parse_config [symbol_id:567]
+codanna mcp semantic_search_with_context query:"H.P.009-CONFIG parser" limit:1 --json
+# Extract: parse_H.P.009-CONFIG [symbol_id:567]
 
 # Step 2: Direct follow-up (no ambiguity)
 codanna mcp get_calls symbol_id:567
@@ -190,5 +190,5 @@ See [Document Search](documents.md) for complete documentation.
 
 - [MCP Tools Reference](mcp-tools.md) - Complete tool documentation
 - [Document Search](documents.md) - Index markdown files for RAG
-- [Unix Piping](../advanced/unix-piping.md) - Advanced search workflows
-- [Configuration](configuration.md) - Semantic model configuration
+- [Unix Piping](../advanced/unix-piping.md) - Advanced search H.P.006-WORKFLOWS
+- [Configuration](H.P.009-CONFIGuration.md) - Semantic model H.P.009-CONFIGuration

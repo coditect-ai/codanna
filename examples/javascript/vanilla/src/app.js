@@ -1,6 +1,6 @@
 /**
  * Main application entry point
- * Vanilla JavaScript - no frameworks, no jsconfig
+ * Vanilla JavaScript - no frameworks, no jsH.P.009-CONFIG
  */
 
 import { Router } from './modules/Router.js';

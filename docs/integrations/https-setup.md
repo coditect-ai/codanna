@@ -192,7 +192,7 @@ The HTTPS server (`src/mcp/https_server.rs`) provides:
 Certificates stored in: `~/Library/Application Support/codanna/certs/`
 
 ### Linux
-Certificates stored in: `~/.config/codanna/certs/`
+Certificates stored in: `~/.H.P.009-CONFIG/codanna/certs/`
 
 ### Windows
 Certificates stored in: `%APPDATA%\codanna\certs\`
@@ -221,6 +221,6 @@ We're investigating ways to make certificate trust easier:
 
 ## Summary
 
-While self-signed certificates require an extra setup step with `NODE_EXTRA_CA_CERTS`, they provide a secure way to run HTTPS MCP servers locally or in controlled environments. The key is understanding that Node.js needs explicit trust configuration separate from your operating system's certificate store.
+While self-signed certificates require an extra setup step with `NODE_EXTRA_CA_CERTS`, they provide a secure way to run HTTPS MCP servers locally or in controlled environments. The key is understanding that Node.js needs explicit trust H.P.009-CONFIGuration separate from your operating system's certificate store.
 
 For the best developer experience, we recommend creating a shell alias or wrapper script that automatically sets the `NODE_EXTRA_CA_CERTS` environment variable when launching Claude Code.

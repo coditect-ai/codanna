@@ -5,7 +5,7 @@
       "@/*": ["*"],
       "@components/*": ["components/*"],
       "@utils/*": ["utils/*"],
-      "@hooks/*": ["hooks/*"]
+      "@H.P.005-HOOKS/*": ["H.P.005-HOOKS/*"]
     }
   }
 }

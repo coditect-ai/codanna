@@ -466,7 +466,7 @@ const Button: React.FC<ButtonProps> = ({ onClick, children }) => (
   <button onClick={onClick}>{children}</button>
 );
 
-// React-style component with hooks (arrow function in const)
+// React-style component with H.P.005-HOOKS (arrow function in const)
 /**
  * A themed component that manages theme state
  */
@@ -519,7 +519,7 @@ interface Consumer<in T> {
 }
 
 // satisfies operator (4.9+)
-const config = {
+const H.P.009-CONFIG = {
   host: 'localhost',
   port: 3000
 } satisfies Record<string, string | number>;

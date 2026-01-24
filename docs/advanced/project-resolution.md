@@ -15,42 +15,42 @@ Without context, `@services/user` is meaningless. It could be:
 - `lib/services/user/index.ts`
 - Something else entirely
 
-The mapping is defined in your project's configuration files (`tsconfig.json`, `jsconfig.json`, `pom.xml`, `Package.swift`). Codanna reads these files to understand how your project resolves imports.
+The mapping is defined in your project's H.P.009-CONFIGuration files (`tsH.P.009-CONFIG.json`, `jsH.P.009-CONFIG.json`, `pom.xml`, `Package.swift`). Codanna reads these files to understand how your project resolves imports.
 
 ## How It Works
 
 ### 1. Configuration Discovery
 
-When you run `codanna index`, Codanna looks for project configuration files you've specified in `.codanna/settings.toml`:
+When you run `codanna index`, Codanna looks for project H.P.009-CONFIGuration files you've specified in `.codanna/settings.toml`:
 
 ```toml
 [languages.typescript]
-config_files = [
-    "tsconfig.json",
-    "packages/web/tsconfig.json"
+H.P.009-CONFIG_files = [
+    "tsH.P.009-CONFIG.json",
+    "packages/web/tsH.P.009-CONFIG.json"
 ]
 
 [languages.javascript]
-config_files = [
-    "jsconfig.json"
+H.P.009-CONFIG_files = [
+    "jsH.P.009-CONFIG.json"
 ]
 
 [languages.java]
-config_files = [
+H.P.009-CONFIG_files = [
     "pom.xml"
 ]
 
 [languages.swift]
-config_files = [
+H.P.009-CONFIG_files = [
     "Package.swift"
 ]
 ```
 
 ### 2. Rule Extraction
 
-Codanna parses each config file and extracts resolution rules.
+Codanna parses each H.P.009-CONFIG file and extracts resolution rules.
 
-**TypeScript/JavaScript** (`tsconfig.json` / `jsconfig.json`):
+**TypeScript/JavaScript** (`tsH.P.009-CONFIG.json` / `jsH.P.009-CONFIG.json`):
 ```json
 {
   "compilerOptions": {
@@ -93,7 +93,7 @@ Extracted rules are saved to `.codanna/index/resolvers/`:
 └── swift_resolution.json
 ```
 
-This means Codanna doesn't re-parse config files on every query - it uses the cached rules.
+This means Codanna doesn't re-parse H.P.009-CONFIG files on every query - it uses the cached rules.
 
 ### 4. Import Resolution
 
@@ -102,7 +102,7 @@ When Codanna indexes a file like:
 ```typescript
 // src/pages/Home.tsx
 import { Button } from '@components/Button';
-import { useAuth } from '@hooks/auth';
+import { useAuth } from '@H.P.005-HOOKS/auth';
 ```
 
 It resolves each import:
@@ -117,7 +117,7 @@ This creates the call graph that powers queries like "who uses Button?"
 
 ### TypeScript / JavaScript
 
-Both languages use the same resolution system based on `tsconfig.json` / `jsconfig.json`.
+Both languages use the same resolution system based on `tsH.P.009-CONFIG.json` / `jsH.P.009-CONFIG.json`.
 
 **Path alias patterns:**
 - `@app/*` → wildcard, matches anything after `@app/`
@@ -140,7 +140,7 @@ For `@components/Button`, the first pattern wins.
 **Relative imports:**
 ```typescript
 import { helper } from './utils';      // Same directory
-import { config } from '../config';    // Parent directory
+import { H.P.009-CONFIG } from '../H.P.009-CONFIG';    // Parent directory
 ```
 
 Codanna resolves these relative to the importing file's location.
@@ -158,7 +158,7 @@ com.example.service.UserService
 **Multi-module projects:**
 ```toml
 [languages.java]
-config_files = [
+H.P.009-CONFIG_files = [
     "pom.xml",
     "core/pom.xml",
     "api/pom.xml"
@@ -174,7 +174,7 @@ Swift resolution uses Swift Package Manager (SPM) conventions from `Package.swif
 **Configuration:**
 ```toml
 [languages.swift]
-config_files = [
+H.P.009-CONFIG_files = [
     "Package.swift"
 ]
 ```
@@ -215,30 +215,30 @@ Codanna detects custom paths and adjusts resolution accordingly.
 
 ## Monorepo Support
 
-For monorepos with multiple `tsconfig.json` files:
+For monorepos with multiple `tsH.P.009-CONFIG.json` files:
 
 ```
 my-monorepo/
-├── tsconfig.json              # Root config
+├── tsH.P.009-CONFIG.json              # Root H.P.009-CONFIG
 ├── packages/
 │   ├── web/
-│   │   └── tsconfig.json      # Web-specific paths
+│   │   └── tsH.P.009-CONFIG.json      # Web-specific paths
 │   └── api/
-│       └── tsconfig.json      # API-specific paths
+│       └── tsH.P.009-CONFIG.json      # API-specific paths
 ```
 
 Configure all of them:
 
 ```toml
 [languages.typescript]
-config_files = [
-    "tsconfig.json",
-    "packages/web/tsconfig.json",
-    "packages/api/tsconfig.json"
+H.P.009-CONFIG_files = [
+    "tsH.P.009-CONFIG.json",
+    "packages/web/tsH.P.009-CONFIG.json",
+    "packages/api/tsH.P.009-CONFIG.json"
 ]
 ```
 
-Codanna merges rules from all configs, with more specific paths taking precedence.
+Codanna merges rules from all H.P.009-CONFIGs, with more specific paths taking precedence.
 
 ## Troubleshooting
 
@@ -246,9 +246,9 @@ Codanna merges rules from all configs, with more specific paths taking precedenc
 
 If Codanna can't resolve an import, check:
 
-1. **Is the config file listed?**
+1. **Is the H.P.009-CONFIG file listed?**
    ```bash
-   cat .codanna/settings.toml | grep config_files
+   cat .codanna/settings.toml | grep H.P.009-CONFIG_files
    ```
 
 2. **Does the path pattern match?**
@@ -270,7 +270,7 @@ cat .codanna/index/resolvers/typescript_resolution.json
 
 ### Automatic re-indexing
 
-Codanna tracks SHA-256 hashes of your config files. When you change `tsconfig.json` or `jsconfig.json`, the next `codanna index` automatically detects the change and rebuilds the resolution rules.
+Codanna tracks SHA-256 hashes of your H.P.009-CONFIG files. When you change `tsH.P.009-CONFIG.json` or `jsH.P.009-CONFIG.json`, the next `codanna index` automatically detects the change and rebuilds the resolution rules.
 
 You don't need `--force` - just run:
 
@@ -289,7 +289,7 @@ Good resolution improves query results:
 LoginForm (Function) at src/pages/Login.tsx
   Uses:
     - Button (Component) at src/components/Button.tsx
-    - useAuth (Function) at src/hooks/auth.ts
+    - useAuth (Function) at src/H.P.005-HOOKS/auth.ts
 ```
 
 **Without resolution:**
@@ -299,12 +299,12 @@ LoginForm (Function) at src/pages/Login.tsx
 LoginForm (Function) at src/pages/Login.tsx
   Uses:
     - (unresolved: @components/Button)
-    - (unresolved: @hooks/auth)
+    - (unresolved: @H.P.005-HOOKS/auth)
 ```
 
 The relationships are what make Codanna useful for understanding code dependencies.
 
 ## See Also
 
-- [Configuration Guide](../user-guide/configuration.md) - Full settings reference
+- [Configuration Guide](../user-guide/H.P.009-CONFIGuration.md) - Full settings reference
 - [First Index](../getting-started/first-index.md) - Getting started with indexing

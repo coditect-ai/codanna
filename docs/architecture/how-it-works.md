@@ -14,7 +14,7 @@ Codanna's architecture for fast, accurate code intelligence.
 
 - **tree-sitter**: Multi-language parsing
 - **tantivy**: Full-text search with integrated vector capabilities
-- **fastembed**: Embedding generation with configurable model instances
+- **fastembed**: Embedding generation with H.P.009-CONFIGurable model instances
 - **linfa**: K-means clustering for IVFFlat vector indexing
 - **memmap2**: Memory-mapped storage for vector data
 - **DashMap**: Lock-free concurrent data structures

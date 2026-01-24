@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Test script for dual format support on all retrieve commands
+# Test script for dual format support on all retrieve H.P.002-COMMANDS
 # Tests both traditional (flag) and key:value formats
 
 echo "=== DUAL FORMAT COMPREHENSIVE TEST SUITE ==="
-echo "Testing all retrieve commands with both formats"
+echo "Testing all retrieve H.P.002-COMMANDS with both formats"
 echo ""
 
 BINARY="./target/release/codanna"
@@ -87,7 +87,7 @@ fi
 echo ""
 
 echo "=== ERROR HANDLING TEST ==="
-echo "Testing commands without required arguments:"
+echo "Testing H.P.002-COMMANDS without required arguments:"
 
 # Test missing arguments (should exit with code 1)
 echo -n "Symbol without args: "

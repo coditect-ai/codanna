@@ -183,7 +183,7 @@ else
         echo "❌ Tree-sitter failed to parse $EXAMPLE_FILE"
         echo ""
         echo "Possible causes:"
-        echo "1. Grammar not installed - run: ./contributing/tree-sitter/scripts/setup.sh $LANG"
+        echo "1. Grammar not installed - run: ./contributing/tree-sitter/H.P.004-SCRIPTS/setup.sh $LANG"
         echo "2. File has syntax errors"
         echo "3. Tree-sitter CLI not installed - run: cargo install tree-sitter-cli --locked"
         exit 1

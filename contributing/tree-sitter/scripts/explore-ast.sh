@@ -21,7 +21,7 @@ if [ -z "$FILE" ]; then
     echo "  --max-depth N  Limit traversal depth"
     echo ""
     echo "Note: For detailed comparison, use:"
-    echo "  ./contributing/tree-sitter/scripts/compare-nodes.sh<file>"
+    echo "  ./contributing/tree-sitter/H.P.004-SCRIPTS/compare-nodes.sh<file>"
     exit 1
 fi
 

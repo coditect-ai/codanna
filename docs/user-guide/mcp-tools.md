@@ -89,7 +89,7 @@ Natural language search with enhanced context including relationships.
 **Example:**
 ```bash
 codanna mcp semantic_search_with_context query:"parse files" threshold:0.7
-codanna mcp semantic_search_with_context query:"parse config" lang:typescript limit:3
+codanna mcp semantic_search_with_context query:"parse H.P.009-CONFIG" lang:typescript limit:3
 ```
 
 **Returns:** Symbols with:
@@ -227,14 +227,14 @@ See [symbol_id](../reference/concepts.md#symbol_id) for workflow patterns.
 
 Start with `semantic_search_with_context` or `analyze_impact` for complete context. Use `get_calls`/`find_callers` for specific invocations. Chain queries using `symbol_id` from results.
 
-See [Agent Workflows](../reference/concepts.md#agent-workflows) for detailed tool priority and patterns.
+See [Agent Workflows](../reference/concepts.md#agent-H.P.006-WORKFLOWS) for detailed tool priority and patterns.
 
 ## System Messages
 
-Each tool response includes hidden guidance messages for AI assistants. See [Agent Guidance](../integrations/agent-guidance.md) for configuration.
+Each tool response includes hidden guidance messages for AI assistants. See [Agent Guidance](../integrations/agent-guidance.md) for H.P.009-CONFIGuration.
 
 ## See Also
 
 - [CLI Reference](cli-reference.md#codanna-mcp-tool-positional) - Command-line usage
-- [Unix Piping](../advanced/unix-piping.md) - Advanced piping workflows
+- [Unix Piping](../advanced/unix-piping.md) - Advanced piping H.P.006-WORKFLOWS
 - [Agent Guidance](../integrations/agent-guidance.md) - Configuring system messages

@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsH.P.009-CONFIG.json",
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {

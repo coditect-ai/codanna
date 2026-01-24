@@ -20,7 +20,7 @@ Start with semantic search, then narrow with specific queries.
 
 ## Claude Sub Agent
 
-We include a **codanna-navigator** sub agent (`.claude/agents/codanna-navigator.md`) that knows how to use codanna effectively.
+We include a **codanna-navigator** sub agent (`.claude/H.P.001-AGENTS/codanna-navigator.md`) that knows how to use codanna effectively.
 
 ## Agent Steering
 
@@ -54,17 +54,17 @@ Config is plain TOML `.codanna/settings.toml`:
 [guidance]
 enabled = true
 
-[guidance.templates.find_callers]
+[guidance.H.P.008-TEMPLATES.find_callers]
 no_results = "No callers found. Might be an entry point or dynamic dispatch."
 single_result = "Found 1 caller. Use 'find_symbol' to inspect usage."
 multiple_results = "Found {result_count} callers. Try 'analyze_impact' for the full graph."
 
-[guidance.templates.analyze_impact]
+[guidance.H.P.008-TEMPLATES.analyze_impact]
 no_results = "No impact detected. Likely isolated."
 single_result = "Minimal impact radius."
 multiple_results = "Impact touches {result_count} symbols. Focus critical paths."
 
-[[guidance.templates.analyze_impact.custom]]
+[[guidance.H.P.008-TEMPLATES.analyze_impact.custom]]
 min = 20
 template = "Significant impact with {result_count} symbols. Break the change into smaller parts."
 ```
@@ -77,18 +77,18 @@ template = "Significant impact with {result_count} symbols. Break the change int
 
 ## Claude Slash Commands
 
-Codanna includes custom slash commands for Claude that provide intelligent workflows for code exploration:
+Codanna includes custom slash H.P.002-COMMANDS for Claude that provide intelligent H.P.006-WORKFLOWS for code exploration:
 
 | Command | Description | Example Report |
 |---------|-------------|----------------|
 | `/find <query>` | Smart semantic search with natural language - finds symbols, patterns, and implementations using optimized queries | [Language Registry Investigation](../../reports/find/find-language-registry-scaffold.md) |
 | `/deps <symbol>` | Analyze dependencies of a symbol - shows what it depends on, what depends on it, coupling metrics, and refactoring opportunities | [find_symbol Dependencies](../../reports/deps/find_symbol-method-dependencies.md) |
 
-These commands use Codanna's MCP tools under the hood but provide guided workflows with comprehensive analysis and automatic report generation.
+These H.P.002-COMMANDS use Codanna's MCP tools under the hood but provide guided H.P.006-WORKFLOWS with comprehensive analysis and automatic report generation.
 
 ## Extracting System Messages
 
-System messages guide agents but are hidden from users. Use piping to reveal them:
+System messages guide H.P.001-AGENTS but are hidden from users. Use piping to reveal them:
 
 ```bash
 # Extract system guidance from tool responses
@@ -100,4 +100,4 @@ codanna mcp find_callers walk_and_stream --json | jq -r '.system_message'
 
 - [MCP Tools](../user-guide/mcp-tools.md)
 - [Claude Code Integration](claude-code.md)
-- [Configuration](../user-guide/configuration.md)
+- [Configuration](../user-guide/H.P.009-CONFIGuration.md)

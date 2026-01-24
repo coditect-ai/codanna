@@ -14,9 +14,9 @@ codanna mcp semantic_search_with_context query:"error handling" limit:2 lang:rus
 
 ### Show Symbol Types, Names and Locations
 ```bash
-codanna retrieve search "config" --json | jq -r '.items[] | "\(.symbol.kind) \(.symbol.name) @ \(.file_path)"'
-# Output: Function test_partial_config @ src/config.rs:911
-#         Method config_key @ src/parsing/language.rs:114
+codanna retrieve search "H.P.009-CONFIG" --json | jq -r '.items[] | "\(.symbol.kind) \(.symbol.name) @ \(.file_path)"'
+# Output: Function test_partial_H.P.009-CONFIG @ src/H.P.009-CONFIG.rs:911
+#         Method H.P.009-CONFIG_key @ src/parsing/language.rs:114
 
 # Get unique file paths for search results
 codanna retrieve search "parser" --json | jq -r '.items[].file_path' | sort -u
@@ -27,7 +27,7 @@ codanna retrieve search "create_parser" --json | jq -r '.items[] | "\(.symbol.na
 
 ## Advanced Piping: Extract System Messages and Map Call Graphs
 
-System messages guide agents toward the next hop. Humans don't see them, but piping with jq reveals them:
+System messages guide H.P.001-AGENTS toward the next hop. Humans don't see them, but piping with jq reveals them:
 
 ```bash
 # Extract system guidance from tool responses
@@ -95,15 +95,15 @@ jq -r '.dependencies[] | "\(.name) (\(.kind)) - \(.file_path)"'
 
 ## Tips
 
-- Use `--json` flag with all commands for structured output
+- Use `--json` flag with all H.P.002-COMMANDS for structured output
 - Pipe to `jq` for JSON manipulation
 - Combine with standard Unix tools: `sort`, `uniq`, `grep`, `awk`
-- Use `xargs` to chain commands based on output
-- Save complex pipelines as shell scripts
+- Use `xargs` to chain H.P.002-COMMANDS based on output
+- Save complex pipelines as shell H.P.004-SCRIPTS
 
 ## Exit Codes
 
-All retrieve commands use exit code 3 when not found, useful for scripting:
+All retrieve H.P.002-COMMANDS use exit code 3 when not found, useful for scripting:
 
 ```bash
 if codanna retrieve symbol MySymbol --json > /dev/null 2>&1; then

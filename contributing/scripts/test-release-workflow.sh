@@ -17,8 +17,8 @@ fi
 echo "✓ Version: $version"
 echo ""
 
-# Test 2: Build commands
-echo "2. Testing build commands..."
+# Test 2: Build H.P.002-COMMANDS
+echo "2. Testing build H.P.002-COMMANDS..."
 target=$(rustc -vV | grep host | cut -d' ' -f2)
 
 echo "   Building full variant (--all-features)..."

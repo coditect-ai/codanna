@@ -16,13 +16,13 @@ cargo install tree-sitter-cli --locked
 
 # 2. Install a grammar (one-time per language)
 cd contributing/tree-sitter
-./scripts/setup.sh typescript
+./H.P.004-SCRIPTS/setup.sh typescript
 
 # 3. Parse a file to see AST
 tree-sitter parse examples/typescript/comprehensive.ts
 
 # 4. Compare with our parser
-.codanna/scripts/compare-nodes.sh typescript
+.codanna/H.P.004-SCRIPTS/compare-nodes.sh typescript
 ```
 
 ## Directory Structure
@@ -34,7 +34,7 @@ contributing/tree-sitter/
 │   ├── tree-sitter-typescript/
 │   ├── tree-sitter-python/
 │   └── ...
-└── scripts/
+└── H.P.004-SCRIPTS/
     ├── setup.sh         # Install grammars on-demand
     └── explore-ast.sh   # Helper to parse files
     └── compare-nodes.sh    # Compare tree-sitter with our parser
@@ -42,9 +42,9 @@ contributing/tree-sitter/
 
 ## How It Works
 
-1. **Tree-sitter Configuration**: The setup script configures `~/.config/tree-sitter/config.json` to point to our grammars directory
+1. **Tree-sitter Configuration**: The setup script H.P.009-CONFIGures `~/.H.P.009-CONFIG/tree-sitter/H.P.009-CONFIG.json` to point to our grammars directory
 2. **Grammar Naming**: Grammars must be named `tree-sitter-{language}` for tree-sitter to find them
-3. **On-Demand Installation**: Install only the languages you need with `./scripts/setup.sh <language>`
+3. **On-Demand Installation**: Install only the languages you need with `./H.P.004-SCRIPTS/setup.sh <language>`
 4. **Automatic Language Detection**: Tree-sitter determines which grammar to use based on file extension
 
 ## Scripts
@@ -55,12 +55,12 @@ Configures tree-sitter and installs grammars on-demand:
 
 ```bash
 # Show installed grammars
-./scripts/setup.sh
+./H.P.004-SCRIPTS/setup.sh
 
 # Install specific language
-./scripts/setup.sh typescript
-./scripts/setup.sh python
-./scripts/setup.sh rust
+./H.P.004-SCRIPTS/setup.sh typescript
+./H.P.004-SCRIPTS/setup.sh python
+./H.P.004-SCRIPTS/setup.sh rust
 ```
 
 Supported languages: typescript, python, rust, go, php, c, cpp
@@ -70,7 +70,7 @@ Supported languages: typescript, python, rust, go, php, c, cpp
 Simple wrapper for parsing files:
 
 ```bash
-./scripts/explore-ast.sh examples/typescript/comprehensive.ts
+./H.P.004-SCRIPTS/explore-ast.sh examples/typescript/comprehensive.ts
 ```
 
 ### compare-nodes.sh
@@ -79,7 +79,7 @@ Compares tree-sitter AST nodes with our parser implementation:
 
 ```bash
 # From project root
-./scripts/compare-nodes.sh typescript
+./H.P.004-SCRIPTS/compare-nodes.sh typescript
 ```
 
 This script:
@@ -103,7 +103,7 @@ tree-sitter parse examples/python/main.py | grep "class_definition"
 
 ```bash
 # Compare node recognition
-./scripts/compare-nodes.sh typescript
+./H.P.004-SCRIPTS/compare-nodes.sh typescript
 
 # Output shows:
 # - Nodes tree-sitter finds that we don't handle
@@ -114,7 +114,7 @@ tree-sitter parse examples/python/main.py | grep "class_definition"
 
 ```bash
 # Install a new grammar
-./contributing/tree-sitter/scripts/setup.sh go
+./contributing/tree-sitter/H.P.004-SCRIPTS/setup.sh go
 
 # Test parsing
 tree-sitter parse examples/go/main.go
@@ -132,14 +132,14 @@ tree-sitter parse examples/go/main.go
 
 - Grammars are cloned with `--depth 1` for speed
 - The grammars directory is gitignored (contains large files)
-- Each developer's tree-sitter config points to their local grammar directory
-- No environment variables or .env files needed - uses tree-sitter's native configuration
+- Each developer's tree-sitter H.P.009-CONFIG points to their local grammar directory
+- No environment variables or .env files needed - uses tree-sitter's native H.P.009-CONFIGuration
 - Running compare-nodes.sh regenerates the audit reports as a side effect
 
 ## Integration with Development Workflow
 
 1. When implementing a new language parser:
-   - Install the grammar: `./scripts/setup.sh <language>`
+   - Install the grammar: `./H.P.004-SCRIPTS/setup.sh <language>`
    - Parse examples to understand AST structure
    - Use compare-nodes.sh to verify coverage
 

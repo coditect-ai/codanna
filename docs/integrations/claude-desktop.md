@@ -4,16 +4,16 @@ Configure Codanna with Claude Desktop application.
 
 ## Configuration
 
-For Claude Desktop, you need the `--config` flag since it runs from a different location.
+For Claude Desktop, you need the `--H.P.009-CONFIG` flag since it runs from a different location.
 
-Configure in `~/Library/Application Support/Claude/claude_desktop_config.json` (Mac):
+Configure in `~/Library/Application Support/Claude/claude_desktop_H.P.009-CONFIG.json` (Mac):
 
 ```json
 {
   "mcpServers": {
     "codanna": {
       "command": "codanna",
-      "args": ["--config", "/absolute/path/to/your/project/.codanna/settings.toml", "serve", "--watch"]
+      "args": ["--H.P.009-CONFIG", "/absolute/path/to/your/project/.codanna/settings.toml", "serve", "--watch"]
     }
   }
 }
@@ -21,7 +21,7 @@ Configure in `~/Library/Application Support/Claude/claude_desktop_config.json` (
 
 Replace `/absolute/path/to/your/project/` with your actual project path.
 
-## Why --config Flag?
+## Why --H.P.009-CONFIG Flag?
 
 Claude Desktop runs from a different working directory than your project, so it needs the absolute path to your project's settings file.
 
@@ -33,7 +33,7 @@ Claude Desktop runs from a different working directory than your project, so it 
 
 ## Verification
 
-After configuration:
+After H.P.009-CONFIGuration:
 1. Restart Claude Desktop
 2. In your project directory, run:
    ```bash
@@ -43,8 +43,8 @@ After configuration:
 ## Multiple Projects
 
 To work with multiple projects, you can:
-1. Use different config files for each project
-2. Update the path in claude_desktop_config.json when switching projects
+1. Use different H.P.009-CONFIG files for each project
+2. Update the path in claude_desktop_H.P.009-CONFIG.json when switching projects
 
 ## Troubleshooting
 
@@ -55,5 +55,5 @@ To work with multiple projects, you can:
 ## See Also
 
 - [MCP Tools Reference](../user-guide/mcp-tools.md)
-- [Configuration](../user-guide/configuration.md)
+- [Configuration](../user-guide/H.P.009-CONFIGuration.md)
 - [Claude Code Integration](claude-code.md)

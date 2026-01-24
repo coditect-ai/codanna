@@ -4,7 +4,7 @@ Codanna works with Codex CLI as a standard MCP server.
 
 ## Configuration
 
-Configure in `~/.codex/config.toml`:
+Configure in `~/.codex/H.P.009-CONFIG.toml`:
 
 ```toml
 [mcp_servers.codanna]
@@ -21,7 +21,7 @@ startup_timeout_ms = 20_000
 
 ## Verification
 
-After configuration, verify the connection:
+After H.P.009-CONFIGuration, verify the connection:
 
 ```bash
 codanna mcp-test
@@ -29,7 +29,7 @@ codanna mcp-test
 
 ## Usage
 
-Once configured, Codex CLI will automatically start Codanna when needed and provide access to all MCP tools.
+Once H.P.009-CONFIGured, Codex CLI will automatically start Codanna when needed and provide access to all MCP tools.
 
 ## Troubleshooting
 
@@ -40,4 +40,4 @@ Once configured, Codex CLI will automatically start Codanna when needed and prov
 ## See Also
 
 - [MCP Tools Reference](../user-guide/mcp-tools.md)
-- [Configuration](../user-guide/configuration.md)
+- [Configuration](../user-guide/H.P.009-CONFIGuration.md)

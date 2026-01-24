@@ -1,10 +1,10 @@
 # Slash Commands
 
-Codanna provides custom slash commands for Claude through the plugin system.
+Codanna provides custom slash H.P.002-COMMANDS for Claude through the plugin system.
 
 ## Available via Plugin
 
-Slash commands are now distributed as plugins. Install the core plugin to get access to intelligent code exploration workflows:
+Slash H.P.002-COMMANDS are now distributed as plugins. Install the core plugin to get access to intelligent code exploration H.P.006-WORKFLOWS:
 
 ```bash
 codanna plugin add https://github.com/bartolli/codanna-plugins.git codanna
@@ -19,7 +19,7 @@ codanna plugin add https://github.com/bartolli/codanna-plugins.git codanna
 
 ## How They Work
 
-These commands use Codanna's MCP tools under the hood but provide guided workflows with comprehensive analysis and automatic report generation.
+These H.P.002-COMMANDS use Codanna's MCP tools under the hood but provide guided H.P.006-WORKFLOWS with comprehensive analysis and automatic report generation.
 
 ### `/symbol` Command
 
@@ -39,10 +39,10 @@ Deep semantic search with full context:
 
 ## Creating Custom Commands
 
-You can create your own slash commands as plugins. See [Plugin Documentation](../plugins/) for details on creating and distributing custom commands.
+You can create your own slash H.P.002-COMMANDS as plugins. See [Plugin Documentation](../plugins/) for details on creating and distributing custom H.P.002-COMMANDS.
 
 ## See Also
 
 - [Plugin System](../plugins/) - Installing and creating plugins
-- [MCP Tools](../user-guide/mcp-tools.md) - Underlying tools used by commands
-- [Agent Guidance](../integrations/agent-guidance.md) - How commands guide AI assistants
+- [MCP Tools](../user-guide/mcp-tools.md) - Underlying tools used by H.P.002-COMMANDS
+- [Agent Guidance](../integrations/agent-guidance.md) - How H.P.002-COMMANDS guide AI assistants

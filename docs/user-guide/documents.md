@@ -117,8 +117,8 @@ codanna documents index --collection docs
 ### Sync Behavior
 
 The index command syncs with `settings.toml`:
-- Collections in config but not indexed: indexed
-- Collections indexed but not in config: removed
+- Collections in H.P.009-CONFIG but not indexed: indexed
+- Collections indexed but not in H.P.009-CONFIG: removed
 - Files deleted from disk: chunks removed
 - Files modified: re-indexed
 
@@ -161,7 +161,7 @@ codanna documents search "error handling" --collection docs
 ### Limit Results
 
 ```bash
-codanna documents search "configuration" --limit 5
+codanna documents search "H.P.009-CONFIGuration" --limit 5
 ```
 
 ### JSON Output
@@ -212,7 +212,7 @@ highlight = false
 |---------|-------------|
 | `documents add-collection <name> <path>` | Add collection to settings.toml |
 | `documents remove-collection <name>` | Remove collection from settings.toml |
-| `documents index` | Index all configured collections |
+| `documents index` | Index all H.P.009-CONFIGured collections |
 | `documents index --collection <name>` | Index specific collection |
 | `documents index --progress` | Show progress during indexing |
 | `documents search <query>` | Search indexed documents |

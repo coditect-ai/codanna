@@ -1886,7 +1886,7 @@ translation_unit [219] = '/**'
             :: [49] = '::'
             name: identifier [1] = 'endl'
         ; [42] = ';'
-      comment [177] = '// Container filtering with templates'
+      comment [177] = '// Container filtering with H.P.008-TEMPLATES'
       declaration [255]
         type: qualified_identifier [485] = 'std::vector<int>'
           scope: namespace_identifier [539] = 'std'

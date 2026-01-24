@@ -75,7 +75,7 @@ For detailed HTTPS setup with self-signed certificates, see the [HTTPS Setup Gui
 - Multiple clients can connect to the same server
 - Server persists between client sessions
 - Centralized index management
-- Network-accessible (with proper configuration)
+- Network-accessible (with proper H.P.009-CONFIGuration)
 
 ## Security Considerations
 

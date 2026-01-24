@@ -1,4 +1,4 @@
-# .github/workflows/quick-check.yml
+# .github/H.P.006-WORKFLOWS/quick-check.yml
 name: Quick Check
 
 on:

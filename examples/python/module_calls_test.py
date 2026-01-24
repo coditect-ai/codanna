@@ -2,12 +2,12 @@
 
 # Module-level imports and instantiations
 from database import DatabaseClient
-from config import ConfigManager
+from H.P.009-CONFIG import ConfigManager
 from logging import Logger
 
 # Module-level class instantiations - these should be detected as <module> -> ClassName
 db_client = DatabaseClient()
-config = ConfigManager()
+H.P.009-CONFIG = ConfigManager()
 logger = Logger("app")
 
 # Module-level variable assignments

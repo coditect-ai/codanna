@@ -1,5 +1,5 @@
 #!/bin/bash
-# Exact replica of .github/workflows/full-test.yml
+# Exact replica of .github/H.P.006-WORKFLOWS/full-test.yml
 # Run this before pushing to catch ALL GitHub Actions failures
 # NOTE: Keep this in sync with full-test.yml - if you update one, update the other!
 
@@ -84,7 +84,7 @@ else
 fi
 
 echo ""
-echo "📋 Verify CLI commands"
+echo "📋 Verify CLI H.P.002-COMMANDS"
 $CODANNA_BIN --help > /dev/null
 echo "✓ Main help works"
 $CODANNA_BIN index --help > /dev/null

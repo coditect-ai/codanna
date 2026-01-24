@@ -5,10 +5,10 @@
       "@/*": ["src/*"],
       "@/components/*": ["src/components/*"],
       "@/lib/*": ["src/lib/*"],
-      "@/hooks/*": ["src/hooks/*"],
+      "@/H.P.005-HOOKS/*": ["src/H.P.005-HOOKS/*"],
       "@/app/*": ["src/app/*"]
     }
   },
-  "include": ["src/**/*", "next.config.js"],
+  "include": ["src/**/*", "next.H.P.009-CONFIG.js"],
   "exclude": ["node_modules", ".next"]
 }

@@ -71,7 +71,7 @@ codanna mcp semantic_search_docs query:"auth" lang:rust
 **Adjust result limits:**
 ```bash
 # Fewer results = faster
-codanna mcp semantic_search_docs query:"config" limit:3
+codanna mcp semantic_search_docs query:"H.P.009-CONFIG" limit:3
 ```
 
 ### Server Mode
@@ -84,7 +84,7 @@ watch_interval = 5  # Seconds between index checks
 
 Lower intervals mean more frequent checks but higher CPU usage.
 
-**Cache configuration:**
+**Cache H.P.009-CONFIGuration:**
 ```toml
 [performance]
 cache_size_mb = 100
@@ -154,12 +154,12 @@ codanna benchmark rust --file src/large_file.rs
 
 ### High Memory Usage
 
-1. Reduce cache sizes in configuration
+1. Reduce cache sizes in H.P.009-CONFIGuration
 2. Index fewer files
 3. Check for memory leaks (report if found)
 
 ## See Also
 
 - [Architecture](../architecture/) - System internals
-- [Configuration](../user-guide/configuration.md) - Performance tuning options
+- [Configuration](../user-guide/H.P.009-CONFIGuration.md) - Performance tuning options
 - [CLI Reference](../user-guide/cli-reference.md) - Benchmark command

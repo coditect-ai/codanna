@@ -18,7 +18,7 @@ import DefaultExport, { namedExport } from './mixed';
 
 // Type-only imports (TypeScript 3.8+)
 import type { Props, State } from './types';
-import { type Config, createConfig } from './config';
+import { type Config, createConfig } from './H.P.009-CONFIG';
 
 // Side-effect imports
 import './styles.css';
@@ -51,12 +51,12 @@ const lazy = () => import('./lazy');
 // Using the imports to avoid unused warnings
 export function App(): React.FC<Props> {
     const [state, setState] = useState<State>();
-    const config = createConfig();
+    const H.P.009-CONFIG = createConfig();
     const helper = new H();
     lodash.debounce(() => {}, 100);
     
     return React.createElement(Button, { 
-        config,
+        H.P.009-CONFIG,
         state,
         util,
         DefaultExport,
@@ -66,10 +66,10 @@ export function App(): React.FC<Props> {
 
 // Class using imports
 export class TestClass implements Props {
-    private config: Config;
+    private H.P.009-CONFIG: Config;
     
     constructor() {
-        this.config = createConfig();
+        this.H.P.009-CONFIG = createConfig();
     }
     
     render() {

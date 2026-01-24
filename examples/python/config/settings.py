@@ -1,4 +1,4 @@
-"""Application configuration settings."""
+"""Application H.P.009-CONFIGuration settings."""
 
 import os
 from typing import Optional, Dict, Any

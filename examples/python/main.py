@@ -12,7 +12,7 @@ from services.auth import AuthService
 from services.database import DatabaseConnection
 
 # Import with alias
-from config.settings import Settings as AppSettings
+from H.P.009-CONFIG.settings import Settings as AppSettings
 import logging as log
 
 
@@ -20,7 +20,7 @@ def main():
     """Main application entry point."""
     log.info("Starting application")
     
-    # Initialize configuration
+    # Initialize H.P.009-CONFIGuration
     settings = AppSettings()
     settings.load_from_env()
     
