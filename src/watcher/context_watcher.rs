@@ -110,7 +110,7 @@ impl Default for ContextConfig {
             claude_projects_dir: home.join(".claude/projects"),
             export_destination: coditect_dir.join("context-storage/exports-pending"),
             export_archive: coditect_dir.join("context-storage/exports-archive"),
-            state_file: coditect_dir.join("context-storage/context-watcher-state.json"),
+            state_file: coditect_dir.join("context-storage/watcher-state.json"),
             notifications_enabled: true,
             editor_command: Some("code".to_string()),
             cx_processing_interval_secs: 60,
