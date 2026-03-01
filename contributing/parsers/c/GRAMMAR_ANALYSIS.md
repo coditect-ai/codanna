@@ -3,13 +3,16 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 132
 - Nodes found in comprehensive.c: 145
 - Nodes handled by parser: 29
 - Symbol kinds extracted: 6
 
 ## ✅ Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - case_statement
 - compound_literal_expression
 - compound_statement
@@ -41,8 +44,9 @@ These nodes are in examples and handled by parser:
 - while_statement
 
 ## ⚠️ Implementation Gaps
-These nodes appear in comprehensive.c but aren't handled:
-- 
+
+These nodes appear in comprehensive.c but aren't handled
+-
 
 - !
 - "
@@ -58,8 +62,8 @@ These nodes appear in comprehensive.c but aren't handled:
 - &&
 - (
 - )
-- *
-- +
+- -
+- -
 - ++
 - ,
 - -
@@ -78,7 +82,7 @@ These nodes appear in comprehensive.c but aren't handled:
 - NULL
 - [
 - ]
-- __attribute__
+- **attribute**
 - abstract_pointer_declarator
 - argument_list
 - array_declarator
@@ -161,7 +165,9 @@ These nodes appear in comprehensive.c but aren't handled:
 - }
 
 ## 📝 Missing from Examples
+
 These grammar nodes aren't in comprehensive.c:
+
 - _abstract_declarator
 - _declarator
 - _field_declarator
@@ -214,10 +220,10 @@ These grammar nodes aren't in comprehensive.c:
 - type_specifier
 
 ## 🎯 Symbol Kinds Extracted
+
 - Constant
 - Function
 - Macro
 - Parameter
 - Struct
 - Variable
-

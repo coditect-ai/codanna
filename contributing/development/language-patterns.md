@@ -49,6 +49,7 @@ pub struct {Language}Parser {
 ```
 
 **Guidelines**:
+
 - Use `ParserContext` for scope tracking (current class, function, module)
 - Use `NodeTrackingState` for automatic audit tracking
 - Add language-specific collections only when needed
@@ -101,6 +102,7 @@ fn extract_imports_from_node(...) { }
 ```
 
 **Naming Convention**:
+
 - `extract_*` → Recursive traversal that populates a collection
 - `process_*` → Converts a single node to a Symbol (returns Option<Symbol>)
 - `find_*` → Public trait methods that search for relationships
@@ -137,6 +139,7 @@ fn extract_simple_type_name<'a>(&self, node: Node, code: &'a str) -> Option<&'a 
 ```
 
 **Pattern**: Helper methods follow consistent naming:
+
 - `extract_{noun}` → Extracts a specific piece of data
 - `determine_{noun}` → Makes a decision based on heuristics
 - `create_{noun}` → Factory method for construction
@@ -161,6 +164,7 @@ fn extract_method_defines_recursive<'a>(...) { }
 ```
 
 **Pattern**:
+
 - Public `find_*` methods call private `extract_*_recursive` helpers
 - Use lifetime `'a` for zero-copy string slices from source code
 - Return tuples for simple relationships, structured types for complex ones
@@ -179,6 +183,7 @@ fn register_node_recursively(&mut self, node: Node) {
 ```
 
 **When to use**:
+
 - Call `register_node_recursively(node)` for major symbols (functions, classes)
 - Call `register_handled_node(kind, id)` for individual nodes in switch cases
 
@@ -305,6 +310,7 @@ fn extract_symbols_from_node(
 ```
 
 **Critical Patterns**:
+
 1. **Always** check recursion depth first
 2. **Always** register nodes for audit tracking
 3. **Save and restore** parent context when entering/exiting scopes
@@ -354,6 +360,7 @@ fn process_function(
 ```
 
 **Pattern**:
+
 1. Extract name (use `?` for early return)
 2. Extract signature, doc, visibility
 3. Call `create_symbol` helper
@@ -378,6 +385,7 @@ fn extract_signature(&self, node: Node, code: &str) -> String {
 ```
 
 **Specialized versions**: Create separate methods for complex signatures
+
 - `extract_class_signature` - Include extends/implements
 - `extract_interface_signature` - Include generic constraints
 - `extract_method_signature` - Include parameters only
@@ -421,6 +429,7 @@ fn determine_visibility(&self, node: Node, code: &str) -> Visibility {
 ```
 
 **Pattern**: Check multiple locations because tree-sitter grammars vary
+
 1. Ancestor nodes (most common)
 2. Sibling nodes (rare)
 3. Source text tokens (fallback)
@@ -459,6 +468,7 @@ impl StatefulBehavior for {Language}Behavior {
 ```
 
 **Always**:
+
 - Implement `Clone`, `Default`
 - Implement `StatefulBehavior` to access shared state
 - Use `BehaviorState` for imports, files, trait impls tracking
@@ -671,6 +681,7 @@ pub struct {Language}ResolutionContext {
 ```
 
 **Guidelines**:
+
 - Organize scopes from innermost to outermost
 - Use `HashMap<String, SymbolId>` for symbol lookups
 - Track imports separately from symbols
@@ -798,6 +809,7 @@ This is the **most important pattern** for correct scoping. Always save parent c
 6. **Restore AFTER exit**: Returns to previous context
 
 **Common mistake:**
+
 ```rust
 // WRONG - restoring before exit
 self.context.set_current_function(saved_function);  // Restores first
@@ -1355,6 +1367,7 @@ fn extract_signature(&self, node: Node, code: &str) -> String {
 ```
 
 **Examples**:
+
 - Function: `function foo(x: number): string` (exclude `{ ... }`)
 - Class: `class Foo extends Bar implements Baz` (exclude `{ ... }`)
 - Interface: `interface IFoo extends IBar` (exclude `{ ... }`)

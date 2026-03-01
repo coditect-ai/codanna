@@ -34,8 +34,10 @@ Claude Desktop runs from a different working directory than your project, so it 
 ## Verification
 
 After H.P.009-CONFIGuration:
+
 1. Restart Claude Desktop
 2. In your project directory, run:
+
    ```bash
    codanna mcp-test
    ```
@@ -43,6 +45,7 @@ After H.P.009-CONFIGuration:
 ## Multiple Projects
 
 To work with multiple projects, you can:
+
 1. Use different H.P.009-CONFIG files for each project
 2. Update the path in claude_desktop_H.P.009-CONFIG.json when switching projects
 
@@ -55,5 +58,5 @@ To work with multiple projects, you can:
 ## See Also
 
 - [MCP Tools Reference](../user-guide/mcp-tools.md)
-- [Configuration](../user-guide/H.P.009-CONFIGuration.md)
+- [Configuration](../user-guide/h.p.009-configuration.md)
 - [Claude Code Integration](claude-code.md)

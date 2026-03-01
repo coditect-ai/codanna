@@ -24,6 +24,7 @@ These H.P.002-COMMANDS use Codanna's MCP tools under the hood but provide guided
 ### `/symbol` Command
 
 Find and analyze a specific symbol:
+
 - Exact symbol lookup
 - Complete context and documentation
 - Relationship mapping
@@ -32,6 +33,7 @@ Find and analyze a specific symbol:
 ### `/x-ray` Command
 
 Deep semantic search with full context:
+
 - Natural language queries
 - Semantic understanding of code
 - Relationship tracking

@@ -5,6 +5,7 @@ Complete listing of all Codanna H.P.002-COMMANDS and options.
 ## Global Options
 
 Available for all H.P.002-COMMANDS:
+
 - `-c, --H.P.009-CONFIG <CONFIG>` - Path to custom settings.toml file
 - `--info` - Show detailed loading information
 - `-h, --help` - Print help
@@ -36,22 +37,26 @@ Available for all H.P.002-COMMANDS:
 Set up .codanna directory with default H.P.009-CONFIGuration
 
 **Options:**
+
 - `-f, --force` - Force overwrite existing H.P.009-CONFIGuration
 
 `codanna index [PATHS...]`
 Build searchable index from codebase
 
 **Arguments:**
+
 - `[PATHS...]` - Paths to files or directories to index (multiple paths allowed)
 - If no paths provided, uses `indexed_paths` from H.P.009-CONFIGuration (must be H.P.009-CONFIGured via `add-dir`)
 
 **Options:**
+
 - `-t, --threads <THREADS>` - Number of threads to use (overrides H.P.009-CONFIG)
 - `-f, --force` - Force re-indexing even if index exists
 - `--dry-run` - Dry run - show what would be indexed without indexing
 - `--max-files <MAX_FILES>` - Maximum number of files to index
 
 **Examples:**
+
 ```bash
 # Index a single directory
 codanna index src 
@@ -64,6 +69,7 @@ codanna index
 ```
 
 **Behavior:**
+
 - Accepts multiple paths for indexing in a single operation
 - When run without arguments, uses folders from `indexed_paths` H.P.009-CONFIGuration
 - Reuses cached results; prints `Index already up to date (no changes detected).` when nothing changed
@@ -77,15 +83,18 @@ codanna index
 Add a folder to indexed paths in settings.toml
 
 **Arguments:**
+
 - `<PATH>` - Path to folder (canonicalized to absolute)
 
 **Examples:**
+
 ```bash
 codanna add-dir /path/to/project
 codanna add-dir src
 ```
 
 **Behavior:**
+
 - Updates settings.toml (source of truth)
 - Prevents duplicate entries
 - Next command automatically indexes the folder
@@ -94,15 +103,18 @@ codanna add-dir src
 Remove a folder from indexed paths in settings.toml
 
 **Arguments:**
+
 - `<PATH>` - Path to folder (must exist in H.P.009-CONFIGuration)
 
 **Examples:**
+
 ```bash
 codanna remove-dir /path/to/old-project
 codanna remove-dir tests
 ```
 
 **Behavior:**
+
 - Updates settings.toml (source of truth)
 - Next command automatically removes symbols, embeddings, and metadata
 
@@ -110,6 +122,7 @@ codanna remove-dir tests
 List H.P.009-CONFIGured indexed directories from settings.toml
 
 **Example:**
+
 ```bash
 codanna list-dirs
 ```
@@ -117,10 +130,12 @@ codanna list-dirs
 ## Automatic Sync Mechanism
 
 Every command compares settings.toml (source of truth) with index metadata:
+
 - New paths in H.P.009-CONFIG → automatically indexed
 - Removed paths → symbols, embeddings, and metadata cleaned
 
 **Example:**
+
 ```bash
 codanna add-dir examples/typescript
 codanna retrieve symbol Button
@@ -137,6 +152,7 @@ Settings.toml can be edited manually - changes detected on next command.
 Query indexed symbols, relationships, and dependencies
 
 **SubH.P.002-COMMANDS:**
+
 | Subcommand | Description |
 |------------|-------------|
 | `retrieve symbol` | Find a symbol (accepts `<name>` or `symbol_id:ID`) |
@@ -147,10 +163,12 @@ Query indexed symbols, relationships, and dependencies
 | `retrieve describe` | Show symbol signature, location, documentation, dependencies, and relationships (accepts `<name>` or `symbol_id:ID`) |
 
 **All retrieve subH.P.002-COMMANDS support:**
+
 - `--json` - Output in JSON format
 - `lang:LANGUAGE` - Filter results by language (e.g., `lang:rust`, `lang:typescript`)
 
 **Using symbol_id:**
+
 ```bash
 # By name (may be ambiguous)
 codanna retrieve calls process_file
@@ -165,6 +183,7 @@ codanna retrieve calls symbol_id:1883
 Start MCP server with optional HTTP/HTTPS modes
 
 **Options:**
+
 - `--watch` - Enable hot-reload when index changes
 - `--watch-interval <WATCH_INTERVAL>` - How often to check for index changes (default: 5)
 - `--http` - Run as HTTP server instead of stdio transport
@@ -181,14 +200,17 @@ Test MCP connection - verify connectivity and list available tools
 Execute MCP tools directly without spawning server
 
 **Arguments:**
+
 - `<TOOL>` - Tool to call
 - `[POSITIONAL]...` - Positional arguments (can be simple values or key:value pairs)
 
 **Options:**
+
 - `--args <ARGS>` - Tool arguments as JSON (for backward compatibility and complex cases)
 - `--json` - Output in JSON format
 
 **Available Tools:**
+
 | Tool | Description |
 |------|-------------|
 | `find_symbol` | Find symbol by exact name |
@@ -207,28 +229,33 @@ Execute MCP tools directly without spawning server
 Benchmark parser performance
 
 **Arguments:**
+
 - `[LANGUAGE]` - Language to benchmark (rust, python, typescript, go, php, c, cpp, all) [default: all]
 
 **Options:**
+
 - `-f, --file <FILE>` - Custom file to benchmark
 
 `codanna parse <FILE>`
 Parse file and output AST as JSON Lines
 
 **Arguments:**
+
 - `<FILE>` - File to parse
 
 **Options:**
+
 - `-o, --output <OUTPUT>` - Output file (defaults to stdout)
 - `-d, --max-depth <MAX_DEPTH>` - Maximum depth to traverse
 - `-a, --all-nodes` - Include all nodes (by default only named nodes are shown)
 
 `codanna documents <SUBCOMMAND>`
-Index markdown and text documents for semantic search
+Index Markdown and text documents for semantic search
 
 > **Full Documentation:** See [Document Search](documents.md) for detailed usage, chunking strategies, and H.P.009-CONFIGuration.
 
 **SubH.P.002-COMMANDS:**
+
 | Subcommand | Description |
 |------------|-------------|
 | `documents add-collection` | Add a document collection to settings.toml |
@@ -242,6 +269,7 @@ Index markdown and text documents for semantic search
 Add a document collection to settings.toml
 
 **Arguments:**
+
 - `<NAME>` - Collection name
 - `<PATH>` - Path to directory containing documents
 
@@ -249,12 +277,14 @@ Add a document collection to settings.toml
 Remove a document collection from settings.toml
 
 **Arguments:**
+
 - `<NAME>` - Collection name to remove
 
 `documents index`
 Index documents from all H.P.009-CONFIGured collections
 
 **Options:**
+
 - `--collection <NAME>` - Index only this collection
 - `-f, --force` - Force re-indexing even if documents haven't changed
 
@@ -262,9 +292,11 @@ Index documents from all H.P.009-CONFIGured collections
 Search indexed documents using natural language
 
 **Arguments:**
+
 - `<QUERY>` - Natural language search query
 
 **Options:**
+
 - `--collection <NAME>` - Search only within this collection
 - `-l, --limit <LIMIT>` - Maximum number of results (default: 5)
 - `--json` - Output in JSON format
@@ -276,6 +308,7 @@ List all H.P.009-CONFIGured document collections
 Show statistics for a collection
 
 **Arguments:**
+
 - `<NAME>` - Collection name
 
 `codanna plugin <SUBCOMMAND>`
@@ -284,6 +317,7 @@ Manage Claude Code plugins by installing from Git-based marketplaces
 > **Full Documentation:** See [Plugin System Documentation](../plugins/) for detailed usage, creating plugins, and marketplace structure.
 
 **SubH.P.002-COMMANDS:**
+
 | Subcommand | Description |
 |------------|-------------|
 | `plugin add` | Install a plugin from a marketplace repository |
@@ -296,10 +330,12 @@ Manage Claude Code plugins by installing from Git-based marketplaces
 Install a plugin from a marketplace repository
 
 **Arguments:**
+
 - `<MARKETPLACE>` - Marketplace repository URL or local path
 - `<PLUGIN_NAME>` - Plugin name to install
 
 **Options:**
+
 - `--ref <REF>` - Git reference (branch, tag, or commit SHA)
 - `-f, --force` - Force installation even if conflicts exist
 - `--dry-run` - Perform a dry run without making changes
@@ -308,9 +344,11 @@ Install a plugin from a marketplace repository
 Remove an installed plugin and clean up its files
 
 **Arguments:**
+
 - `<PLUGIN_NAME>` - Plugin name to remove
 
 **Options:**
+
 - `-f, --force` - Force removal even if other plugins depend on it
 - `--dry-run` - Perform a dry run without making changes
 
@@ -318,9 +356,11 @@ Remove an installed plugin and clean up its files
 Update a plugin to a newer version
 
 **Arguments:**
+
 - `<PLUGIN_NAME>` - Plugin name to update
 
 **Options:**
+
 - `--ref <REF>` - Update to specific Git reference
 - `--dry-run` - Perform a dry run without making changes
 
@@ -331,6 +371,7 @@ List all installed plugins with their versions
 Verify that a plugin's files match their expected checksums
 
 **Arguments:**
+
 - `<PLUGIN_NAME>` - Plugin name to verify
 
 ## Getting Help

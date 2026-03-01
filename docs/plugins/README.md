@@ -11,6 +11,7 @@ Codanna plugins are project-scoped. They install to `.claude/` in your project d
 Available via Claude Code's `/plugin` command or codanna's CLI.
 
 **Via Claude Code:**
+
 ```bash
 # Add the Codanna marketplace
 /plugin marketplace add bartolli/codanna-plugins
@@ -20,6 +21,7 @@ Available via Claude Code's `/plugin` command or codanna's CLI.
 ```
 
 **Via Codanna CLI:**
+
 ```bash
 codanna plugin add https://github.com/bartolli/codanna-plugins.git codanna
 codanna plugin add https://github.com/bartolli/codanna-plugins.git codanna --ref v1.2.0  # Specific version
@@ -32,6 +34,7 @@ The CLI method gives you version control - install different tags per project.
 The plugin includes Node.js scripts that parse JSON output to save tokens. See [codanna-plugins](https://github.com/bartolli/codanna-plugins) for examples.
 
 **Example: Piping with Node.js wrapper**
+
 ```bash
 # Node script handles JSON parsing and formatting
 node .claude/scripts/codanna/context-provider.js find "error handling" --limit=3
@@ -114,6 +117,7 @@ codanna plugin add https://github.com/user/marketplace.git my-plugin --dry-run
 ```
 
 Rollback Protection: If any step fails, codanna automatically:
+
 - Removes partially copied files
 - Restores previous plugin version (during updates)
 - Restores MCP configuration
@@ -150,10 +154,10 @@ codanna plugin update my-plugin --force
 - Same commit + fails verification → Reinstall
 - Different commit → Update
 
-3. Backs up existing plugin before changes
-4. Uninstalls old version completely
-5. Installs new version with new files
-6. Rolls back to backup if installation fails
+1. Backs up existing plugin before changes
+2. Uninstalls old version completely
+3. Installs new version with new files
+4. Rolls back to backup if installation fails
 
 ## Removing Plugins
 
@@ -358,7 +362,7 @@ To create your own plugin:
    └── scripts/ # Optional: utility scripts
 ```
 
-2. Define the manifest (.claude-plugin/plugin.json):
+1. Define the manifest (.claude-plugin/plugin.json):
 
 ```json
 {
@@ -371,7 +375,7 @@ To create your own plugin:
 }
 ```
 
-3. Create a marketplace manifest (.claude-plugin/marketplace.json):
+1. Create a marketplace manifest (.claude-plugin/marketplace.json):
 
 ```json
 {
@@ -390,7 +394,7 @@ To create your own plugin:
 }
 ```
 
-4. Publish to Git and share the repository URL
+1. Publish to Git and share the repository URL
 
 Users can then install with:
 

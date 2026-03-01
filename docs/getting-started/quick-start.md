@@ -86,4 +86,4 @@ codanna mcp semantic_search_docs query:"where do we resolve symbol references  0
 
 - Set up [integrations](../integrations/) with your AI assistant
 - Learn more [CLI H.P.002-COMMANDS](../user-guide/cli-reference.md)
-- Configure [settings](../user-guide/H.P.009-CONFIGuration.md) for your project
+- Configure [settings](../user-guide/h.p.009-configuration.md) for your project

@@ -21,6 +21,7 @@ Drop codanna in as an MCP server, point the agent at it, and watch it stop hand-
 ## Quick Setup
 
 ### Claude Code
+
 ```json
 # Add this to your local .mcp.json:
 {
@@ -34,9 +35,11 @@ Drop codanna in as an MCP server, point the agent at it, and watch it stop hand-
 ```
 
 ### Claude Desktop
+
 For Claude Desktop, you need the `--config` flag since it runs from a different location.
 
 Configure in `~/Library/Application Support/Claude/claude_desktop_config.json` (Mac):
+
 ```json
 {
   "mcpServers": {

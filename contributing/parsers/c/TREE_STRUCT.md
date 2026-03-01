@@ -2130,7 +2130,7 @@ translation_unit [161] = '/**'
 
 | Node Type | Count | Max Depth |
 |-----------|-------|----------|
-| 
+|
  | 3 | 7 |
 | ! | 1 | 9 |
 | " | 64 | 15 |
@@ -2166,7 +2166,7 @@ translation_unit [161] = '/**'
 | NULL | 2 | 10 |
 | [ | 18 | 15 |
 | ] | 18 | 15 |
-| __attribute__ | 2 | 3 |
+| **attribute** | 2 | 3 |
 | abstract_pointer_declarator | 4 | 11 |
 | argument_list | 42 | 13 |
 | array_declarator | 7 | 9 |

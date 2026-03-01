@@ -3,6 +3,7 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Summary
+
 - Key nodes: 19/21 (90%)
 - Symbol kinds extracted: 6
 
@@ -43,8 +44,8 @@
 ## Recommended Actions
 
 ### Priority 2: Missing Examples
+
 These nodes aren't in the comprehensive example. Consider:
 
 - `typedef_declaration`: Add example to comprehensive.c or verify node name
 - `macro_definition`: Add example to comprehensive.c or verify node name
-

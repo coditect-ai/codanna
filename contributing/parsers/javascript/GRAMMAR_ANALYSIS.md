@@ -3,13 +3,16 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 119
 - Nodes found in comprehensive.js: 142
 - Nodes handled by parser: 141
 - Symbol kinds extracted: 6
 
 ## Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - !
 - !==
 - "
@@ -17,7 +20,7 @@ These nodes are in examples and handled by parser:
 - '
 - (
 - )
-- *
+- -
 - ++
 - ,
 - .
@@ -153,11 +156,15 @@ These nodes are in examples and handled by parser:
 - }
 
 ## Implementation Gaps
+
 These nodes appear in comprehensive.js but aren't handled:
+
 - var
 
 ## Missing from Examples
+
 These grammar nodes aren't in comprehensive.js:
+
 - augmented_assignment_expression
 - class_static_block
 - computed_property_name
@@ -194,10 +201,10 @@ These grammar nodes aren't in comprehensive.js:
 - with_statement
 
 ## Symbol Kinds Extracted
+
 - Class
 - Constant
 - Field
 - Function
 - Method
 - Variable
-

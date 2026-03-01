@@ -100,4 +100,4 @@ codanna mcp find_callers walk_and_stream --json | jq -r '.system_message'
 
 - [MCP Tools](../user-guide/mcp-tools.md)
 - [Claude Code Integration](claude-code.md)
-- [Configuration](../user-guide/H.P.009-CONFIGuration.md)
+- [Configuration](../user-guide/h.p.009-configuration.md)

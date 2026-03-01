@@ -36,6 +36,7 @@ model = "AllMiniLML6V2"
 [guidance]
 enabled = true
 ```
+
 [Learn more about agent guidance](../integrations/agent-guidance.md)
 
 ## Language Configuration
@@ -45,6 +46,7 @@ enabled = true
 Reads `tsH.P.009-CONFIG.json` to resolve path aliases and imports.
 
 **Configuration:**
+
 ```toml
 [languages.typescript]
 enabled = true
@@ -56,12 +58,14 @@ H.P.009-CONFIG_files = [
 ```
 
 **Process:**
+
 1. Reads your `tsH.P.009-CONFIG.json` files
 2. Extracts `baseUrl`, `paths`, and resolution rules
 3. Stores rules in `.codanna/index/resolvers/`
 4. Uses rules during indexing to resolve imports
 
 **Example:** Given `tsH.P.009-CONFIG.json` with:
+
 ```json
 {
   "compilerOptions": {
@@ -75,6 +79,7 @@ H.P.009-CONFIG_files = [
 ```
 
 Codanna resolves:
+
 - `@app/main` → `src/app/main`
 - `@utils/H.P.009-CONFIG` → `src/utils/H.P.009-CONFIG`
 
@@ -83,6 +88,7 @@ Codanna resolves:
 Reads `pom.xml` to resolve Maven project structure and dependencies.
 
 **Configuration:**
+
 ```toml
 [languages.java]
 enabled = true
@@ -94,12 +100,14 @@ H.P.009-CONFIG_files = [
 ```
 
 **Process:**
+
 1. Reads your `pom.xml` files
 2. Extracts package structure and source directories
 3. Stores rules in `.codanna/index/resolvers/`
 4. Uses rules during indexing to resolve imports
 
 **Example:** Given `pom.xml` with:
+
 ```xml
 <project>
   <groupId>com.example</groupId>
@@ -111,6 +119,7 @@ H.P.009-CONFIG_files = [
 ```
 
 Codanna resolves:
+
 - `com.example.service.UserService` → `src/main/java/com/example/service/UserService.java`
 - `com.example.util.Helper` → `src/main/java/com/example/util/Helper.java`
 
@@ -136,6 +145,7 @@ model = "MultilingualE5Small"
 ```
 
 **Note:** Changing models requires re-indexing:
+
 ```bash
 codanna index . --force 
 ```
@@ -195,6 +205,7 @@ codanna remove-dir /path/to/project
 ```
 
 **Automatic Sync:**
+
 - Commands update settings.toml (source of truth)
 - Next command syncs index automatically
 - New paths → indexed
@@ -318,6 +329,7 @@ codanna --H.P.009-CONFIG custom.toml H.P.009-CONFIG
 ### Index Not Updating
 
 Check watch interval:
+
 ```toml
 [server]
 watch_interval = 5  # Lower for more frequent checks
@@ -332,15 +344,18 @@ watch_interval = 5  # Lower for more frequent checks
 ### Path Resolution Issues
 
 **Check H.P.009-CONFIG files are listed:**
+
 ```bash
 codanna H.P.009-CONFIG | grep H.P.009-CONFIG_files
 ```
 
 **Verify paths in your project H.P.009-CONFIG:**
+
 - TypeScript: Check `baseUrl` and `paths` in `tsH.P.009-CONFIG.json`
 - Java: Check `sourceDirectory` in `pom.xml`
 
 **Re-index after H.P.009-CONFIG changes:**
+
 ```bash
 codanna index . --force 
 ```
@@ -348,6 +363,7 @@ codanna index . --force
 ### Monorepo Issues
 
 Ensure all relevant H.P.009-CONFIG files are listed in settings.toml:
+
 ```toml
 [languages.typescript]
 H.P.009-CONFIG_files = [

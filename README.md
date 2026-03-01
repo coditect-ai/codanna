@@ -76,7 +76,7 @@ The difference: Codanna understands code structure. It knows `parseConfig` is a 
 |---------|-------------|
 | **[Semantic Search](docs/user-guide/search-guide.md)** | Natural language queries against code and documentation. Finds functions by what they do, not just their names. |
 | **[Relationship Tracking](docs/user-guide/mcp-tools.md)** | Call graphs, implementations, and dependencies. Trace how code connects across files. |
-| **[Document Search](docs/user-guide/documents.md)** | Index markdown and text files for RAG workflows. Query project docs alongside code. |
+| **[Document Search](docs/user-guide/documents.md)** | Index Markdown and text files for RAG workflows. Query project docs alongside code. |
 | **[MCP Protocol](docs/integrations/)** | Native integration with Claude, Gemini, Codex, and other AI assistants. |
 | **[Profiles](docs/profiles/)** | Package hooks, commands, and agents for different project types. |
 | **[Plugins](docs/plugins/)** | Claude Code manifest format for project-scoped workflows. |
@@ -157,7 +157,7 @@ codanna documents index
 codanna documents search "error handling" --collection docs
 ```
 
-Chunks documents, generates embeddings, and provides semantic search over your markdown files.
+Chunks documents, generates embeddings, and provides semantic search over your Markdown files.
 
 See [Document Search](docs/user-guide/documents.md).
 
@@ -182,7 +182,7 @@ Contributions welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Apache License 2.0 - See [LICENSE](LICENSE).
 
-Attribution required. See [NOTICE](NOTICE).
+Attribution required. See [NOTICE](notice).
 
 ---
 

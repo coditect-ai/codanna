@@ -6,6 +6,7 @@ All MCP tools support `--json`, so piping isn't noise, it's music.
 ## Basic Piping
 
 ### MCP Semantic Search with Language Filter
+
 ```bash
 codanna mcp semantic_search_with_context query:"error handling" limit:2 lang:rust --json | jq -r '.data[] | "\(.symbol.name) (\(.symbol.scope_context)) (score: \(.score)) - \(.context.file_path) - \(.symbol.doc_comment)"'
 # Output: error (ClassMember) (score: 0.6421908) - src/io/format.rs:148 - Create a generic error response.
@@ -13,6 +14,7 @@ codanna mcp semantic_search_with_context query:"error handling" limit:2 lang:rus
 ```
 
 ### Show Symbol Types, Names and Locations
+
 ```bash
 codanna retrieve search "H.P.009-CONFIG" --json | jq -r '.items[] | "\(.symbol.kind) \(.symbol.name) @ \(.file_path)"'
 # Output: Function test_partial_H.P.009-CONFIG @ src/H.P.009-CONFIG.rs:911
@@ -58,6 +60,7 @@ jq -r '.data[]? | "\(.name) (\(.kind)) - \(.file_path):\(.range.start_line)-\(.r
 ## Common Patterns
 
 ### Find and Count
+
 ```bash
 # Count symbols by type
 codanna retrieve search "" --json | jq -r '.items[].symbol.kind' | sort | uniq -c | sort -rn
@@ -67,6 +70,7 @@ codanna retrieve search "" --json | jq -r '.items[].file_path' | sort | uniq -c 
 ```
 
 ### Filter and Transform
+
 ```bash
 # Find all public functions
 codanna retrieve search "" --json | jq -r '.items[] | select(.symbol.kind == "Function") | .symbol.name'
@@ -76,6 +80,7 @@ codanna retrieve search "" --json | jq -r '.items[] | select(.symbol.kind == "St
 ```
 
 ### Chain Commands
+
 ```bash
 # Find a trait and all its implementations
 TRAIT="Parser"
@@ -86,6 +91,7 @@ codanna retrieve implementations $TRAIT --json | jq -r '.items[].symbol.name'
 ```
 
 ### Analyze Dependencies
+
 ```bash
 # Get a symbol's complete dependency graph
 SYMBOL="SimpleIndexer"

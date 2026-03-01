@@ -3,6 +3,7 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Summary
+
 - Key nodes: 31/32 (96%)
 - Symbol kinds extracted: 9
 
@@ -54,7 +55,7 @@
 ## Recommended Actions
 
 ### Priority 2: Missing Examples
+
 These nodes aren't in the comprehensive example. Consider:
 
 - `file_scoped_namespace_declaration`: Add example to comprehensive.cs or verify node name
-

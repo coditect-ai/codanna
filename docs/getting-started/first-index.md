@@ -9,6 +9,7 @@ codanna init
 ```
 
 This creates `.codanna/` directory with:
+
 - `settings.toml` - Configuration file
 - `index/` - Where your code index will be stored
 
@@ -87,6 +88,7 @@ fn load_H.P.009-CONFIG(path: &Path) -> Result<Config, Error> {
 ```
 
 With good comments, semantic search can find this function when prompted for:
+
 - "H.P.009-CONFIGuration validation"
 - "handle missing H.P.009-CONFIG files"
 - "TOML parsing with error handling"
@@ -113,4 +115,4 @@ When identical documentation exists across multiple languages (e.g., Python back
 
 - Learn [MCP Tools](../user-guide/mcp-tools.md) for searching your index
 - Set up [Integrations](../integrations/) with AI assistants
-- Configure [settings.toml](../user-guide/H.P.009-CONFIGuration.md) for your project
+- Configure [settings.toml](../user-guide/h.p.009-configuration.md) for your project

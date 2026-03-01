@@ -21,6 +21,7 @@ parsers/
 2. Add the module declaration to `tests/parsers_tests.rs`
 
 Example:
+
 ```rust
 // In tests/parsers_tests.rs
 #[path = "parsers/python/test_resolution.rs"]
@@ -36,10 +37,13 @@ mod test_python_resolution;
 ## Current Tests
 
 ### TypeScript
+
 - `test_resolution_pipeline.rs` - Tests tsconfig.json path alias resolution with extends chains
 
 ### C
+
 - `test_resolution.rs` - Tests C include path resolution and system headers
 
 ### C++
+
 - `test_resolution.rs` - Tests C++ include path resolution, namespaces, and templates

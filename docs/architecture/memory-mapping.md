@@ -5,12 +5,14 @@ Codanna uses memory-mapped files for instant loading and high-performance access
 ## Storage Architecture
 
 ### Symbol Index (Tantivy)
+
 - **Purpose**: Fast symbol lookups and full-text search
 - **Access**: <10ms response time
 - **Features**: Fuzzy matching, exact match, full-text search
 - **Location**: `.codanna/index/tantivy/`
 
 ### Vector Cache (`segment_0.vec`)
+
 - **Purpose**: Semantic similarity search
 - **Dimensions**: Configurable (384/768/1024 based on model)
 - **Access**: <1μs after OS page cache warm-up
@@ -20,18 +22,21 @@ Codanna uses memory-mapped files for instant loading and high-performance access
 ## Memory-Mapped Benefits
 
 ### Instant Startup
+
 - No deserialization on load
 - OS maps file directly to memory
 - Application sees it as regular memory
 - First access triggers page loading
 
 ### Efficient Memory Usage
+
 - OS manages paging automatically
 - Inactive pages can be swapped out
 - Multiple processes share same physical memory
 - No manual cache management needed
 
 ### Persistence
+
 - Data persists between runs
 - No rebuild on restart
 - Atomic writes prevent corruption
@@ -67,6 +72,7 @@ Vectors are organized using Inverted File with Flat vectors:
 4. **Reduces** comparisons from N to ~sqrt(N)
 
 Example with 10,000 vectors:
+
 - Without clustering: 10,000 comparisons
 - With 100 clusters: ~1,000 comparisons (10x faster)
 
@@ -84,11 +90,13 @@ Warm cache: <1μs (already in RAM)
 ## Write Operations
 
 ### Symbol Index Updates
+
 1. Batch commits every 100 files for throughput
 2. RwLock-based concurrent writes
 3. Tantivy handles segment management
 
 ### Vector Cache Updates
+
 1. Generate new embeddings
 2. Re-cluster vectors with K-means
 3. Write new segment file
@@ -118,6 +126,7 @@ Warm cache: <1μs (already in RAM)
 For a project with 100,000 symbols:
 
 **Vector cache (384-dim model):**
+
 - 100,000 vectors × 384 floats × 4 bytes = 153.6 MB
 
 **Tantivy index:** Variable, typically 10-50 MB depending on symbol metadata.
@@ -125,6 +134,7 @@ For a project with 100,000 symbols:
 ## Scalability
 
 Memory-mapped files scale to:
+
 - Millions of symbols
 - Gigabytes of vector data
 - Multiple concurrent readers
@@ -133,11 +143,13 @@ Memory-mapped files scale to:
 ## Performance Characteristics
 
 ### Read Performance
+
 - Symbol lookup: <10ms via Tantivy
 - Vector search: O(sqrt(N)) with IVFFlat
 - Memory-mapped access
 
 ### Write Performance
+
 - Batch updates preferred
 - Atomic file replacement
 - No locking for readers
@@ -146,16 +158,19 @@ Memory-mapped files scale to:
 ## Troubleshooting
 
 ### High Memory Usage
+
 - OS maps entire file but doesn't load it all
 - Use `vmstat` to see actual RAM usage
 - Inactive pages get swapped naturally
 
 ### Slow First Search
+
 - OS loading pages from disk
 - Subsequent searches are fast
 - Pre-warm with `cat .codanna/index/vectors/segment_0.vec > /dev/null`
 
 ### Corruption Recovery
+
 - Delete corrupted cache files
 - Re-run `codanna index` to rebuild
 - Atomic writes prevent partial updates

@@ -5,20 +5,24 @@ Available tools when using the MCP server. All tools support `--json` flag for s
 ## Tool Categories
 
 ### Discovery Tools
+
 - **find_symbol** - Find symbol by exact name
 - **search_symbols** - Full-text search with fuzzy matching
 - **semantic_search_docs** - Natural language search
 - **semantic_search_with_context** - Natural language search with relationships
 
 ### Relationship Tools
+
 - **get_calls** - Functions called by a function
 - **find_callers** - Functions that call a function
 - **analyze_impact** - Impact radius of symbol changes
 
 ### Document Tools
-- **search_documents** - Search indexed markdown/text files
+
+- **search_documents** - Search indexed Markdown/text files
 
 ### Information Tools
+
 - **get_index_info** - Index statistics
 
 ## Tool Details
@@ -28,10 +32,12 @@ Available tools when using the MCP server. All tools support `--json` flag for s
 Find a symbol by exact name.
 
 **Parameters:**
+
 - `name` (required) - Exact symbol name to find
 - `lang` - Filter by programming language (e.g., "rust", "typescript")
 
 **Example:**
+
 ```bash
 codanna mcp find_symbol main
 codanna mcp find_symbol Parser lang:rust --json
@@ -44,6 +50,7 @@ codanna mcp find_symbol Parser lang:rust --json
 Search symbols with full-text fuzzy matching.
 
 **Parameters:**
+
 - `query` (required) - Search query (supports fuzzy matching)
 - `limit` - Maximum number of results (default: 10)
 - `kind` - Filter by symbol kind (e.g., "Function", "Struct", "Trait")
@@ -51,6 +58,7 @@ Search symbols with full-text fuzzy matching.
 - `lang` - Filter by programming language (e.g., "rust", "typescript")
 
 **Example:**
+
 ```bash
 codanna mcp search_symbols query:parse kind:function limit:10
 codanna mcp search_symbols query:Parser lang:rust --json
@@ -63,12 +71,14 @@ codanna mcp search_symbols query:Parser lang:rust --json
 Search using natural language queries.
 
 **Parameters:**
+
 - `query` (required) - Natural language search query
 - `limit` - Maximum number of results (default: 10)
 - `threshold` - Minimum similarity score (0-1)
 - `lang` - Filter by programming language (e.g., "rust", "typescript")
 
 **Example:**
+
 ```bash
 codanna mcp semantic_search_docs query:"error handling" limit:5
 codanna mcp semantic_search_docs query:"authentication" lang:rust limit:5
@@ -81,18 +91,21 @@ codanna mcp semantic_search_docs query:"authentication" lang:rust limit:5
 Natural language search with enhanced context including relationships.
 
 **Parameters:**
+
 - `query` (required) - Natural language search query
 - `limit` - Maximum number of results (default: 5, as each includes full context)
 - `threshold` - Minimum similarity score (0-1)
 - `lang` - Filter by programming language
 
 **Example:**
+
 ```bash
 codanna mcp semantic_search_with_context query:"parse files" threshold:0.7
 codanna mcp semantic_search_with_context query:"parse H.P.009-CONFIG" lang:typescript limit:3
 ```
 
 **Returns:** Symbols with:
+
 - Their documentation
 - What calls them
 - What they call
@@ -103,10 +116,12 @@ codanna mcp semantic_search_with_context query:"parse H.P.009-CONFIG" lang:types
 Show functions called by a given function.
 
 **Parameters:**
+
 - `function_name` OR `symbol_id` (one required) - Function name or symbol ID
 - `lang` - Filter by programming language (e.g., "rust", "typescript")
 
 **Example:**
+
 ```bash
 codanna mcp get_calls process_file
 codanna mcp get_calls symbol_id:1883
@@ -120,10 +135,12 @@ codanna mcp get_calls main lang:rust --json
 Show functions that call a given function.
 
 **Parameters:**
+
 - `function_name` OR `symbol_id` (one required) - Function name or symbol ID
 - `lang` - Filter by programming language (e.g., "rust", "typescript")
 
 **Example:**
+
 ```bash
 codanna mcp find_callers init
 codanna mcp find_callers symbol_id:1883
@@ -137,11 +154,13 @@ codanna mcp find_callers parse_file lang:rust --json
 Analyze the impact radius of symbol changes.
 
 **Parameters:**
+
 - `symbol_name` OR `symbol_id` (one required) - Symbol name or symbol ID
 - `max_depth` - Maximum depth to search (default: 3)
 - `lang` - Filter by programming language (e.g., "rust", "typescript")
 
 **Example:**
+
 ```bash
 codanna mcp analyze_impact Parser
 codanna mcp analyze_impact symbol_id:1883
@@ -149,6 +168,7 @@ codanna mcp analyze_impact SimpleIndexer lang:rust --json
 ```
 
 **Returns:** Complete dependency graph showing:
+
 - What CALLS this function
 - What USES this as a type (fields, parameters, returns)
 - What RENDERS/COMPOSES this (JSX: `<Component>`, Rust: struct fields, etc.)
@@ -157,14 +177,16 @@ codanna mcp analyze_impact SimpleIndexer lang:rust --json
 
 ### `search_documents`
 
-Search indexed documents (markdown, text files) using natural language queries.
+Search indexed documents (Markdown, text files) using natural language queries.
 
 **Parameters:**
+
 - `query` (required) - Natural language search query
 - `collection` - Filter by collection name (optional)
 - `limit` - Maximum number of results (default: 5)
 
 **Example:**
+
 ```bash
 codanna mcp search_documents query:"authentication flow"
 codanna mcp search_documents query:"error handling" collection:docs limit:3
@@ -172,6 +194,7 @@ codanna mcp search_documents query:"getting started" --json
 ```
 
 **Returns:** Matching document chunks with:
+
 - Source file path and similarity score
 - Heading context (document structure)
 - KWIC preview centered on keywords with highlighting
@@ -185,12 +208,14 @@ Get index statistics and metadata.
 **Parameters:** None
 
 **Example:**
+
 ```bash
 codanna mcp get_index_info
 codanna mcp get_index_info --json
 ```
 
 **Returns:**
+
 - Total symbols indexed
 - Symbols by language
 - Symbols by kind

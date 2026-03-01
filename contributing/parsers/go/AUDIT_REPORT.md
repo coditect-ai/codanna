@@ -3,6 +3,7 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Summary
+
 - Key nodes: 22/22 (100%)
 - Symbol kinds extracted: 9
 

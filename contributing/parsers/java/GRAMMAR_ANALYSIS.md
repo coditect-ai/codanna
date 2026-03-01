@@ -3,13 +3,16 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 151
 - Nodes found in comprehensive.java: 92
 - Nodes handled by parser: 91
 - Symbol kinds extracted: 5
 
 ## ✅ Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - "
 - (
 - )
@@ -103,11 +106,15 @@ These nodes are in examples and handled by parser:
 - }
 
 ## ⚠️ Implementation Gaps
+
 These nodes appear in comprehensive.java but aren't handled:
+
 - program
 
 ## 📚 Grammar-Only Nodes
+
 These nodes exist in grammar but not in comprehensive.java:
+
 - _literal
 - _simple_type
 - _type
@@ -202,4 +209,3 @@ These nodes exist in grammar but not in comprehensive.java:
 - while_statement
 - wildcard
 - yield_statement
-

@@ -17,10 +17,13 @@ Contributions welcome! This section covers development setup and guidelines.
 1. Fork the repository
 2. Clone your fork
 3. Build the project:
+
    ```bash
    cargo build --release
    ```
+
 4. Run tests:
+
    ```bash
    cargo test
    ```
@@ -45,6 +48,7 @@ See [CONTRIBUTING.md](../../CONTRIBUTING.md) in the root for detailed contributi
 ## Adding Language Support
 
 When adding new language support:
+
 1. Implement the parser trait
 2. Add language-specific resolution if needed
 3. Include comprehensive tests

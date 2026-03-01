@@ -18,22 +18,31 @@ Codanna profiles let teams package reusable configuration, hooks, and commands. 
 ## Typical Workflow
 
 1. **Register a provider**
+
    ```bash
    codanna profile provider add bartolli/codanna-profiles
    ```
+
 2. **Preview available profiles**
+
    ```bash
    codanna profile list --verbose
    ```
+
 3. **Install to the current workspace**
+
    ```bash
    codanna profile install claude
    ```
+
 4. **Inspect installed profiles**
+
    ```bash
    codanna profile status
    ```
+
 5. **Update or verify as the project evolves**
+
    ```bash
    codanna profile update claude
    codanna profile verify claude
@@ -79,6 +88,7 @@ codanna profile provider list --verbose
 | `codanna profile verify [<name>]` | Check integrity | `--all`, `--verbose` |
 
 Examples:
+
 ```bash
 codanna profile install claude
 codanna profile update claude --force

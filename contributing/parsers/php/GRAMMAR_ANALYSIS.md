@@ -3,13 +3,16 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 161
 - Nodes found in comprehensive.php: 177
 - Nodes handled by parser: 176
 - Symbol kinds extracted: 8
 
 ## ✅ Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - !
 - "
 - #[
@@ -19,8 +22,8 @@ These nodes are in examples and handled by parser:
 - '
 - (
 - )
-- *
-- +
+- -
+- -
 - ++
 - ,
 - ->
@@ -188,11 +191,15 @@ These nodes are in examples and handled by parser:
 - }
 
 ## ⚠️ Implementation Gaps
+
 These nodes appear in comprehensive.php but aren't handled:
+
 - property_element
 
 ## 📝 Missing from Examples
+
 These grammar nodes aren't in comprehensive.php:
+
 - augmented_assignment_expression
 - break_statement
 - by_ref
@@ -256,6 +263,7 @@ These grammar nodes aren't in comprehensive.php:
 - while_statement
 
 ## 🎯 Symbol Kinds Extracted
+
 - Class
 - Constant
 - Field
@@ -264,4 +272,3 @@ These grammar nodes aren't in comprehensive.php:
 - Method
 - Trait
 - Variable
-

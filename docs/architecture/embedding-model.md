@@ -22,6 +22,7 @@ model = "AllMiniLML6V2"  # Default
 ```
 
 **Note:** Changing models requires re-indexing:
+
 ```bash
 codanna index . --force 
 ```
@@ -86,34 +87,42 @@ Vectors are organized using Inverted File with Flat vectors for fast search:
 ## Performance Characteristics
 
 ### First Use
+
 - Model download: One-time (~25-560MB depending on model)
 - Storage: `~/.cache/fastembed/`
 - Subsequent runs: Instant model load
 
 ### Embedding Generation
+
 - Per symbol: ~10ms
 - Batch of 100: ~100ms
 - Parallel: Scales with CPU cores
 
 ### Search
+
 - With IVFFlat: <10ms for 100k vectors
 - Without clustering: Would be ~1s
 
 ## Optimization
 
 ### Batch Processing
+
 Generate embeddings in batches during indexing:
+
 - More efficient GPU/CPU usage
 - Amortizes model initialization
 - Better throughput
 
 ### Caching
+
 - Embeddings persist in memory-mapped files
 - No re-generation unless code changes
 - Symbol-level change detection
 
 ### Incremental Updates
+
 Only re-embed changed symbols:
+
 ```rust
 if symbol.doc_comment != old_symbol.doc_comment {
     regenerate_embedding(symbol);
@@ -133,6 +142,7 @@ if symbol.doc_comment != old_symbol.doc_comment {
 **Formula:** `symbols × dimensions × 4 bytes`
 
 **Examples (100k symbols):**
+
 - 384-dim: ~154 MB
 - 768-dim: ~307 MB
 - 1024-dim: ~410 MB
@@ -142,4 +152,4 @@ if symbol.doc_comment != old_symbol.doc_comment {
 - [How It Works](how-it-works.md) - System overview
 - [Memory Mapping](memory-mapping.md) - Vector storage details
 - [Search Guide](../user-guide/search-guide.md) - Writing effective queries
-- [Configuration](../user-guide/H.P.009-CONFIGuration.md) - Model selection
+- [Configuration](../user-guide/h.p.009-configuration.md) - Model selection

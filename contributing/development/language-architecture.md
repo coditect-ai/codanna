@@ -23,6 +23,7 @@ Each language implementation is organized into six distinct responsibilities:
 ```
 
 **Why this separation?**
+
 - Each layer can evolve independently
 - Testing becomes focused (unit test per layer)
 - Clear boundaries prevent logic leakage
@@ -41,6 +42,7 @@ LanguageBehavior ────┘
 ```
 
 **Design rationale**:
+
 - **Compile-time polymorphism** via trait objects (`Box<dyn LanguageParser>`)
 - **Zero-cost abstraction** - no runtime type checking
 - **Open-closed principle** - extend without modifying core
@@ -62,6 +64,7 @@ registry.get_by_extension("ts") → TypeScriptLanguage
 ```
 
 **Benefits**:
+
 - **Decoupled discovery** - core doesn't know about specific languages
 - **Dynamic enable/disable** via settings.toml
 - **Single source of truth** for available languages
@@ -91,6 +94,7 @@ Two-tier state model:
 ```
 
 **Design choices**:
+
 - **Parser state**: Temporary, discarded after each file
 - **Behavior state**: Persistent, shared across all parsers via `Arc`
 - **Thread-safety**: `DashMap` allows concurrent parsing
@@ -128,6 +132,7 @@ Symbol Resolution Flow:
 ```
 
 **Key design decisions**:
+
 - **Language-specific scope order** encoded in `resolve()` implementation
 - **Fallback chain** from specific to general
 - **Lazy resolution** - don't resolve until needed
@@ -205,6 +210,7 @@ GDScript:    [local] → [class] → [extends] → [global]
 ```
 
 **Design highlights**:
+
 - **Pipeline architecture** - clear stages with defined outputs
 - **Immutability** - symbols don't change after creation
 - **Dual storage** - in-memory (fast) + Tantivy (persistent)
@@ -232,6 +238,7 @@ Index Level (Storage):
 ```
 
 **Philosophy**:
+
 - **Best effort extraction** - partial data better than none
 - **Graceful degradation** - continue even with errors
 - **User visibility** - errors logged but don't crash
@@ -312,6 +319,7 @@ Where to extend the system:
 ```
 
 **Extension philosophy**:
+
 - **Open for extension** - new functionality added without modification
 - **Closed for modification** - core code remains stable
 - **Plugin architecture** - languages are plugins
@@ -344,6 +352,7 @@ Performance Tests (marked #[ignore]):
 ```
 
 **Test boundaries match architecture**:
+
 - One test category per layer
 - Fast unit tests for quick feedback
 - Slower integration tests for correctness
@@ -354,26 +363,31 @@ Performance Tests (marked #[ignore]):
 ## Design Trade-offs
 
 ### Chosen: Dynamic Dispatch (Trait Objects)
+
 **Pros**: Easy to add languages, clean abstraction
 **Cons**: Small runtime cost (vtable lookup)
 **Why**: Flexibility > micro-optimization at this level
 
 ### Chosen: Thread-Safe Shared State (Arc<DashMap>)
+
 **Pros**: Parallel parsing, simple concurrency model
 **Cons**: Memory overhead vs single-threaded
 **Why**: Modern CPUs have cores to spare
 
 ### Chosen: Heuristic Visibility Detection
+
 **Pros**: Works across tree-sitter grammar variations
 **Cons**: Edge cases possible
 **Why**: 99% accuracy is acceptable, tree-sitter grammars inconsistent
 
 ### Chosen: Multi-Strategy Resolution
+
 **Pros**: Handles complex cross-module scenarios
 **Cons**: Multiple code paths to maintain
 **Why**: Real-world code has messy imports
 
 ### Chosen: Best-Effort ERROR Recovery
+
 **Pros**: Extract partial data from broken code
 **Cons**: May produce incomplete results
 **Why**: Developer experience - show what we can
@@ -382,7 +396,7 @@ Performance Tests (marked #[ignore]):
 
 ## Invariants & Constraints
 
-### Must Hold True:
+### Must Hold True
 
 1. **Symbols are immutable** after creation
    - Rationale: Enables safe concurrent access
@@ -404,14 +418,14 @@ Performance Tests (marked #[ignore]):
    - Rationale: Audit reports must be accurate
    - Enforced by: `register_handled_node()` in all code paths
 
-### Performance Constraints:
+### Performance Constraints
 
 - Symbol extraction: **>10,000 symbols/second** (per core)
 - Memory per symbol: **~100 bytes** average
 - Startup time: **<1 second** for 1M symbols (mmap)
 - Index rebuild: **<5 minutes** for 1M symbols
 
-### Compatibility Constraints:
+### Compatibility Constraints
 
 - Tree-sitter ABI: **ABI-14 or ABI-15**
 - Rust edition: **2021**
@@ -421,7 +435,7 @@ Performance Tests (marked #[ignore]):
 
 ## Future Evolution
 
-### Planned Improvements:
+### Planned Improvements
 
 1. **Incremental Parsing**
    - Only re-parse changed files
@@ -443,7 +457,7 @@ Performance Tests (marked #[ignore]):
    - IDE integration (autocomplete, go-to-def)
    - Impact: Better DX
 
-### Backward Compatibility Strategy:
+### Backward Compatibility Strategy
 
 - **Trait versioning**: New methods have defaults
 - **Index format versioning**: Detect old formats, migrate

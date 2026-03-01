@@ -26,6 +26,7 @@ High-performance code intelligence system in Rust. Indexes code, tracks relation
 **Parallel indexing pipeline**: 5-stage architecture (DISCOVER → READ → PARSE → COLLECT → INDEX) with work-stealing queues. Phase 2 runs EmbeddingPool for parallel embedding generation.
 
 **Memory-mapped storage**: Vector cache for semantic search:
+
 - `segment_0.vec` - 384-dimensional vectors, <1μs access after OS page cache warm-up
 
 **Embedding lifecycle management**: Old embeddings deleted when files are re-indexed to prevent accumulation.
@@ -51,6 +52,7 @@ Parser benchmarks on a 750-symbol test file:
 | **Go** | 74,655 symbols/second | 7.5x faster ✓ | Production |
 
 Run performance benchmarks:
+
 ```bash
 codanna benchmark all          # Test all parsers
 codanna benchmark python       # Test specific language

@@ -3,13 +3,16 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 183
 - Nodes found in comprehensive.ts: 203
 - Nodes handled by parser: 203
 - Symbol kinds extracted: 9
 
 ## ✅ Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - !
 - "
 - ${
@@ -18,8 +21,8 @@ These nodes are in examples and handled by parser:
 - '
 - (
 - )
-- *
-- +
+- -
+- -
 - ++
 - ,
 - -
@@ -215,7 +218,9 @@ These nodes are in examples and handled by parser:
 - }
 
 ## 📝 Missing from Examples
+
 These grammar nodes aren't in comprehensive.ts:
+
 - adding_type_annotation
 - asserts
 - asserts_annotation
@@ -282,6 +287,7 @@ These grammar nodes aren't in comprehensive.ts:
 - with_statement
 
 ## 🎯 Symbol Kinds Extracted
+
 - Class
 - Constant
 - Enum
@@ -291,4 +297,3 @@ These grammar nodes aren't in comprehensive.ts:
 - Method
 - TypeAlias
 - Variable
-

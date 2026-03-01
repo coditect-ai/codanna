@@ -34,6 +34,7 @@ Quick reference documentation for Codanna.
 | `get_index_info` | None |
 
 **Using symbol_id:**
+
 - All tools return `[symbol_id:123]` for unambiguous lookup
 - Use `symbol_id:ID` instead of name for precise queries
 - Example: `codanna mcp get_calls symbol_id:1883`
@@ -55,15 +56,18 @@ Language filtering eliminates duplicate results when similar documentation exist
 ## Platform Support
 
 **Supported Languages:**
+
 - See [Language Support](../architecture/language-support.md) for complete list
 - Tree-sitter based parsing with language-specific resolution
 
 **Embedding Models:**
+
 - Default: `AllMiniLML6V2` (English-optimized, 384 dimensions)
 - Multilingual: `MultilingualE5Small` (100+ languages, 384 dimensions)
 - Configurable via `model` setting in `.codanna/settings.toml`
 
 **Operating Systems:**
+
 - Linux: Fully supported
 - macOS: Fully supported
 - Windows: Experimental

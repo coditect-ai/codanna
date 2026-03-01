@@ -3,12 +3,14 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 91
 - Nodes found in comprehensive.gd: 76
 - Nodes handled by parser: 14
 - Symbol kinds extracted: 7
 
 ## ✅ Successfully Handled Nodes
+
 - annotation
 - annotations
 - class_definition
@@ -25,11 +27,12 @@
 - while_statement
 
 ## ⚠️ Implementation Gaps
+
 - "
 - %
 - (
 - )
-- +
+- -
 - +=
 - ,
 - ->
@@ -89,6 +92,7 @@
 - }
 
 ## ⭕ Missing from Examples
+
 - _attribute_expression
 - _compound_statement
 - _expression
@@ -140,6 +144,7 @@
 - variadic_parameter
 
 ## 🔍 Symbol Kinds Extracted
+
 - Class
 - Constant
 - Field
@@ -147,4 +152,3 @@
 - Method
 - Module
 - Variable
-

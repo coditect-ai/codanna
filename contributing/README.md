@@ -28,16 +28,19 @@ See [CHANGELOG.md](../CHANGELOG.md) for detailed release notes and feature histo
 ### System Dependencies
 
 **Linux (Ubuntu/Debian):**
+
 ```bash
 sudo apt update && sudo apt install pkg-config libssl-dev
 ```
 
 **Linux (CentOS/RHEL):**
+
 ```bash
 sudo yum install pkgconfig openssl-devel
 ```
 
 **Linux (Fedora):**
+
 ```bash
 sudo dnf install pkgconfig openssl-devel
 ```
@@ -45,22 +48,26 @@ sudo dnf install pkgconfig openssl-devel
 ### Getting Started
 
 1. **Fork and clone the repository:**
+
    ```bash
    git clone https://github.com/bartolli/codanna.git
    cd codanna
    ```
 
 2. **Build the project:**
+
    ```bash
    cargo build --release --all-features
    ```
 
 3. **Run tests:**
+
    ```bash
    cargo test
    ```
 
 4. **Set up pre-commit checks:**
+
    ```bash
    # Make scripts executable
    chmod +x contributing/scripts/*.sh
@@ -123,6 +130,7 @@ codanna parse file.rs | jq 'select(.node == "function_item")'  # Find specific n
 ```
 
 **Key Features:**
+
 - **Default behavior matches tree-sitter CLI** - Shows only named nodes for direct comparison
 - **`--all-nodes` flag** - Shows complete AST including anonymous nodes (operators, punctuation)
 - **JSONL format** - One JSON object per line, perfect for streaming and Unix tools
@@ -134,20 +142,26 @@ codanna parse file.rs | jq 'select(.node == "function_item")'  # Find specific n
 Located in `contributing/tree-sitter/scripts/`:
 
 #### setup.sh
+
 Install tree-sitter grammars for testing:
+
 ```bash
 ./contributing/tree-sitter/scripts/setup.sh typescript  # Install specific grammar
 ./contributing/tree-sitter/scripts/setup.sh            # Show installed grammars
 ```
 
 #### compare-nodes.sh
+
 Compare codanna parser with tree-sitter (two modes):
 
 **Language mode** - Runs audit tests and generates reports:
+
 ```bash
 ./contributing/tree-sitter/scripts/compare-nodes.sh rust
 ```
+
 This mode:
+
 - Runs `cargo test comprehensive_rust_analysis`
 - Generates audit reports in `contributing/parsers/rust/`:
   - `AUDIT_REPORT.md` - Parser coverage analysis
@@ -156,17 +170,22 @@ This mode:
 - Shows parser implementation gaps
 
 **File mode** - Compares any specific file:
+
 ```bash
 ./contributing/tree-sitter/scripts/compare-nodes.sh examples/rust/main.rs
 ```
+
 This mode:
+
 - Uses `codanna parse` to analyze the file
 - Compares with tree-sitter output
 - Saves detailed comparison to `{filename}_comparison.log`
 - Shows matching statistics
 
 #### explore-ast.sh
+
 Quick AST exploration:
+
 ```bash
 # Use codanna (default)
 ./contributing/tree-sitter/scripts/explore-ast.sh file.rs
@@ -183,30 +202,41 @@ Quick AST exploration:
 We provide local scripts that replicate our CI/CD pipeline:
 
 ### 1. Quick Checks (2-3 minutes)
+
 Run before every commit to catch common issues:
+
 ```bash
 ./contributing/scripts/quick-check.sh
 ```
+
 This runs:
+
 - Format checking (cargo fmt --check)
 - Clippy linting (cargo clippy)
 - Compile check (cargo check --all-features)
 
 ### 2. Auto-Fix Issues
+
 Automatically fix formatting and linting issues:
+
 ```bash
 ./contributing/scripts/auto-fix.sh
 ```
+
 This will:
+
 - Format your code (cargo fmt)
 - Fix clippy issues where possible
 - Run quick-check to verify fixes
 
 ### 3. Full Test Suite
+
 Run before submitting PR to ensure all tests pass:
+
 ```bash
 ./contributing/scripts/full-test.sh
 ```
+
 This replicates the complete GitHub Actions workflow.
 
 ## Development Guidelines
@@ -261,6 +291,7 @@ See [Adding Language Support](./development/language-support.md) for the complet
 ### Before Submitting
 
 1. **Run all local checks:**
+
    ```bash
    ./contributing/scripts/auto-fix.sh
    ./contributing/scripts/full-test.sh
@@ -272,6 +303,7 @@ See [Adding Language Support](./development/language-support.md) for the complet
    - Update README.md if adding features
 
 3. **Write good commit messages:**
+
    ```
    feat: Add Go language parser support
 
@@ -336,6 +368,7 @@ Brief description of changes
 ## Recognition
 
 Contributors are recognized in:
+
 - GitHub contributors page
 
 We're in an era where AI agents are getting smarter and need scalable, fast, and precise context on demand. Context integration matters.

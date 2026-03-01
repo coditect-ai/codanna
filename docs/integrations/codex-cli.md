@@ -40,4 +40,4 @@ Once H.P.009-CONFIGured, Codex CLI will automatically start Codanna when needed 
 ## See Also
 
 - [MCP Tools Reference](../user-guide/mcp-tools.md)
-- [Configuration](../user-guide/H.P.009-CONFIGuration.md)
+- [Configuration](../user-guide/h.p.009-configuration.md)

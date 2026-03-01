@@ -445,21 +445,25 @@ Closes #63
 ### Added
 
 **Documentation**
+
 - Created language-architecture.md with design principles and resolution patterns
 - Created language-patterns.md with implementation patterns from TypeScript/Rust
 - Created development README.md as documentation index
 - Updated language-support.md with accurate resolution implementation status
 
 **Grammar Version Tracking**
+
 - Added grammar-versions.lock to track tree-sitter grammar commits and ABI versions
 - Added update-grammar-lock.sh to generate/update lockfile automatically
 - Added check-grammar-updates.sh to detect remote grammar updates
 - Lockfile tracks commit hash, timestamp, ABI version, and repo URL for each grammar
 
 **GDScript Enhancement**
+
 - Added relationship tracking for GDScript (#62)
 
 **MCP Enhancement**
+
 - Added guidance messages to all MCP tool responses (find_symbol, get_calls, find_callers, analyze_impact, search_symbols, semantic_search_docs, semantic_search_with_context)
 
 ### Changed
@@ -485,6 +489,7 @@ Closes #63
 ### Added
 
 **GDScript Language Support**
+
 - Added GDScript parser with tree-sitter integration for Godot game engine projects
 - Implemented StatefulBehavior architecture for cross-file symbol tracking
 - Added relative path resolution for GDScript imports (`./file.gd`, `../dir/file.gd`)
@@ -494,12 +499,14 @@ Closes #63
 - Added test suite with 850+ lines covering parser, behavior, imports, and resolution
 
 **Retrieve Command Enhancement**
+
 - Added `symbol_id` parameter support to `retrieve symbol` command
 - Enabled direct symbol lookup by ID without name ambiguity
 
 ### Fixed
 
 **Index Command Workflow**
+
 - Fixed force flag to trigger complete re-index regardless of path source
 - Added automatic path persistence when CLI paths provided to `index` command
 - Prevented redundant auto-sync when force flag is present
@@ -507,10 +514,12 @@ Closes #63
 - Extracted `add_paths_to_settings()` helper for shared logic between `index` and `add-dir`
 
 **Test Infrastructure**
+
 - Fixed Windows file URL handling in marketplace resolution tests
 - Resolved path normalization issues for cross-platform compatibility
 
 **Configuration**
+
 - Updated settings file references to remove non-existent H.P.002-COMMANDS
 - Enabled GDScript in default language H.P.009-CONFIGuration
 
@@ -528,6 +537,7 @@ Closes #63
 Share workspace H.P.009-CONFIGurations (gitignore, H.P.005-HOOKS, documentation) across projects with version control.
 
 **Commands:**
+
 - `codanna profile sync` - Register providers and install team profiles
 - `codanna profile install <profile>` - Install individual profile from provider
 - `codanna profile remove <profile>` - Uninstall with directory cleanup
@@ -535,6 +545,7 @@ Share workspace H.P.009-CONFIGurations (gitignore, H.P.005-HOOKS, documentation)
 - `codanna profile provider add/list/remove` - Provider registry management
 
 **Features:**
+
 - Three-tier H.P.009-CONFIGuration: global registry, team H.P.009-CONFIG, local lockfile
 - Atomic transactional installation with pre-flight validation and rollback
 - Provider registry supports GitHub, Git URL, and local directory sources
@@ -547,12 +558,14 @@ Share workspace H.P.009-CONFIGurations (gitignore, H.P.005-HOOKS, documentation)
 Index multiple directories with automatic sync mechanism.
 
 **Commands:**
+
 - `codanna add-dir <path>` - Add directory to indexed paths
 - `codanna remove-dir <path>` - Remove directory from indexed paths
 - `codanna list-dirs` - Display H.P.009-CONFIGured indexed directories
 - `codanna index [paths...]` - Accept multiple paths, use H.P.009-CONFIG when none provided
 
 **Features:**
+
 - Automatic sync on every command compares settings.toml with index metadata
 - settings.toml is source of truth, index metadata is derived state
 - New directories in H.P.009-CONFIG automatically indexed
@@ -561,6 +574,7 @@ Index multiple directories with automatic sync mechanism.
 - FileWatcher tracks both H.P.009-CONFIG file and source file changes
 
 **Fixed:**
+
 - Batch management in remove_file now self-contained (calls start_batch before operations)
 
 ### Documentation
@@ -571,17 +585,20 @@ Index multiple directories with automatic sync mechanism.
 ## [0.6.3] - 2025-10-24
 
 ### Changed
+
 - Simplified CLAUDE.md with focused code intelligence workflow
 - Removed multi-hop agent instructions in favor of direct workflow
 - Streamlined query optimization and exploration patterns
 
 ### Fixed
+
 - Symbol location display now includes line ranges in semantic search results
 - Symbol context formatting shows symbol_id in location output
 
 ## [0.6.2] - 2025-10-23
 
 ### Added
+
 - Binary release workflow with dual variants
   - Tag-triggered automated releases
   - 8 pre-built binaries (4 platforms × 2 variants)
@@ -589,11 +606,12 @@ Index multiple directories with automatic sync mechanism.
   - Slim variant is CLI only
   - SHA256/SHA512 checksums for verification
   - Dist manifest with download URLs for universal installer
-  - Preparation for https://setup.codanna.sh installer
+  - Preparation for <https://setup.codanna.sh> installer
 - C# benchmark command for performance testing
 - C# documentation examples (file-scoped namespaces, comprehensive.cs)
 
 ### Fixed
+
 - C# import extraction fallback for using directives
 - Stats display showing accurate symbol counts and timing
 - Windows test compatibility (platform-agnostic path assertions)
@@ -601,6 +619,7 @@ Index multiple directories with automatic sync mechanism.
 ## [0.6.1] - 2025-10-21
 
 ### Added
+
 - Symbol ID parameter support for unambiguous queries
   - `symbol_id` parameter for retrieve H.P.002-COMMANDS (calls, callers, describe)
   - `symbol_id` parameter for MCP tools (get_calls, find_callers, analyze_impact)
@@ -617,6 +636,7 @@ Index multiple directories with automatic sync mechanism.
   - Slash command updates with `<relationship_symbol_name|symbol_id:ID>` pattern
 
 ### Changed
+
 - Plugin H.P.004-SCRIPTS updated to display and accept symbol_id
   - Formatters show `[symbol_id:123]` in headers and relationships
   - Context provider accepts symbol_id for all relationship queries
@@ -630,6 +650,7 @@ Index multiple directories with automatic sync mechanism.
 ## [0.6.0] - 2025-10-18
 
 ### Added
+
 - **Plugin Management System**: Install, remove, and manage plugins
   - Transactional installs with automatic rollback on failure
   - Smart update detection skips I/O when no changes needed
@@ -639,27 +660,32 @@ Index multiple directories with automatic sync mechanism.
   - Navigation footers across all documentation pages
 
 ### Changed
+
 - Symbol display now includes file paths with line numbers for precise navigation
 - Enhanced relationship formatting for better readability
 - Improved plugins documentation with marketplace and MCP setup details
 
 ### Fixed
+
 - TypeScript call tracking from object property functions
 - Documentation cross-references updated for new structure
 
 ## [0.5.26] - 2025-10-09
 
 ### Added
+
 - Configurable Tantivy heap size via `tantivy_heap_mb` setting (default 50MB)
 - Configurable retry attempts via `max_retry_attempts` setting (default 3)
 - Universal defaults work across all platforms without cfg checks
 
 ### Changed
+
 - Tantivy heap size now user-H.P.009-CONFIGurable instead of hardcoded
 - Retry logic moved to helper function with H.P.009-CONFIGurable attempts
 - DocumentIndex constructor accepts Settings parameter
 
 ### Fixed
+
 - Error detection uses ErrorKind instead of locale-dependent strings
 - Transient permission errors handled with exponential backoff (100ms, 200ms, 400ms)
 - Tests updated to use Settings parameter
@@ -667,6 +693,7 @@ Index multiple directories with automatic sync mechanism.
 ## [0.5.25] - 2025-10-08
 
 ### Fixed
+
 - C++ parser: Member function call detection for method invocations
   - Extract method names from field_expression nodes (obj->method, obj.method)
   - Extract method names from qualified_identifier in function context (Class::method)
@@ -680,6 +707,7 @@ Index multiple directories with automatic sync mechanism.
 ## [0.5.24] - 2025-10-07
 
 ### Fixed
+
 - C++ parser: Extract class methods from declarations and implementations
   - Method declarations inside classes now extracted as SymbolKind::Method
   - Out-of-class implementations (Class::method) identified as methods
@@ -691,28 +719,33 @@ Index multiple directories with automatic sync mechanism.
 ## [0.5.23] - 2025-10-07
 
 ### Changed
+
 - Bump rmcp from 0.7.0 to 0.8.0
 
 ## [0.5.22] - 2025-10-07
 
 ### Added
+
 - C++ parser: Doxygen doc comment extraction (/** */ and ///)
 - C++ parser: Recursive call tracking with function context
 - C++ parser: Scope context tracking via ParserContext
 
 ### Fixed
+
 - MCP get_index_info now displays all symbol kinds dynamically
 - C++ Audit system uses proper tree-sitter node names to generate the report
 
 ## [0.5.21] - 2025-10-03
 
 ### Added
+
 - Recursion depth guards across all language parsers
   - `check_recursion_depth()` prevents stack overflow on deeply nested AST structures
   - All parsers (TypeScript, Python, Rust, Go, PHP, C++, C#) now track depth in `extract_symbols_from_node()`
   - Safely handles pathological code with excessive nesting (tested on Qt keyboard at depth 3521)
 
 ### Changed
+
 - **PERFORMANCE**: Optimized resolution pipeline for large codebases
   - Indexed method calls as HashMap for O(1) lookup instead of linear search
   - Added symbol lookup cache to eliminate duplicate Tantivy queries
@@ -724,6 +757,7 @@ Index multiple directories with automatic sync mechanism.
 ## [0.5.20] - 2025-10-02
 
 ### Added
+
 - C# language support with full parser implementation (PR#39)
   - Symbol extraction for classes, interfaces, structs, enums, methods, properties, fields
   - Relationship tracking for inheritance, interface implementation, and method calls
@@ -734,6 +768,7 @@ Index multiple directories with automatic sync mechanism.
   - Dual fuzzy strategy: ngram tokens for partial matches + whole words for full name typos
 
 ### Changed
+
 - **BREAKING**: Tantivy schema `name` field changed from TEXT to STRING
   - Enables exact matching without tokenization for fuzzy search
   - Requires full reindex: `codanna index --force`
@@ -746,6 +781,7 @@ Index multiple directories with automatic sync mechanism.
   - Implements ↔ ImplementedBy, Extends ↔ ExtendedBy, Calls ↔ CalledBy, Uses ↔ UsedBy
 
 ### Fixed
+
 - File ID counter race condition during batch operations
   - Pending counter prevents stale committed values from causing duplicate IDs
 - Windows file locking issues with proper retry logic and error logging
@@ -754,12 +790,14 @@ Index multiple directories with automatic sync mechanism.
 ## [0.5.19] - 2025-10-01
 
 ### Added
+
 - Full symbol boundary tracking for precise editor navigation
   - `create_symbol()` accepts `full_node` parameter for complete range extraction
   - Tantivy schema extended with `end_line` and `end_column` fields
   - MCP tools now return precise symbol ranges (start_line, start_column, end_line, end_column)
 
 ### Changed
+
 - C parser: Functions, structs, unions, enums, fields, and macros now use full boundaries
 - Rust parser: Functions, structs, enums, traits, and modules now use full boundaries
 - README: Added documentation for precise symbol boundary support
@@ -767,6 +805,7 @@ Index multiple directories with automatic sync mechanism.
 ## [0.5.18] - 2025-09-30
 
 ### Added
+
 - JSX component usage tracking in TypeScript parser
   - New `component_usages` field tracks function → component relationships
   - `extract_jsx_uses_recursive()` traverses AST to find JSX elements
@@ -780,18 +819,21 @@ Index multiple directories with automatic sync mechanism.
   - test_jsx_usage.tsx: Multiple components using shared JSX
 
 ### Changed
+
 - Audit reports regenerated to reflect JSX and generator function support
 - All language parser audit reports updated with latest node counts
 
 ## [0.5.17] - 2025-09-29
 
 ### Changed
+
 - Refactored relationship compatibility logic from indexer to language behaviors
   - Moved `is_compatible_relationship` from SimpleIndexer to ResolutionScope trait
   - Each language now controls its own relationship validation rules
   - Cleaner separation between orchestration and language-specific logic
 
 ### Fixed
+
 - UTF-8 character boundary parsing error when encountering Unicode characters
   - Added `safe_substring_window()` utility for UTF-8-safe string slicing
   - TypeScript parser now handles box-drawing characters and emojis correctly
@@ -801,6 +843,7 @@ Index multiple directories with automatic sync mechanism.
 ## [0.5.16] - 2025-09-28
 
 ### Added
+
 - TypeScript path alias resolution with full cross-module support
   - Aliases like `@/*` resolved to actual paths (`./src/*`)
   - Symbols added by module_path for cross-module resolution
@@ -813,6 +856,7 @@ Index multiple directories with automatic sync mechanism.
   - Proper relationship tracking for component hierarchies
 
 ### Changed
+
 - **BREAKING**: External stub symbols no longer created for unresolved imports
   - Cleaner index without placeholder symbols
   - Requires full project reindex: `codanna index --force`
@@ -820,13 +864,16 @@ Index multiple directories with automatic sync mechanism.
 - Relationship validation extended for JavaScript/TypeScript patterns
 
 ### Fixed
+
 - TypeScript imports using path aliases not resolving across modules
 - Default exported symbols incorrectly marked as Private
 - React components (Constants) not creating proper call relationships
 - Cross-module visibility checks for exported symbols
 
 ### Migration Required
+
 To benefit from improved TypeScript resolution:
+
 ```bash
 codanna index --force
 ```
@@ -834,6 +881,7 @@ codanna index --force
 ## [0.5.15] - 2025-09-27
 
 ### Added
+
 - Cross-module resolution: Full qualified path resolution for all languages
   - Symbols now resolvable by both simple name and full module path
   - Example: `crate::init::init_global_dirs`, `app.utils.helper.process_data`
@@ -842,29 +890,34 @@ codanna index --force
 - Architectural documentation: Universal vs language-specific concepts
 
 ### Changed
+
 - **BREAKING**: Python method naming convention - requires reindexing Python codebases
 - Resolution context: Module paths added during symbol population
 
 ### Fixed
+
 - Cross-module function calls not being resolved (e.g., `crate::module::function`)
 - Python parser tests updated for new qualified naming convention
 
 ## [0.5.14] - 2025-09-25
 
 ### Added
+
 - Global model cache system at `~/.codanna/models` for shared FastEmbed models across projects
 - Project registry tracking all indexed projects with unique IDs
 - `codanna init` command to initialize project structure and create model symlinks
 - Test isolation with separate directories (`~/.codanna-test`) for development
 
 ### Changed
+
 - **BREAKING**: Existing `.fastembed_cache` directories must be deleted before running `init --force`
 - Model storage moved from per-project directories to global cache via symlinks
 - Settings validation now checks for proper initialization on startup
 
-
 ### Migration Required
+
 To upgrade existing projects:
+
 ```bash
 rm -rf .fastembed_cache
 codanna init --force
@@ -873,6 +926,7 @@ codanna init --force
 ## [0.5.13] - 2025-09-13
 
 ### Fixed
+
 - Python parser: Module-level function calls and class instantiations now tracked (fixes #32)
   - Module symbol created for each Python file to represent module scope
   - Module-level calls tracked with `<module>` as caller, mapped to actual module path for queries
@@ -883,12 +937,14 @@ codanna init --force
   - Method call resolution normalizes caller names for consistent matching
 
 ### Added
+
 - Python parser: Module-level execution tracking for better code analysis
 - Tests: Module-level class instantiation detection verification
 
 ## [0.5.12] - 2025-09-12
 
 ### Fixed
+
 - MCP server: Fixed tool discovery issue after rmcp 0.6.4 upgrade (fixes #31)
   - Tools without parameters now generate proper `{"type": "object"}` schema
 - Parser safety: Fixed UTF-8 string truncation panic when encountering emojis or multi-byte characters (fixes #29)
@@ -897,14 +953,17 @@ codanna init --force
   - Zero-cost implementation returning string slices without allocation
 
 ### Improved
+
 - MCP server instructions: Updated workflow guidance to emphasize semantic search first approach for better code exploration
 
 ## [0.5.11] - 2025-09-11
 
 ### Added
+
 - React example app under `examples/typescript/react` demonstrating call tracking for React H.P.005-HOOKS and component methods.
 
 ### Fixed
+
 - TypeScript parser/indexer: Function call relationships correctly tracked in React projects (fixes #23)
   - React H.P.005-HOOKS (`useState`, `useEffect`) and component methods properly detected
   - Call relationships preserved during full project indexing
@@ -913,25 +972,30 @@ codanna init --force
 ## [0.5.10] - 2025-09-11
 
 ### Added
+
 - Parse command: output AST nodes in JSONL format for debugging
 - Parse command flags: --max-depth, --all-nodes, --output
 - Tree-sitter CLI detection in development H.P.004-SCRIPTS
 
 ### Fixed
+
 - TypeScript parser: improved nested node extraction in arrow functions and JSDoc blocks (123/182 coverage)
 - Test parallel execution race conditions with unique temp files
 - CLI startup performance for non-index H.P.002-COMMANDS (parse, H.P.009-CONFIG, benchmark)
 
 ### Changed
+
 - Parser audit reports now include timestamps
 - Parse command integration tests moved to proper test structure
 
 ## [0.5.9] - 2025-09-07
 
 ### Enhanced
+
 - **codanna-navigator agent**: Improved code research reports with quantified findings, investigation paths, and actionable insights
 
 ### Added
+
 - C/C++ language support with tree-sitter parsing
 - Dynamic NodeTracker system for zero-maintenance parser auditing across all languages
 - TypeScript tsH.P.009-CONFIG.json path resolution infrastructure with persistence (.codanna/index/resolvers/)
@@ -940,41 +1004,49 @@ codanna init --force
 - Parser API documentation for consistent resolution patterns across languages
 
 ### Fixed
+
 - Semantic search: SymbolId persistence between embeddings and symbol index (addresses #23)
 - CI: clippy --all-targets --all-features compliance across all parsers
 
 ### Changed
+
 - Test infrastructure: enable subfolder organization, removed 20k LOC obsolete tests, added ABI-15 audit (supports #20)
 - Memory optimization: symbol-cache candidate lookup with relationship deduplication
 
 ### Breaking Changes
+
 - Existing codebases need reindexing with --force or clean new index
 
 ## [0.5.8] - 2025-09-01
 
 ### Security
+
 - Fixed critical slab vulnerability (RUSTSEC-2025-0047) by updating to v0.4.11
 - Replaced unmaintained atty (0.2.14) with is-terminal (0.4.16)
 - Resolved RUSTSEC-2024-0375 (atty unmaintained warning)
 - Resolved RUSTSEC-2021-0145 (atty potential unaligned read)
 
 ### Documentation (internal)
+
 - Added security maintenance documentation
 - Created paste dependency analysis and monitoring strategy
 - Updated security sprint tracking and procedures
 
 ### Changed
+
 - Terminal detection now uses is-terminal crate instead of atty
 
 ## [0.5.7] - 2025-09-01
 
 ### Fixed
+
 - rmcp 0.6.1 compatibility for `cargo install codanna --locked`
 - Symbol counts showing as 0 in `get_index_info`
 
 ## [0.5.6] - 2025-08-22
 
 ### Fixed
+
 - Clippy warnings in Go resolution (unnecessary unwrap, unused parentheses)
 - Documentation build errors with escaped bracket syntax in Go parser
 - CI timeouts by ignoring hanging regression tests pending investigation
@@ -982,6 +1054,7 @@ codanna init --force
 ## [0.5.5] - 2025-08-22
 
 ### Added
+
 - Go language support with complete parser implementation
 - Go-specific symbol extraction: structs, interfaces, methods, functions, constants, variables
 - Go generics support (Go 1.18+) with type parameter parsing
@@ -990,12 +1063,14 @@ codanna init --force
 - Performance benchmark: 74,545 symbols/sec (7.4x above 10k/s target)
 
 ### Fixed
+
 - Retrieve H.P.002-COMMANDS relationship data parity with MCP tools
 - All 6 retrieve functions now use proper SymbolContext with complete relationship data
 - retrieve_describe aggregates relationships from all symbols with same name
 - JSON output field population for all retrieve H.P.002-COMMANDS
 
 ### Changed
+
 - Language registry: Go parser integrated with self-registration architecture
 - README: Updated supported languages list to include Go (5 production languages)
 - Dependencies: Added tree-sitter-go for Go language parsing
@@ -1003,39 +1078,46 @@ codanna init --force
 ## [0.5.4] - 2025-08-22
 
 ### Added
+
 - ResolutionScope::resolve_relationship with default + language-specific overrides
 - Support for Defines, Calls, Implements, and qualified name resolution (e.g. Config::new, self::method)
 - TDD integration tests for Rust, Python, TypeScript, PHP with real parser validation
 - Structured, extensible abstractions for relationship resolution
 
 ### Fixed
+
 - Replace ordering hack in SimpleIndexer with ResolutionContext delegation
 - Update retrieve describe to aggregate relationships across symbols with same name
 - Clean ~40 lines of hack code with professional architecture patterns
 
 ### Changed
+
 - Architecture: SimpleIndexer = orchestration only; ResolutionContext = owns logic; per-language behaviors encapsulated
 - Maintains <10ms resolution via memory-mapped symbol cache
 
 ## [0.5.3] - 2025-08-22
 
 ### Added
+
 - Function call tracking for all language parsers via PR #17
 - Automatic detection and storage of function calls during indexing
 - Call relationships now tracked alongside existing symbol relationships
 
 ### Fixed
+
 - MCP schema validation: Changed non-standard `uint` format to `uint32`
 - Python parser: Exclude method calls from function call tracking (only track function calls)
 - PHP parser: Exclude method calls from function call tracking (only track function calls)
 - Test deduplication for function call relationships from multiple analysis passes
 
 ### Changed
+
 - CI workflow: Switched to PR-triggered CI with concurrency control for better resource management
 
-## [0.5.2] - 2025-08-21
+## <https://github.com/bartolli/codanna/compare/v0.5.1...v0.5.2> - 2025-08-21
 
 ### Added
+
 - Language filtering for semantic search in mixed-language codebases
 - `lang` parameter for `semantic_search_docs` and `semantic_search_with_context` MCP tools
 - Language mappings persistence in `.codanna/index/semantic/languages.json`
@@ -1045,22 +1127,26 @@ codanna init --force
 - Dual format support for all retrieve H.P.002-COMMANDS (positional and key:value)
 
 New slash H.P.002-COMMANDS:
+
 - /find: Smart semantic search with natural language query optimization
 - /deps: Dependency analysis with coupling metrics and refactoring insights
 
 ### Fixed
+
 - TypeScript JSDoc extraction for exported functions
 - TypeScript parser now correctly finds JSDoc comments above `export function` declarations
 
 ### Changed
+
 - Semantic search filters embeddings by language before computing similarity
 - Search performance improved in mixed-language projects (up to 75% noise reduction)
 - All retrieve H.P.002-COMMANDS migrated to OutputManager infrastructure
 - Deprecated `impact` command in favor of `analyze_impact` MCP tool
 
-## [0.5.1] - 2025-08-17
+## <https://github.com/bartolli/codanna/compare/v0.4.0...v0.5.1> - 2025-08-17
 
 ### Added
+
 - Comprehensive signature extraction across all language parsers
 - Parent context tracking for nested symbols
 - PHP Resolution API with namespace resolution and PSR-4 support
@@ -1069,50 +1155,60 @@ New slash H.P.002-COMMANDS:
 - TypeScript re-export and barrel file support
 
 ### Fixed
+
 - All scope tests and language behavior doctests
 - TypeScript import parsing foundation
 
 ## [0.5.0] - Unreleased
-_Note: v0.5.0 was an internal milestone, not a public release. Changes were included in v0.5.1._
+
+_Note: v0.5.0 was an internal milestone, not a public release. Changes were included in v0.5.1.*
 
 ### Added
+
 - Language registry architecture for modular parser system
 - PHP language support with full parser implementation
 - TypeScript support with type annotations and interfaces
 - Language-agnostic module resolution system
 
 ### Changed
+
 - Parser directory reorganization into language-specific subdirectories
 - Core systems migrated to registry-based language detection
 - ParserFactory integrated with language registry
 
 ### Fixed
+
 - Rust symbol extraction for enums, types, and constants
 - Inherent methods trait signature handling
 
-## [0.4.0] - 2025-08-13
+## <https://github.com/bartolli/codanna/compare/v0.3.0...v0.4.0> - 2025-08-13
 
 ### Added
+
 - Language registry system for self-registering parsers
 - Comprehensive SimpleIndexer refactoring
 - Language-specific behavior traits
 
 ### Changed
+
 - Major refactor of parsing architecture to support modular languages
 - Migration from hard-coded language support to registry pattern
 
-## [0.3.0] - 2025-08-11
+## <https://github.com/bartolli/codanna/compare/v0.2.0...v0.3.0> - 2025-08-11
 
 ### Added
+
 - Unix interface with positional arguments
 - JSON output support for all H.P.002-COMMANDS
 - MCP notifications support
 - Optimized CI/CD workflow for rapid development
 
 ### Changed
+
 - Improved quick-check workflow for faster feedback
 
 ### Performance
+
 - Significant CI pipeline optimization
 
 [0.5.2]: https://github.com/bartolli/codanna/compare/v0.5.1...v0.5.2

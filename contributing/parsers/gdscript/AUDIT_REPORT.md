@@ -3,6 +3,7 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Summary
+
 - Key nodes: 14/17 (82%)
 - Symbol kinds extracted: 7
 
@@ -39,7 +40,7 @@
 ## Recommended Actions
 
 ### Missing Samples
+
 - `constructor_definition`: include representative code in audit fixtures to track coverage.
 - `tool_statement`: include representative code in audit fixtures to track coverage.
 - `export_variable_statement`: include representative code in audit fixtures to track coverage.
-

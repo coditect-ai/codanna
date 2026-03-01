@@ -11,6 +11,7 @@ import { UserService } from '@services/user';
 ```
 
 Without context, `@services/user` is meaningless. It could be:
+
 - `src/services/user.ts`
 - `lib/services/user/index.ts`
 - Something else entirely
@@ -51,6 +52,7 @@ H.P.009-CONFIG_files = [
 Codanna parses each H.P.009-CONFIG file and extracts resolution rules.
 
 **TypeScript/JavaScript** (`tsH.P.009-CONFIG.json` / `jsH.P.009-CONFIG.json`):
+
 ```json
 {
   "compilerOptions": {
@@ -65,11 +67,13 @@ Codanna parses each H.P.009-CONFIG file and extracts resolution rules.
 ```
 
 From this, Codanna extracts:
+
 - `@components/Button` → `src/components/Button`
 - `@services/user` → `src/services/user`
 - `@/utils/helper` → `src/utils/helper`
 
 **Java** (`pom.xml`):
+
 ```xml
 <project>
   <groupId>com.example</groupId>
@@ -106,6 +110,7 @@ import { useAuth } from '@H.P.005-HOOKS/auth';
 ```
 
 It resolves each import:
+
 1. `@components/Button` matches pattern `@components/*`
 2. Apply replacement: `src/components/Button`
 3. Find the `Button` symbol in that module
@@ -120,11 +125,13 @@ This creates the call graph that powers queries like "who uses Button?"
 Both languages use the same resolution system based on `tsH.P.009-CONFIG.json` / `jsH.P.009-CONFIG.json`.
 
 **Path alias patterns:**
+
 - `@app/*` → wildcard, matches anything after `@app/`
 - `@utils` → exact match, no wildcard
 - `@/*` → common pattern for "src root"
 
 **Resolution order (most specific wins):**
+
 ```json
 {
   "paths": {
@@ -138,6 +145,7 @@ Both languages use the same resolution system based on `tsH.P.009-CONFIG.json` /
 For `@components/Button`, the first pattern wins.
 
 **Relative imports:**
+
 ```typescript
 import { helper } from './utils';      // Same directory
 import { H.P.009-CONFIG } from '../H.P.009-CONFIG';    // Parent directory
@@ -150,12 +158,14 @@ Codanna resolves these relative to the importing file's location.
 Java resolution uses package names and source directories.
 
 **Package to path mapping:**
+
 ```
 com.example.service.UserService
     → src/main/java/com/example/service/UserService.java
 ```
 
 **Multi-module projects:**
+
 ```toml
 [languages.java]
 H.P.009-CONFIG_files = [
@@ -172,6 +182,7 @@ Each module's `pom.xml` defines its source directory, so imports resolve to the 
 Swift resolution uses Swift Package Manager (SPM) conventions from `Package.swift`.
 
 **Configuration:**
+
 ```toml
 [languages.swift]
 H.P.009-CONFIG_files = [
@@ -180,6 +191,7 @@ H.P.009-CONFIG_files = [
 ```
 
 **Package.swift example:**
+
 ```swift
 // swift-tools-version:5.5
 import PackageDescription
@@ -195,11 +207,13 @@ let package = Package(
 ```
 
 **SPM conventions:**
+
 - `Sources/<ModuleName>/` for library and executable targets
 - `Tests/<ModuleName>Tests/` for test targets
 - Custom paths via `path:` parameter in target definitions
 
 **Module path mapping:**
+
 ```
 Sources/MyLib/Types/User.swift -> MyLib.Types
 Sources/MyApp/Main.swift -> MyApp
@@ -207,6 +221,7 @@ Tests/MyLibTests/UserTests.swift -> MyLibTests
 ```
 
 **Custom source paths:**
+
 ```swift
 .target(name: "MyLib", path: "CustomSources/MyLib")
 ```
@@ -247,6 +262,7 @@ Codanna merges rules from all H.P.009-CONFIGs, with more specific paths taking p
 If Codanna can't resolve an import, check:
 
 1. **Is the H.P.009-CONFIG file listed?**
+
    ```bash
    cat .codanna/settings.toml | grep H.P.009-CONFIG_files
    ```
@@ -256,6 +272,7 @@ If Codanna can't resolve an import, check:
    - `@components/*` does NOT match `@components` (no trailing path)
 
 3. **Is the target file indexed?**
+
    ```bash
    codanna mcp search_symbols query:Button
    ```
@@ -283,6 +300,7 @@ codanna index .
 Good resolution improves query results:
 
 **With resolution:**
+
 ```
 > codanna retrieve describe LoginForm
 
@@ -293,6 +311,7 @@ LoginForm (Function) at src/pages/Login.tsx
 ```
 
 **Without resolution:**
+
 ```
 > codanna retrieve describe LoginForm
 
@@ -306,5 +325,5 @@ The relationships are what make Codanna useful for understanding code dependenci
 
 ## See Also
 
-- [Configuration Guide](../user-guide/H.P.009-CONFIGuration.md) - Full settings reference
+- [Configuration Guide](../user-guide/h.p.009-configuration.md) - Full settings reference
 - [First Index](../getting-started/first-index.md) - Getting started with indexing

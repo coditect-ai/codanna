@@ -3,19 +3,22 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 136
 - Nodes found in comprehensive.kt: 152
 - Nodes handled by parser: 144
 - Symbol kinds extracted: 8
 
 ## ✅ Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - $
 - ${
 - (
 - )
-- *
-- +
+- -
+- -
 - ,
 - -
 - ->
@@ -156,7 +159,9 @@ These nodes are in examples and handled by parser:
 - }
 
 ## ⚠️ Implementation Gaps
+
 These nodes appear in comprehensive.kt but aren't handled:
+
 - ERROR
 - identifier
 - import
@@ -167,7 +172,9 @@ These nodes appear in comprehensive.kt but aren't handled:
 - wildcard_import
 
 ## 📝 Missing from Examples
+
 These grammar nodes aren't in comprehensive.kt:
+
 - anonymous_function
 - anonymous_initializer
 - as_expression
@@ -218,6 +225,7 @@ These grammar nodes aren't in comprehensive.kt:
 - while_statement
 
 ## 🎯 Symbol Kinds Extracted
+
 - Class
 - Constant
 - Enum
@@ -226,4 +234,3 @@ These grammar nodes aren't in comprehensive.kt:
 - Interface
 - Method
 - Module
-

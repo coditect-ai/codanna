@@ -15,6 +15,7 @@ Benchmarks on a 750-symbol test file:
 | **Go** | 74,655 symbols/second | 7.5x faster | Production |
 
 Run performance benchmarks:
+
 ```bash
 codanna benchmark all          # Test all parsers
 codanna benchmark python       # Test specific language
@@ -40,17 +41,20 @@ codanna benchmark rust --file src/main.rs  # Test with custom file
 ### Indexing
 
 **Control thread count:**
+
 ```bash
 codanna index . --threads 16
 ```
 
 **Skip large files:**
+
 ```toml
 [indexing]
 max_file_size_mb = 10
 ```
 
 **Use .codannaignore:**
+
 ```
 target/
 node_modules/
@@ -63,12 +67,14 @@ build/
 **First search after startup may be slower** - Cache warming occurs
 
 **Use language filters:**
+
 ```bash
 # Reduces search space by language
 codanna mcp semantic_search_docs query:"auth" lang:rust
 ```
 
 **Adjust result limits:**
+
 ```bash
 # Fewer results = faster
 codanna mcp semantic_search_docs query:"H.P.009-CONFIG" limit:3
@@ -77,6 +83,7 @@ codanna mcp semantic_search_docs query:"H.P.009-CONFIG" limit:3
 ### Server Mode
 
 **Watch interval:**
+
 ```toml
 [server]
 watch_interval = 5  # Seconds between index checks
@@ -85,6 +92,7 @@ watch_interval = 5  # Seconds between index checks
 Lower intervals mean more frequent checks but higher CPU usage.
 
 **Cache H.P.009-CONFIGuration:**
+
 ```toml
 [performance]
 cache_size_mb = 100
@@ -96,6 +104,7 @@ vector_cache_size = 10000
 ### Memory-Mapped Storage
 
 Two caches for different access patterns:
+
 - `symbol_cache.bin` - FNV-1a hashed symbol lookups
 - `segment_0.vec` - 384-dimensional vectors
 
@@ -122,17 +131,20 @@ Test performance after every change.
 ## Monitoring
 
 ### Index Statistics
+
 ```bash
 codanna mcp get_index_info --json
 ```
 
 Shows:
+
 - Total symbols
 - Symbols by language
 - Symbols by kind
 - Index timestamps
 
 ### Benchmark Specific Files
+
 ```bash
 codanna benchmark rust --file src/large_file.rs
 ```
@@ -161,5 +173,5 @@ codanna benchmark rust --file src/large_file.rs
 ## See Also
 
 - [Architecture](../architecture/) - System internals
-- [Configuration](../user-guide/H.P.009-CONFIGuration.md) - Performance tuning options
+- [Configuration](../user-guide/h.p.009-configuration.md) - Performance tuning options
 - [CLI Reference](../user-guide/cli-reference.md) - Benchmark command

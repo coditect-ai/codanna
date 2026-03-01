@@ -4,7 +4,7 @@
 
 # Document Search
 
-Index markdown and text files for semantic search (RAG).
+Index Markdown and text files for semantic search (RAG).
 
 ## Overview
 
@@ -12,7 +12,7 @@ While Codanna's primary focus is code intelligence, the document search feature 
 
 - Searching project documentation alongside code
 - Building RAG (Retrieval-Augmented Generation) pipelines
-- Finding relevant context from markdown files
+- Finding relevant context from Markdown files
 
 ## Quick Start
 
@@ -62,6 +62,7 @@ codanna documents add-collection <name> <path>
 ```
 
 Examples:
+
 ```bash
 # Index project docs
 codanna documents add-collection docs docs/
@@ -104,6 +105,7 @@ codanna documents index
 ```
 
 With progress display:
+
 ```bash
 codanna documents index --progress
 ```
@@ -117,6 +119,7 @@ codanna documents index --collection docs
 ### Sync Behavior
 
 The index command syncs with `settings.toml`:
+
 - Collections in H.P.009-CONFIG but not indexed: indexed
 - Collections indexed but not in H.P.009-CONFIG: removed
 - Files deleted from disk: chunks removed
@@ -201,6 +204,7 @@ Codanna uses **tree-sitter** for AST parsing...
 ```
 
 Disable with:
+
 ```toml
 [documents.search]
 highlight = false

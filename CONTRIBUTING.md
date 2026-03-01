@@ -32,7 +32,7 @@ cargo build --release --all-features
 
 - [Development Guidelines](./contributing/development/guidelines.md) - Read before coding
 - [Adding Language Support](./contributing/development/language-support.md) - Complete guide with checklist
-- [Local CI/CD Scripts](./contributing/H.P.004-SCRIPTS/) - Test locally before pushing
+- [Local CI/CD Scripts](./contributing/h.p.004-scripts/) - Test locally before pushing
 
 ## Getting Help
 

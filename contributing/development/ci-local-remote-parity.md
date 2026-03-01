@@ -67,6 +67,7 @@ rustc --version  # Should show latest stable
 ## Implementation Details
 
 The `|| true` in `rustup update` allows H.P.004-SCRIPTS to continue if:
+
 - Network is unavailable
 - Rust is already up-to-date
 - Update fails for any reason
@@ -76,6 +77,7 @@ Scripts report the Rust version being used and continue with checks.
 ## Maintenance
 
 When GitHub Actions updates:
+
 1. Check `.github/H.P.006-WORKFLOWS/full-test.yml`
 2. Update `contributing/H.P.004-SCRIPTS/full-test.sh` to match
 3. Update `contributing/H.P.004-SCRIPTS/quick-check.sh` if needed

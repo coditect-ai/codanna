@@ -25,6 +25,7 @@ codanna serve --https --watch
 ### MCP Client Configuration
 
 Configure in `.mcp.json`:
+
 ```json
 {
   "mcpServers": {
@@ -37,6 +38,7 @@ Configure in `.mcp.json`:
 ```
 
 For HTTPS, use:
+
 ```json
 {
   "mcpServers": {

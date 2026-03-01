@@ -33,16 +33,19 @@ Complete documentation for adding new language support:
 ### Reading Path
 
 **For new contributors:**
+
 1. Start with [language-architecture.md](./language-architecture.md) - understand the system
 2. Review [language-support.md](./language-support.md) - learn the API contracts
 3. Follow [language-patterns.md](./language-patterns.md) - implement with proven patterns
 
 **For experienced developers:**
+
 1. Quick scan [language-support.md](./language-support.md) - API reference
 2. Copy patterns from [language-patterns.md](./language-patterns.md) - implementation examples
 3. Refer to [language-architecture.md](./language-architecture.md) - edge cases and design decisions
 
 **For reviewers:**
+
 1. Check [language-architecture.md](./language-architecture.md) - verify design principles
 2. Validate against [language-patterns.md](./language-patterns.md) - ensure consistency
 3. Confirm [language-support.md](./language-support.md) - API compliance

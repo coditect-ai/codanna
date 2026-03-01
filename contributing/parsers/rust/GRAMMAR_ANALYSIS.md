@@ -3,22 +3,27 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 169
 - Nodes found in comprehensive.rs: 147
 - Nodes handled by parser: 140
 - Symbol kinds extracted: 10
 
 ## ✅ Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - !
 - "
+
 - #
+
 - &
 - '
 - (
 - )
-- *
-- +
+- -
+- -
 - ,
 - ->
 - .
@@ -152,7 +157,9 @@ These nodes are in examples and handled by parser:
 - }
 
 ## ⚠️ Implementation Gaps
+
 These nodes appear in comprehensive.rs but aren't handled:
+
 - extern
 - extern_modifier
 - foreign_mod_item
@@ -162,7 +169,9 @@ These nodes appear in comprehensive.rs but aren't handled:
 - union_item
 
 ## 📝 Missing from Examples
+
 These grammar nodes aren't in comprehensive.rs:
+
 - _declaration_statement
 - _expression
 - _literal
@@ -236,6 +245,7 @@ These grammar nodes aren't in comprehensive.rs:
 - yield_expression
 
 ## 🎯 Symbol Kinds Extracted
+
 - Constant
 - Enum
 - Field
@@ -246,4 +256,3 @@ These grammar nodes aren't in comprehensive.rs:
 - Struct
 - Trait
 - TypeAlias
-

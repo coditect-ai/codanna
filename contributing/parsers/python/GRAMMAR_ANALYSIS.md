@@ -3,20 +3,23 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 129
 - Nodes found in comprehensive.py: 136
 - Nodes handled by parser: 135
 - Symbol kinds extracted: 6
 
 ## ✅ Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - %
 - (
 - )
-- *
+- -
 - **
 - *=
-- +
+- -
 - +=
 - ,
 - -
@@ -147,11 +150,15 @@ These nodes are in examples and handled by parser:
 - }
 
 ## ⚠️ Implementation Gaps
+
 These nodes appear in comprehensive.py but aren't handled:
+
 - expression_statement
 
 ## 📝 Missing from Examples
+
 These grammar nodes aren't in comprehensive.py:
+
 - _compound_statement
 - _simple_statement
 - assert_statement
@@ -200,10 +207,10 @@ These grammar nodes aren't in comprehensive.py:
 - wildcard_import
 
 ## 🎯 Symbol Kinds Extracted
+
 - Class
 - Constant
 - Function
 - Method
 - Module
 - Variable
-

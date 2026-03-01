@@ -47,4 +47,4 @@ See [Agent Guidance](agent-guidance.md) for recommended tool usage patterns and 
 
 - [MCP Tools Reference](../user-guide/mcp-tools.md)
 - [Agent Guidance](agent-guidance.md)
-- [Configuration](../user-guide/H.P.009-CONFIGuration.md)
+- [Configuration](../user-guide/h.p.009-configuration.md)

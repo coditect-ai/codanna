@@ -3,21 +3,24 @@
 *Generated: 2025-12-01 00:05:32 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 182
 - Nodes found in comprehensive.swift: 201
 - Nodes handled by parser: 201
 - Symbol kinds extracted: 11
 
 ## Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - !
 - "
 - %
 - &&
 - (
 - )
-- *
-- +
+- -
+- -
 - +=
 - ,
 - -
@@ -213,7 +216,9 @@ These nodes are in examples and handled by parser:
 - }
 
 ## Grammar-Only Nodes
+
 These nodes exist in grammar but not in comprehensive.swift:
+
 - _expression
 - availability_condition
 - bin_literal
@@ -276,4 +281,3 @@ These nodes exist in grammar but not in comprehensive.swift:
 - value_pack_expansion
 - value_parameter_pack
 - where_clause
-

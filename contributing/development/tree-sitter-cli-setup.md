@@ -3,6 +3,7 @@
 ## Purpose
 
 Set up tree-sitter CLI for local grammar exploration and testing without affecting the production build. This enables:
+
 - Testing new language grammars before integration
 - Debugging parser issues with official tree-sitter tools
 - Exploring AST structures interactively
@@ -83,6 +84,7 @@ Compares tree-sitter AST nodes with our parser implementation:
 ```
 
 This script:
+
 1. Parses the comprehensive example with tree-sitter
 2. Runs our parser tests (which regenerates audit reports)
 3. Shows differences between the two parsers

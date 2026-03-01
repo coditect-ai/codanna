@@ -15,6 +15,7 @@ Every symbol in the index has a unique identifier. Use `symbol_id:123` to refere
 ### Where to Find symbol_id
 
 All MCP tools return symbol IDs in results:
+
 ```bash
 codanna mcp semantic_search_with_context query:"H.P.009-CONFIG parser" limit:1
 # Returns: parse_H.P.009-CONFIG [symbol_id:567]
@@ -23,6 +24,7 @@ codanna mcp semantic_search_with_context query:"H.P.009-CONFIG parser" limit:1
 ### How to Use symbol_id
 
 Pass to any tool that accepts `function_name`:
+
 ```bash
 # Find calls using ID instead of name
 codanna mcp get_calls symbol_id:567
@@ -53,6 +55,7 @@ Filter search and query results by programming language.
 ### Syntax
 
 Use `lang:` parameter with language name:
+
 ```bash
 codanna mcp semantic_search_with_context query:"parser" lang:rust
 codanna mcp search_symbols query:"Config" lang:typescript
@@ -85,6 +88,7 @@ MCP tools stream results for immediate feedback on large result sets.
 ### How It Works
 
 Tools return results as they're found rather than waiting for completion:
+
 ```bash
 # Results appear progressively
 codanna mcp search_symbols query:"test_"
@@ -134,15 +138,18 @@ Recommended tool usage patterns for AI assistants.
 ### Tool Priority
 
 **Tier 1 (Start Here):**
+
 - `semantic_search_with_context` - Find relevant code with context
 - `analyze_impact` - Map dependencies and change radius
 
 **Tier 2 (Get Details):**
+
 - `find_symbol` - Look up specific symbols
 - `get_calls` - What does this function call?
 - `find_callers` - Who calls this function?
 
 **Tier 3 (Browse/Explore):**
+
 - `search_symbols` - Find by name pattern
 - `semantic_search_docs` - Search documentation only
 - `get_index_info` - Index statistics
@@ -179,6 +186,7 @@ codanna mcp get_calls symbol_id:1234
 Semantic search finds code that's conceptually related but not directly connected through calls or imports. Two functions handling authentication in different ways, error recovery patterns across modules, or validation logic scattered through layers - semantic search connects them based on what they do, not how they're structured.
 
 This is particularly valuable when:
+
 - Refactoring cross-cutting concerns
 - Finding similar patterns for consistency
 - Understanding distributed functionality
@@ -191,6 +199,7 @@ This is particularly valuable when:
 **The Investment:** Spending time to document public APIs and critical paths pays immediate dividends:
 
 1. **Use an AI agent to document systematically:**
+
    ```bash
    # Find undocumented public functions
    codanna mcp search_symbols query:"pub fn" kind:function

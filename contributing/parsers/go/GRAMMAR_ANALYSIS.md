@@ -3,19 +3,22 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 112
 - Nodes found in comprehensive.go: 115
 - Nodes handled by parser: 114
 - Symbol kinds extracted: 9
 
 ## ✅ Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - !=
 - "
 - &
 - (
 - )
-- *
+- -
 - ++
 - ,
 - .
@@ -126,11 +129,15 @@ These nodes are in examples and handled by parser:
 - ~
 
 ## ⚠️ Implementation Gaps
+
 These nodes appear in comprehensive.go but aren't handled:
+
 - source_file
 
 ## 📝 Missing from Examples
+
 These grammar nodes aren't in comprehensive.go:
+
 - _expression
 - _simple_statement
 - _simple_type
@@ -169,6 +176,7 @@ These grammar nodes aren't in comprehensive.go:
 - variadic_parameter_declaration
 
 ## 🎯 Symbol Kinds Extracted
+
 - Constant
 - Field
 - Function
@@ -178,4 +186,3 @@ These grammar nodes aren't in comprehensive.go:
 - Struct
 - TypeAlias
 - Variable
-

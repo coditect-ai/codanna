@@ -3,13 +3,16 @@
 *Generated: 2026-01-05 15:18:21 UTC*
 
 ## Statistics
+
 - Total nodes in grammar JSON: 223
 - Nodes found in comprehensive.cpp: 154
 - Nodes handled by parser: 154
 - Symbol kinds extracted: 5
 
 ## ✅ Successfully Handled Nodes
+
 These nodes are in examples and handled by parser:
+
 - !=
 - "
 - #include
@@ -18,8 +21,8 @@ These nodes are in examples and handled by parser:
 - &&
 - (
 - )
-- *
-- +
+- -
+- -
 - ++
 - +=
 - ,
@@ -166,7 +169,9 @@ These nodes are in examples and handled by parser:
 - ~
 
 ## 📝 Missing from Examples
+
 These grammar nodes aren't in comprehensive.cpp:
+
 - _abstract_declarator
 - _declarator
 - _field_declarator
@@ -298,9 +303,9 @@ These grammar nodes aren't in comprehensive.cpp:
 - while_statement
 
 ## 🎯 Symbol Kinds Extracted
+
 - Class
 - Enum
 - Function
 - Method
 - Struct
-

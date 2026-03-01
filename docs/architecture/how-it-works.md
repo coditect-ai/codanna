@@ -36,6 +36,7 @@ Pipeline completes when both branches finish.
 ```
 
 **Stage parallelism** (derived from `indexing.parallelism` setting):
+
 - DISCOVER: 10% of parallelism - filesystem walking
 - READ: 20% of parallelism - file I/O
 - PARSE: 60% of parallelism - tree-sitter AST parsing
@@ -78,11 +79,13 @@ Response (JSON/Text)
 ### Index System
 
 **Text Index (Tantivy):**
+
 - Full-text search capabilities
 - Symbol metadata storage
 - Fuzzy matching support
 
 **Vector Index (Custom):**
+
 - Memory-mapped vector storage
 - IVFFlat clustering for fast lookup
 - Configurable embedding dimensions (384/768/1024)
@@ -99,17 +102,20 @@ Response (JSON/Text)
 ## Performance Architecture
 
 ### Symbol Index (Tantivy)
+
 - Full-text and exact match queries
 - <10ms response time
 - Batch commits for throughput (every 100 files)
 - RwLock-based concurrent writes
 
 ### Vector Cache
+
 - Configurable dimensions (384/768/1024 based on model)
 - <1μs access after OS page cache warm-up
 - Segmented storage for scalability
 
 ### Concurrency Model
+
 - Lock-free reads via DashMap
 - Single writer coordination
 - Parallel indexing with work-stealing
@@ -147,6 +153,7 @@ Embeddings track source language, enabling filtering before similarity computati
 ## Hot Reload
 
 File watcher with 500ms debounce triggers re-indexing of changed files only. Changes detected by:
+
 - File modification timestamps (mtime fast path)
 - Incremental file-level change detection
 - Document auto-sync with mtime-based detection

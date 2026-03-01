@@ -3,6 +3,7 @@
 Languages self-register via the modular registry system. Each language lives in its own subdirectory with complete isolation and language-specific resolution capabilities.
 
 **✅ Production Ready:**
+
 - Language registry architecture with self-registration
 - Language-specific resolution API with full type tracking
 - Complete signature extraction for all symbol types
@@ -10,6 +11,7 @@ Languages self-register via the modular registry system. Each language lives in 
 - Automatic ABI-15 node coverage tracking
 
 **✅ Supported Languages:**
+
 - **Rust** - Traits, generics, lifetimes, comprehensive type system
 - **TypeScript** - Interfaces, type aliases, generics, inheritance tracking, TSX/JSX support
 - **Java** - Classes, interfaces, enums, methods, fields, package-based modules with Maven integration
@@ -111,12 +113,14 @@ pub(crate) use definition::register;
 Implements `LanguageDefinition` trait for registry discovery.
 
 **Key responsibilities**:
+
 - Provide language ID and metadata
 - Define file extensions
 - Create parser and behavior instances
 - Configure default enabled state
 
 **Example**:
+
 ```rust
 pub struct TypeScriptLanguage;
 
@@ -166,12 +170,14 @@ pub(crate) fn register(registry: &mut LanguageRegistry) {
 Implements `LanguageParser` and `NodeTracker` traits.
 
 **Key responsibilities**:
+
 - Parse source code into symbols
 - Extract relationships (calls, implementations, imports)
 - Extract signatures and documentation
 - Track AST node handling for audit
 
 **Core methods**:
+
 ```rust
 pub trait LanguageParser: Send + Sync {
     // Main entry point
@@ -198,6 +204,7 @@ pub trait LanguageParser: Send + Sync {
 ```
 
 **Internal pattern**:
+
 - `extract_symbols_from_node` - Recursive AST traversal
 - `process_*` methods - Convert nodes to symbols
 - `extract_*` helpers - Extract specific data
@@ -210,6 +217,7 @@ See [Implementation Patterns](./language-patterns.md#parser-implementation-parse
 Implements `LanguageBehavior` and `StatefulBehavior` traits.
 
 **Key responsibilities**:
+
 - Format module paths
 - Parse visibility from signatures
 - Resolve imports
@@ -217,6 +225,7 @@ Implements `LanguageBehavior` and `StatefulBehavior` traits.
 - Track language-specific state
 
 **Core methods**:
+
 ```rust
 pub trait LanguageBehavior: Send + Sync {
     // Module path formatting
@@ -252,6 +261,7 @@ pub trait LanguageBehavior: Send + Sync {
 ```
 
 **Module path examples**:
+
 - Rust: `"crate::module::Symbol"`
 - TypeScript: `"module/path"` (file-based)
 - Python: `"package.module.Symbol"`
@@ -265,12 +275,14 @@ See [Implementation Patterns](./language-patterns.md#behavior-implementation-beh
 Implements `ResolutionScope` and `InheritanceResolver` traits.
 
 **Key responsibilities**:
+
 - Language-specific symbol resolution
 - Scope management
 - Inheritance chain resolution
 - Relationship resolution
 
 **ResolutionScope trait**:
+
 ```rust
 pub trait ResolutionScope: Send {
     // Core resolution
@@ -298,6 +310,7 @@ pub trait ResolutionScope: Send {
 ```
 
 **Scope resolution order examples**:
+
 - TypeScript: local → hoisted → imported → module → global
 - Rust: local → imported → module → crate → global
 - Python: Local → Enclosing → Global → Built-in (LEGB)
@@ -309,12 +322,14 @@ See [Implementation Patterns](./language-patterns.md#resolution-implementation-r
 Provides ABI-15 node coverage reporting.
 
 **Key features**:
+
 - Discovers all nodes in grammar
 - Tracks which nodes the parser handles
 - Generates coverage reports
 - Zero maintenance (automatic tracking via `NodeTracker`)
 
 **Usage**:
+
 ```bash
 cargo test audit_typescript -- --nocapture
 ```
@@ -332,6 +347,7 @@ Tree-sitter node names **differ from language keywords**. Always explore the AST
 **Example**: TypeScript uses `"abstract_class_declaration"` not `"class_declaration"` with a modifier.
 
 **Tools**:
+
 ```bash
 # Use tree-sitter CLI
 ./contributing/tree-sitter/H.P.004-SCRIPTS/setup.sh typescript
@@ -345,6 +361,7 @@ cargo test explore_typescript_abi15 -- --nocapture
 ```
 
 **What to discover**:
+
 - Exact node type names (e.g., `"function_declaration"`, `"class_declaration"`)
 - Field names for extraction (e.g., `"name"`, `"body"`, `"parameters"`)
 - Node IDs for validation
@@ -378,6 +395,7 @@ Follow this order:
 ### Step 4: Register Language
 
 **In `src/parsing/registry.rs`**:
+
 ```rust
 fn initialize_registry(registry: &mut LanguageRegistry) {
     super::rust::register(registry);
@@ -387,6 +405,7 @@ fn initialize_registry(registry: &mut LanguageRegistry) {
 ```
 
 **In `src/parsing/mod.rs`**:
+
 ```rust
 pub mod {language};
 
@@ -394,6 +413,7 @@ pub use {language}::{Language}Behavior, {Language}Parser, {Language}Language};
 ```
 
 **In `Cargo.toml`**:
+
 ```toml
 tree-sitter-{language} = "0.x.x"
 ```
@@ -470,6 +490,7 @@ pub struct Symbol {
 ## Implementation Checklist
 
 ### Phase 1: Preparation
+
 - [ ] Install tree-sitter CLI: `./contributing/tree-sitter/H.P.004-SCRIPTS/setup.sh {language}`
 - [ ] Create comprehensive test file in `examples/{language}/`
 - [ ] Explore AST: `tree-sitter parse examples/{language}/comprehensive.*`
@@ -477,6 +498,7 @@ pub struct Symbol {
 - [ ] Add dependency to `Cargo.toml`
 
 ### Phase 2: Core Implementation
+
 - [ ] Create directory: `src/parsing/{language}/`
 - [ ] Implement `definition.rs` (LanguageDefinition trait)
 - [ ] Implement `parser.rs` (LanguageParser trait)
@@ -495,11 +517,13 @@ pub struct Symbol {
 - [ ] Implement `mod.rs` (exports)
 
 ### Phase 3: Registration
+
 - [ ] Register in `src/parsing/registry.rs:initialize_registry()`
 - [ ] Export in `src/parsing/mod.rs`
 - [ ] Add to settings generation in `src/H.P.009-CONFIG.rs:generate_language_defaults()`
 
 ### Phase 4: Testing
+
 - [ ] Add unit tests in `parser.rs`
 - [ ] Add integration tests in `tests/parsers/{language}/`
 - [ ] Create gateway entry in `tests/parsers_tests.rs`
@@ -507,6 +531,7 @@ pub struct Symbol {
 - [ ] Verify coverage >70%
 
 ### Phase 5: Polish
+
 - [ ] Run `cargo clippy --fix`
 - [ ] Run `cargo fmt`
 - [ ] Add examples to `examples/{language}/`
@@ -689,6 +714,7 @@ fn find_calls<'a>(&mut self, code: &'a str) -> Vec<(&'a str, &'a str, Range)> {
 ## FAQ
 
 **Q: How many lines of code per file?**
+
 - definition.rs: 25-55 lines
 - mod.rs: 10-20 lines
 - parser.rs: 1000-3200 lines
@@ -699,6 +725,7 @@ fn find_calls<'a>(&mut self, code: &'a str) -> Vec<(&'a str, &'a str, Range)> {
 **Q: Must I implement all LanguageParser methods?**
 
 Yes, but many have default implementations. At minimum:
+
 - `parse()` - required
 - `find_calls()` - required
 - `find_imports()` - required
@@ -717,6 +744,7 @@ Add specialized fields to your parser struct and process them in `extract_symbol
 **Q: Can I reuse code between languages?**
 
 Yes! Common helpers are in:
+
 - `src/parsing/parser.rs` - `check_recursion_depth`
 - `src/parsing/behavior_state.rs` - State management
 - `src/parsing/resolution.rs` - Base resolution types

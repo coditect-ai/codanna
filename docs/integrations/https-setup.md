@@ -5,6 +5,7 @@ This guide explains how to use Codanna's HTTPS MCP server with self-signed certi
 ## Overview
 
 The HTTPS MCP server provides:
+
 - **TLS/SSL encryption** for secure communication
 - **Streamable HTTP** transport compatible with Claude Code
 - **OAuth2 authentication flow** for secure access control
@@ -16,6 +17,7 @@ The HTTPS MCP server provides:
 Claude Code uses Node.js internally, which maintains its own certificate store separate from your system's certificate store. This means that even if you trust a certificate in your operating system (macOS Keychain, Windows Certificate Store, etc.), Node.js won't recognize it.
 
 When connecting to an HTTPS server with a self-signed certificate, you'll encounter:
+
 - `fetch failed` errors in Claude Code
 - `unable to verify the first certificate` errors
 - Connection failures despite the certificate being trusted in your browser
@@ -33,11 +35,13 @@ cargo run --all-features -- serve --https --watch
 ```
 
 Or if installed:
+
 ```bash
 codanna serve --https --watch
 ```
 
 On first run, this will:
+
 - Generate a self-signed certificate
 - Save it to `~/Library/Application Support/codanna/certs/server.pem` (macOS)
 - Display certificate details and fingerprint
@@ -94,6 +98,7 @@ alias claude-secure='NODE_EXTRA_CA_CERTS=~/.ssl/codanna-ca.pem claude'
 ```
 
 Then use:
+
 ```bash
 claude-secure
 ```
@@ -113,7 +118,7 @@ sudo security add-trusted-cert -d -r trustRoot \
 The HTTPS server includes a complete OAuth2 implementation:
 
 1. **Discovery**: `/.well-known/oauth-authorization-server`
-2. **Registration**: `/oauth/register` 
+2. **Registration**: `/oauth/register`
 3. **Authorization**: `/oauth/authorize`
 4. **Token Exchange**: `/oauth/token`
 
@@ -126,6 +131,7 @@ This flow is handled automatically by Claude Code when connecting to the server.
 **Problem**: Claude Code shows "fetch failed" when trying to connect.
 
 **Solution**: Ensure you're running Claude Code with `NODE_EXTRA_CA_CERTS`:
+
 ```bash
 NODE_EXTRA_CA_CERTS=~/.ssl/codanna-ca.pem claude
 ```
@@ -135,6 +141,7 @@ NODE_EXTRA_CA_CERTS=~/.ssl/codanna-ca.pem claude
 **Problem**: Server says certificate already exists but you want to regenerate.
 
 **Solution**: Delete the existing certificates:
+
 ```bash
 rm -rf ~/Library/Application\ Support/codanna/certs/
 ```
@@ -146,6 +153,7 @@ Then restart the server to generate new ones.
 **Problem**: Server returns 401 errors.
 
 **Solution**: The OAuth flow should handle authentication automatically. If you see 401 errors:
+
 1. Check server logs for Bearer token validation messages
 2. Ensure you're using `"type": "http"` in `.mcp.json`
 3. Try reconnecting with `/mcp` command in Claude Code
@@ -189,15 +197,19 @@ The HTTPS server (`src/mcp/https_server.rs`) provides:
 ## Platform-Specific Notes
 
 ### macOS
+
 Certificates stored in: `~/Library/Application Support/codanna/certs/`
 
 ### Linux
+
 Certificates stored in: `~/.H.P.009-CONFIG/codanna/certs/`
 
 ### Windows
+
 Certificates stored in: `%APPDATA%\codanna\certs\`
 
 Note: On Windows, use forward slashes in paths for NODE_EXTRA_CA_CERTS:
+
 ```cmd
 set NODE_EXTRA_CA_CERTS=C:/Users/username/.ssl/codanna-ca.pem
 claude

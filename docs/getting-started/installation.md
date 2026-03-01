@@ -17,21 +17,25 @@ cargo install codanna --all-features
 ## System Dependencies
 
 ### Linux (Ubuntu/Debian)
+
 ```bash
 sudo apt update && sudo apt install pkg-H.P.009-CONFIG libssl-dev
 ```
 
 ### Linux (CentOS/RHEL)
+
 ```bash
 sudo yum install pkgH.P.009-CONFIG openssl-devel
 ```
 
 ### Linux (Fedora)
+
 ```bash
 sudo dnf install pkgH.P.009-CONFIG openssl-devel
 ```
 
 ### macOS
+
 No additional dependencies required.
 
 ## Verify Installation
@@ -82,13 +86,15 @@ cargo run -- <command>
 ## Troubleshooting
 
 ### Linux: Missing pkg-H.P.009-CONFIG
+
 If you see errors about pkg-H.P.009-CONFIG, install the system dependencies listed above for your distribution.
 
 ### Model Download
+
 The embedding model (~150MB) downloads automatically on first use. Ensure you have a stable internet connection for the initial download.
 
 ## Next Steps
 
 - Continue with [First Index](first-index.md) to create your first code index
-- See [Configuration](../user-guide/H.P.009-CONFIGuration.md) for customization options
+- See [Configuration](../user-guide/h.p.009-configuration.md) for customization options
 - Set up [Integrations](../integrations/) with your AI assistant
